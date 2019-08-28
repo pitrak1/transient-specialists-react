@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import FormContainer from './js/components/container/FormContainer.jsx'
+import TestComponent from './components/test-component.jsx'
 
-const wrapper = document.getElementById('create-article-form')
-wrapper ? ReactDOM.render(<FormContainer />, wrapper) : false
+const wrapper = document.getElementById('main')
+wrapper ? ReactDOM.render(<TestComponent />, wrapper) : false
