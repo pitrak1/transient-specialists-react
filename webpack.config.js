@@ -1,4 +1,10 @@
+const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 module.exports = {
   module: {
     rules: [
@@ -30,6 +36,9 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
+    }),
+    new webpack.DefinePlugin({
+      LAMBDA_ENDPOINT: JSON.stringify(process.env.LAMBDA_ENDPOINT),
     }),
   ],
 }

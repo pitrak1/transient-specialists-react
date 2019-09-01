@@ -1,12 +1,4 @@
 import axios from 'axios'
-let ENV
-import('../env.js')
-  .then(result => {
-    ENV = result.default
-  })
-  .catch(e => {
-    ENV = process.env
-  })
 
 const attachInterceptors = () => {
   axios.interceptors.response.use(
@@ -24,7 +16,7 @@ const attachInterceptors = () => {
 const getEquipment = (success, failure) => {
   attachInterceptors()
   axios
-    .get(`${ENV.LAMBDA_ENDPOINT}test`, {
+    .get(`${LAMBDA_ENDPOINT}test`, {
       serialNumber: 'TESTSTST1',
       modelId: 1,
       typeId: 1,
