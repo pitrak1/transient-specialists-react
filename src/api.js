@@ -16,7 +16,7 @@ const attachInterceptors = () => {
 const getEquipment = (success, failure) => {
   attachInterceptors()
   axios
-    .get(`${LAMBDA_ENDPOINT}test`, {
+    .get(`${process.env.LAMBDA_ENDPOINT}test`, {
       serialNumber: 'TESTSTST1',
       modelId: 1,
       typeId: 1,

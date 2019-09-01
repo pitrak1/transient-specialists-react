@@ -38,7 +38,9 @@ module.exports = {
       filename: './index.html',
     }),
     new webpack.DefinePlugin({
-      LAMBDA_ENDPOINT: JSON.stringify(process.env.LAMBDA_ENDPOINT),
+      'process.env.LAMBDA_ENDPOINT': JSON.stringify(
+        process.env.LAMBDA_ENDPOINT,
+      ),
     }),
   ],
 }
