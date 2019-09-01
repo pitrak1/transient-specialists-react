@@ -27,9 +27,9 @@ const convertObject = object => {
   return result
 }
 
-const get = (resource, success, failure) => {
+const index = (resource, success, failure) => {
   attachInterceptors()
-  axios
+  return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}`)
     .then(result => {
       const converted = result.data.body.map(elem => convertObject(elem))
@@ -40,4 +40,4 @@ const get = (resource, success, failure) => {
     })
 }
 
-export default { get }
+export default { index }

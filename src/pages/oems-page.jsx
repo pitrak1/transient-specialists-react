@@ -10,7 +10,7 @@ const OemsPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.get}
+      apiIndex={api.index}
       columns={columns}
       nameLink='oems'
       namePlural='OEMs'

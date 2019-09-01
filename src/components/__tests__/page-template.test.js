@@ -6,7 +6,7 @@ import { TextInput } from '@instructure/ui-text-input'
 import sinon from 'sinon'
 
 describe('PageTemplate', () => {
-  let apiGet
+  let apiIndex
   const columns = [
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'OEM Name', key: 'oemName' },
@@ -20,7 +20,7 @@ describe('PageTemplate', () => {
   let startingSortBy
 
   beforeEach(() => {
-    apiGet = sinon.stub().callsArgWith(0, [
+    apiIndex = sinon.stub().callsArgWith(1, [
       {
         id: 1,
         serialNumber: 'Equipment a 1',
@@ -50,7 +50,7 @@ describe('PageTemplate', () => {
   const render = () =>
     shallow(
       <PageTemplate
-        apiGet={apiGet}
+        apiIndex={apiIndex}
         columns={columns}
         nameLink={nameLink}
         namePlural={namePlural}
@@ -80,13 +80,13 @@ describe('PageTemplate', () => {
   })
 
   it('renders spinner if loading and no error', () => {
-    apiGet = sinon.stub()
+    apiIndex = sinon.stub()
     const node = render()
     expect(node).toMatchSnapshot()
   })
 
   it('renders error if error', () => {
-    apiGet = sinon.stub().callsArgWith(1, 'Some Error')
+    apiIndex = sinon.stub().callsArgWith(2, 'Some Error')
     const node = render()
     expect(node).toMatchSnapshot()
   })

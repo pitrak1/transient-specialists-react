@@ -10,7 +10,7 @@ const TypesPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.get}
+      apiIndex={api.index}
       columns={columns}
       nameLink='types'
       namePlural='Types'

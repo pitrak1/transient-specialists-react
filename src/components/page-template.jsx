@@ -26,7 +26,7 @@ class PageTemplate extends React.Component {
       this.setState({ loading: false, error })
     }
 
-    this.props.apiGet(this.props.nameLink, success, failure)
+    this.props.apiIndex(this.props.nameLink, success, failure)
   }
 
   headers = () => {
@@ -152,7 +152,7 @@ class PageTemplate extends React.Component {
 }
 
 PageTemplate.propTypes = {
-  apiGet: PropTypes.func.isRequired,
+  apiIndex: PropTypes.func.isRequired,
   columns: PropTypes.array.isRequired,
   nameLink: PropTypes.string.isRequired,
   namePlural: PropTypes.string.isRequired,

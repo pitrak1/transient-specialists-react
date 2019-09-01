@@ -13,7 +13,7 @@ const ModelsPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.get}
+      apiIndex={api.index}
       columns={columns}
       nameLink='models'
       namePlural='Models'
