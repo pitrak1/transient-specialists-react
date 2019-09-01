@@ -1,8 +1,8 @@
 import React from 'react'
 import PageTemplate from '../components/page-template.jsx'
 import api from '../api.js'
-import { Spinner } from '@instructure/ui-elements'
-import { Heading } from '@instructure/ui-elements'
+import { Spinner, Heading } from '@instructure/ui-elements'
+import { Alert } from '@instructure/ui-alerts'
 
 class EquipmentPage extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class EquipmentPage extends React.Component {
     // this.startingSearch = (location.state && location.state.search) || ''
     this.startingSearch = ''
 
-    this.state = { loading: true, data: [] }
+    this.state = { loading: true, data: [], error: null }
   }
 
   componentDidMount() {
@@ -26,7 +26,9 @@ class EquipmentPage extends React.Component {
       this.setState({ loading: false, data: result })
     }
 
-    const failure = error => {}
+    const failure = error => {
+      this.setState({ loading: false, error })
+    }
 
     api.getEquipment(success, failure)
   }
@@ -42,6 +44,18 @@ class EquipmentPage extends React.Component {
         </div>
       )
     }
+
+    if (this.state.error) {
+      return (
+        <div>
+          <Heading level='h1' margin='medium'>
+            Equipment
+          </Heading>
+          <Alert variant='error'>{this.state.error}</Alert>
+        </div>
+      )
+    }
+
     return (
       <PageTemplate
         columns={this.columns}
