@@ -28,48 +28,25 @@ const convertObject = object => {
 }
 
 const getEquipment = (success, failure) => {
-  attachInterceptors()
-  axios
-    .get(`${process.env.LAMBDA_ENDPOINT}getEquipment`)
-    .then(result => {
-      const converted = result.data.body.map(elem => convertObject(elem))
-      success(converted)
-    })
-    .catch(error => {
-      failure(error.data.body)
-    })
+  get(`${process.env.LAMBDA_ENDPOINT}getEquipment`, success, failure)
 }
 
 const getOems = (success, failure) => {
-  attachInterceptors()
-  axios
-    .get(`${process.env.LAMBDA_ENDPOINT}getOems`)
-    .then(result => {
-      const converted = result.data.body.map(elem => convertObject(elem))
-      success(converted)
-    })
-    .catch(error => {
-      failure(error.data.body)
-    })
+  get(`${process.env.LAMBDA_ENDPOINT}getOems`, success, failure)
 }
 
 const getModels = (success, failure) => {
-  attachInterceptors()
-  axios
-    .get(`${process.env.LAMBDA_ENDPOINT}getModels`)
-    .then(result => {
-      const converted = result.data.body.map(elem => convertObject(elem))
-      success(converted)
-    })
-    .catch(error => {
-      failure(error.data.body)
-    })
+  get(`${process.env.LAMBDA_ENDPOINT}getModels`, success, failure)
 }
 
 const getTypes = (success, failure) => {
+  get(`${process.env.LAMBDA_ENDPOINT}getTypes`, success, failure)
+}
+
+const get = (url, success, failure) => {
   attachInterceptors()
   axios
-    .get(`${process.env.LAMBDA_ENDPOINT}getTypes`)
+    .get(url)
     .then(result => {
       const converted = result.data.body.map(elem => convertObject(elem))
       success(converted)
