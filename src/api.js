@@ -36,8 +36,47 @@ const getEquipment = (success, failure) => {
       success(converted)
     })
     .catch(error => {
-      failure(error)
+      failure(error.data.body)
     })
 }
 
-export default { getEquipment }
+const getOems = (success, failure) => {
+  attachInterceptors()
+  axios
+    .get(`${process.env.LAMBDA_ENDPOINT}getOems`)
+    .then(result => {
+      const converted = result.data.body.map(elem => convertObject(elem))
+      success(converted)
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
+const getModels = (success, failure) => {
+  attachInterceptors()
+  axios
+    .get(`${process.env.LAMBDA_ENDPOINT}getModels`)
+    .then(result => {
+      const converted = result.data.body.map(elem => convertObject(elem))
+      success(converted)
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
+const getTypes = (success, failure) => {
+  attachInterceptors()
+  axios
+    .get(`${process.env.LAMBDA_ENDPOINT}getTypes`)
+    .then(result => {
+      const converted = result.data.body.map(elem => convertObject(elem))
+      success(converted)
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
+export default { getEquipment, getOems, getModels, getTypes }
