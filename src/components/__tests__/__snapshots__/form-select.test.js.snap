@@ -1,0 +1,220 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormSelect does not set messages if given default option when not required 1`] = `
+<div>
+  <Select
+    allowCustom={false}
+    allowEmpty={true}
+    closeOnSelect={true}
+    constrain="window"
+    disabled={false}
+    editable={false}
+    emptyOption="---"
+    filter={[Function]}
+    formatSelectedOption={[Function]}
+    inputRef={[Function]}
+    label="Some Label"
+    loadingText={null}
+    messages={Array []}
+    multiple={false}
+    onChange={[Function]}
+    optionsMaxWidth={null}
+    readOnly={false}
+    selectedOption="0"
+    size="medium"
+    visibleOptionsCount={8}
+  >
+    <option
+      key="0"
+      value="0"
+    >
+      Select Something
+    </option>
+    <option
+      key="1"
+      value="1"
+    >
+      option 1
+    </option>
+    <option
+      key="2"
+      value="2"
+    >
+      option 2
+    </option>
+    <option
+      key="3"
+      value="3"
+    >
+      option 3
+    </option>
+  </Select>
+  <p />
+</div>
+`;
+
+exports[`FormSelect is disabled if disabled is true 1`] = `
+<div>
+  <Select
+    allowCustom={false}
+    allowEmpty={true}
+    closeOnSelect={true}
+    constrain="window"
+    disabled={true}
+    editable={false}
+    emptyOption="---"
+    filter={[Function]}
+    formatSelectedOption={[Function]}
+    inputRef={[Function]}
+    label="Some Label"
+    loadingText={null}
+    messages={Array []}
+    multiple={false}
+    onChange={[Function]}
+    optionsMaxWidth={null}
+    readOnly={false}
+    selectedOption="0"
+    size="medium"
+    visibleOptionsCount={8}
+  >
+    <option
+      key="0"
+      value="0"
+    >
+      Select Something
+    </option>
+    <option
+      key="1"
+      value="1"
+    >
+      option 1
+    </option>
+    <option
+      key="2"
+      value="2"
+    >
+      option 2
+    </option>
+    <option
+      key="3"
+      value="3"
+    >
+      option 3
+    </option>
+  </Select>
+  <p />
+</div>
+`;
+
+exports[`FormSelect renders a select with multiple options 1`] = `
+<div>
+  <Select
+    allowCustom={false}
+    allowEmpty={true}
+    closeOnSelect={true}
+    constrain="window"
+    disabled={false}
+    editable={false}
+    emptyOption="---"
+    filter={[Function]}
+    formatSelectedOption={[Function]}
+    inputRef={[Function]}
+    label="Some Label"
+    loadingText={null}
+    messages={Array []}
+    multiple={false}
+    onChange={[Function]}
+    optionsMaxWidth={null}
+    readOnly={false}
+    selectedOption="0"
+    size="medium"
+    visibleOptionsCount={8}
+  >
+    <option
+      key="0"
+      value="0"
+    >
+      Select Something
+    </option>
+    <option
+      key="1"
+      value="1"
+    >
+      option 1
+    </option>
+    <option
+      key="2"
+      value="2"
+    >
+      option 2
+    </option>
+    <option
+      key="3"
+      value="3"
+    >
+      option 3
+    </option>
+  </Select>
+  <p />
+</div>
+`;
+
+exports[`FormSelect sets messages if given default option when required 1`] = `
+<div>
+  <Select
+    allowCustom={false}
+    allowEmpty={true}
+    closeOnSelect={true}
+    constrain="window"
+    disabled={false}
+    editable={false}
+    emptyOption="---"
+    filter={[Function]}
+    formatSelectedOption={[Function]}
+    inputRef={[Function]}
+    label="Some Label"
+    loadingText={null}
+    messages={
+      Array [
+        Object {
+          "text": "Some Label is required",
+          "type": "error",
+        },
+      ]
+    }
+    multiple={false}
+    onChange={[Function]}
+    optionsMaxWidth={null}
+    readOnly={false}
+    selectedOption="0"
+    size="medium"
+    visibleOptionsCount={8}
+  >
+    <option
+      key="0"
+      value="0"
+    >
+      Select Something
+    </option>
+    <option
+      key="1"
+      value="1"
+    >
+      option 1
+    </option>
+    <option
+      key="2"
+      value="2"
+    >
+      option 2
+    </option>
+    <option
+      key="3"
+      value="3"
+    >
+      option 3
+    </option>
+  </Select>
+  <p />
+</div>
+`;

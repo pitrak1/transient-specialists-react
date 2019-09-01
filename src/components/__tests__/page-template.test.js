@@ -3,15 +3,16 @@ import PageTemplate from '../page-template'
 import { shallow } from 'enzyme'
 import { Table } from '@instructure/ui-table'
 import { TextInput } from '@instructure/ui-text-input'
+import sinon from 'sinon'
 
 describe('PageTemplate', () => {
+  let apiGet
   const columns = [
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'OEM Name', key: 'oemName' },
     { label: 'Model Name', key: 'modelName' },
     { label: 'Type Name', key: 'typeName' },
   ]
-  let data
   const link = '/equipment/'
   const namePlural = 'Equipment'
   const nameSingular = 'Equipment'
@@ -19,7 +20,7 @@ describe('PageTemplate', () => {
   let startingSortBy
 
   beforeEach(() => {
-    data = [
+    apiGet = sinon.stub().callsArgWith(0, [
       {
         id: 1,
         serialNumber: 'Equipment a 1',
@@ -41,7 +42,7 @@ describe('PageTemplate', () => {
         modelName: 'Model c 6',
         typeName: 'Type b 12',
       },
-    ]
+    ])
     startingSearch = ''
     startingSortBy = 'serialNumber'
   })
@@ -49,8 +50,8 @@ describe('PageTemplate', () => {
   const render = () =>
     shallow(
       <PageTemplate
+        apiGet={apiGet}
         columns={columns}
-        data={data}
         link={link}
         namePlural={namePlural}
         nameSingular={nameSingular}
@@ -59,15 +60,6 @@ describe('PageTemplate', () => {
       />,
     )
 
-  const getRowData = (node, rowNumber) =>
-    node
-      .find(Table.Row)
-      .at(rowNumber)
-      .children()
-      .map(child => child.childAt(0).text())
-
-  const getRowCount = node => node.find(Table.Row).length - 1
-
   const setSearchValue = (node, value) => {
     node
       .find(TextInput)
@@ -75,84 +67,65 @@ describe('PageTemplate', () => {
       .onChange(null, value)
   }
 
-  const getColHeaderProps = (node, colNumber) =>
+  const setSort = (node, colNumber, colKey) =>
     node
       .find(Table.ColHeader)
       .at(colNumber - 1)
       .props()
+      .onRequestSort(null, { id: colKey })
 
-  const setSort = (node, colNumber, colKey) =>
-    getColHeaderProps(node, colNumber).onRequestSort(null, { id: colKey })
-
-  const getColHeaderSortDirection = (node, colNumber) =>
-    getColHeaderProps(node, colNumber).sortDirection
-
-  const expectedRowData = [
-    ['Equipment a 1', 'OEM c 7', 'Model b 4', 'Type a 10', expect.anything()],
-    ['Equipment b 2', 'OEM b 8', 'Model a 5', 'Type c 11', expect.anything()],
-    ['Equipment c 3', 'OEM a 9', 'Model c 6', 'Type b 12', expect.anything()],
-  ]
-
-  it('renders data in a table row', () => {
-    data = [data[0]]
+  it('renders data table if loading and error are falsy', () => {
     const node = render()
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
+    expect(node).toMatchSnapshot()
   })
 
-  it('renders a table row for each datum', () => {
+  it('renders spinner if loading and no error', () => {
+    apiGet = sinon.stub()
     const node = render()
-    expect(getRowCount(node)).toBe(data.length)
+    expect(node).toMatchSnapshot()
+  })
+
+  it('renders error if error', () => {
+    apiGet = sinon.stub().callsArgWith(1, 'Some Error')
+    const node = render()
+    expect(node).toMatchSnapshot()
   })
 
   it('shows all data if search is blank', () => {
     const node = render()
     setSearchValue(node, '')
-    expect(getRowCount(node)).toBe(data.length)
+    expect(node).toMatchSnapshot()
   })
 
   it('hides data if no cell starts with the search value', () => {
     const node = render()
     setSearchValue(node, 'Equipment a')
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
-    setSearchValue(node, 'OEM c')
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
-    setSearchValue(node, 'Model b')
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
-    setSearchValue(node, 'Type a')
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
+    expect(node).toMatchSnapshot()
   })
 
   it('hides all data if no rows have cells starting with the search value', () => {
     const node = render()
     setSearchValue(node, 'asdf')
-    expect(getRowCount(node)).toBe(0)
+    expect(node).toMatchSnapshot()
   })
 
   it('searches with case insensitivity', () => {
     const node = render()
     setSearchValue(node, 'TYPE A')
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
+    expect(node).toMatchSnapshot()
   })
 
   it('searches by starting search', () => {
     startingSearch = 'Type a'
     const node = render()
-    expect(getRowCount(node)).toBe(1)
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
+    expect(node).toMatchSnapshot()
   })
 
   it('sorts by column ascending when clicking nonsorted column header', () => {
     startingSortBy = 'serialNumber'
     const node = render()
     setSort(node, 3, 'modelName')
-    expect(getRowData(node, 1)).toEqual(expectedRowData[1])
-    expect(getRowData(node, 2)).toEqual(expectedRowData[0])
-    expect(getRowData(node, 3)).toEqual(expectedRowData[2])
+    expect(node).toMatchSnapshot()
   })
 
   it('sorts by column descending when clicking nonsorted column header', () => {
@@ -160,37 +133,31 @@ describe('PageTemplate', () => {
     const node = render()
     setSort(node, 3, 'modelName')
     setSort(node, 3, 'modelName')
-    expect(getRowData(node, 1)).toEqual(expectedRowData[2])
-    expect(getRowData(node, 2)).toEqual(expectedRowData[0])
-    expect(getRowData(node, 3)).toEqual(expectedRowData[1])
+    expect(node).toMatchSnapshot()
   })
 
   it('sorts by column ascending when given starting sort', () => {
     startingSortBy = 'typeName'
     const node = render()
-    expect(getRowData(node, 1)).toEqual(expectedRowData[0])
-    expect(getRowData(node, 2)).toEqual(expectedRowData[2])
-    expect(getRowData(node, 3)).toEqual(expectedRowData[1])
+    expect(node).toMatchSnapshot()
   })
 
   it('passes none for sort order to nonsorted column headers', () => {
     const node = render()
     setSort(node, 4, 'typeName')
-    expect(getColHeaderSortDirection(node, 1)).toBe('none')
-    expect(getColHeaderSortDirection(node, 2)).toBe('none')
-    expect(getColHeaderSortDirection(node, 3)).toBe('none')
+    expect(node).toMatchSnapshot()
   })
 
   it('passes ascending for sort order when column is sorted ascending', () => {
     const node = render()
     setSort(node, 4, 'typeName')
-    expect(getColHeaderSortDirection(node, 4)).toBe('ascending')
+    expect(node).toMatchSnapshot()
   })
 
   it('passes ascending for sort order when column is sorted ascending', () => {
     const node = render()
     setSort(node, 4, 'typeName')
     setSort(node, 4, 'typeName')
-    expect(getColHeaderSortDirection(node, 4)).toBe('descending')
+    expect(node).toMatchSnapshot()
   })
 })

@@ -1,17 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Heading } from '@instructure/ui-elements'
+import { Heading, Spinner } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
+import { Alert } from '@instructure/ui-alerts'
 
 class PageTemplate extends React.Component {
   state = {
     ascending: true,
-    data: this.props.data,
+    data: [],
+    error: null,
+    loading: true,
     searchValue: this.props.startingSearch,
     sortBy: this.props.startingSortBy,
+  }
+
+  componentDidMount() {
+    const success = result => {
+      this.setState({ loading: false, data: result })
+    }
+
+    const failure = error => {
+      this.setState({ loading: false, error })
+    }
+
+    this.props.apiGet(success, failure)
   }
 
   headers = () => {
@@ -79,6 +94,28 @@ class PageTemplate extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div>
+          <Heading level='h1' margin='medium'>
+            {this.props.namePlural}
+          </Heading>
+          <Spinner renderTitle='Loading' size='large' />
+        </div>
+      )
+    }
+
+    if (this.state.error) {
+      return (
+        <div>
+          <Heading level='h1' margin='medium'>
+            {this.props.namePlural}
+          </Heading>
+          <Alert variant='error'>{this.state.error}</Alert>
+        </div>
+      )
+    }
+
     return (
       <div>
         <Flex>
@@ -115,8 +152,8 @@ class PageTemplate extends React.Component {
 }
 
 PageTemplate.propTypes = {
+  apiGet: PropTypes.func.isRequired,
   columns: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired,
   link: PropTypes.string.isRequired,
   namePlural: PropTypes.string.isRequired,
   nameSingular: PropTypes.string.isRequired,

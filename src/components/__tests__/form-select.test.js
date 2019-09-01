@@ -10,20 +10,18 @@ describe('FormSelect', () => {
   const identifier = 'someIdentifier'
   const label = 'Some Label'
   let onChange
-  let options
+  const options = [
+    { id: 1, name: 'option 1' },
+    { id: 2, name: 'option 2' },
+    { id: 3, name: 'option 3' },
+  ]
   let required
-  let value
+  const value = null
 
   beforeEach(() => {
     disabled = false
     onChange = sinon.stub()
-    options = [
-      { id: 1, name: 'option 1' },
-      { id: 2, name: 'option 2' },
-      { id: 3, name: 'option 3' },
-    ]
     required = false
-    value = null
   })
 
   const render = () =>
@@ -42,35 +40,15 @@ describe('FormSelect', () => {
 
   const getSelectProps = node => node.find(Select).props()
 
-  const getOptionData = (node, optionNumber) => {
-    const option = node.find('option').at(optionNumber - 1)
-    return { value: option.props().value, text: option.text() }
-  }
+  it('renders a select with multiple options', () => {
+    const node = render()
+    expect(node).toMatchSnapshot()
+  })
 
   it('is disabled if disabled is true', () => {
     disabled = true
     const node = render()
-    expect(getSelectProps(node).disabled).toBe(true)
-  })
-
-  it('renders an option for every option given plus one for default', () => {
-    const node = render()
-    expect(getOptionData(node, 1)).toEqual({
-      value: '0',
-      text: 'Select Something',
-    })
-    expect(getOptionData(node, 2)).toEqual({
-      value: '1',
-      text: 'option 1',
-    })
-    expect(getOptionData(node, 3)).toEqual({
-      value: '2',
-      text: 'option 2',
-    })
-    expect(getOptionData(node, 4)).toEqual({
-      value: '3',
-      text: 'option 3',
-    })
+    expect(node).toMatchSnapshot()
   })
 
   it('calls onChange prop with identifier and numeric value when value is changed', () => {
@@ -79,29 +57,28 @@ describe('FormSelect', () => {
     expect(onChange.firstCall.args).toEqual([identifier, 2, expect.anything()])
   })
 
-  it('sets messages to required message if required and value is changed to default', () => {
+  it('sets messages if given default option when required', () => {
     required = true
     const node = render()
     getSelectProps(node).onChange(null, { value: '0' })
-    expect(getSelectProps(node).messages).toEqual([
-      { type: 'error', text: 'Some Label is required' },
-    ])
+    expect(node).toMatchSnapshot()
   })
 
-  it('calls onChange prop with false validity flag if required and value is changed to default', () => {
+  it('calls onChange prop with false validity flag if given default value and required', () => {
     required = true
     const node = render()
     getSelectProps(node).onChange(null, { value: '0' })
     expect(onChange.firstCall.args[2]).toBe(false)
   })
 
-  it('does not set messages to required message if not required and value is changed to default', () => {
+  it('does not set messages if given default option when not required', () => {
     const node = render()
     getSelectProps(node).onChange(null, { value: '0' })
     expect(getSelectProps(node).messages).toEqual([])
+    expect(node).toMatchSnapshot()
   })
 
-  it('calls onChange prop with true validity flag if not required and value is changed to default', () => {
+  it('calls onChange prop with true validity flag if given default value and not required', () => {
     const node = render()
     getSelectProps(node).onChange(null, { value: '0' })
     expect(onChange.firstCall.args[2]).toBe(true)

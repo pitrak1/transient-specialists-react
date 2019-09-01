@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormTextInput does not set messages to required message if not required and value is changed to empty string 1`] = `
+<TextInput
+  display="block"
+  inputContainerRef={[Function]}
+  inputRef={[Function]}
+  interaction="enabled"
+  isRequired={false}
+  messages={Array []}
+  onBlur={[Function]}
+  onChange={[Function]}
+  onFocus={[Function]}
+  renderLabel="Some Label"
+  size="medium"
+  textAlign="start"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`FormTextInput sets messages to max length message if value is changed to be over 255 characters 1`] = `
+<TextInput
+  display="block"
+  inputContainerRef={[Function]}
+  inputRef={[Function]}
+  interaction="enabled"
+  isRequired={false}
+  messages={
+    Array [
+      Object {
+        "text": "Some Label must be 255 characters or fewer",
+        "type": "error",
+      },
+    ]
+  }
+  onBlur={[Function]}
+  onChange={[Function]}
+  onFocus={[Function]}
+  renderLabel="Some Label"
+  size="medium"
+  textAlign="start"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`FormTextInput sets messages to required message if required and value is changed to empty string 1`] = `
+<TextInput
+  display="block"
+  inputContainerRef={[Function]}
+  inputRef={[Function]}
+  interaction="enabled"
+  isRequired={false}
+  messages={
+    Array [
+      Object {
+        "text": "Some Label is required",
+        "type": "error",
+      },
+    ]
+  }
+  onBlur={[Function]}
+  onChange={[Function]}
+  onFocus={[Function]}
+  renderLabel="Some Label"
+  size="medium"
+  textAlign="start"
+  type="text"
+  value=""
+/>
+`;

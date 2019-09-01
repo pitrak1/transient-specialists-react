@@ -9,12 +9,11 @@ describe('FormTextInput', () => {
   const label = 'Some Label'
   let onChange
   let required
-  let value
+  const value = ''
 
   beforeEach(() => {
     onChange = sinon.stub()
     required = false
-    value = ''
   })
 
   const render = () =>
@@ -49,9 +48,7 @@ describe('FormTextInput', () => {
     required = true
     const node = render()
     getTextInputProps(node).onChange(null, '')
-    expect(getTextInputProps(node).messages).toEqual([
-      { type: 'error', text: 'Some Label is required' },
-    ])
+    expect(node).toMatchSnapshot()
   })
 
   it('calls onChange prop with false validity flag if required and value is changed to empty string', () => {
@@ -64,7 +61,7 @@ describe('FormTextInput', () => {
   it('does not set messages to required message if not required and value is changed to empty string', () => {
     const node = render()
     getTextInputProps(node).onChange(null, '')
-    expect(getTextInputProps(node).messages).toEqual([])
+    expect(node).toMatchSnapshot()
   })
 
   it('calls onChange prop with true validity flag if not required and value is changed to empty string', () => {
@@ -76,12 +73,7 @@ describe('FormTextInput', () => {
   it('sets messages to max length message if value is changed to be over 255 characters', () => {
     const node = render()
     getTextInputProps(node).onChange(null, longString())
-    expect(getTextInputProps(node).messages).toEqual([
-      {
-        type: 'error',
-        text: 'Some Label must be 255 characters or fewer',
-      },
-    ])
+    expect(node).toMatchSnapshot()
   })
 
   it('calls onChange prop with false validity flag if value is changed to be over 255 characters', () => {
