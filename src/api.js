@@ -27,26 +27,10 @@ const convertObject = object => {
   return result
 }
 
-const getEquipment = (success, failure) => {
-  get(`${process.env.LAMBDA_ENDPOINT}getEquipment`, success, failure)
-}
-
-const getOems = (success, failure) => {
-  get(`${process.env.LAMBDA_ENDPOINT}getOems`, success, failure)
-}
-
-const getModels = (success, failure) => {
-  get(`${process.env.LAMBDA_ENDPOINT}getModels`, success, failure)
-}
-
-const getTypes = (success, failure) => {
-  get(`${process.env.LAMBDA_ENDPOINT}getTypes`, success, failure)
-}
-
-const get = (url, success, failure) => {
+const get = (resource, success, failure) => {
   attachInterceptors()
   axios
-    .get(url)
+    .get(`${process.env.LAMBDA_ENDPOINT}${resource}`)
     .then(result => {
       const converted = result.data.body.map(elem => convertObject(elem))
       success(converted)
@@ -56,4 +40,4 @@ const get = (url, success, failure) => {
     })
 }
 
-export default { getEquipment, getOems, getModels, getTypes }
+export default { get }

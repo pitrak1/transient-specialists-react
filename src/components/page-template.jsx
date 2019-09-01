@@ -26,7 +26,7 @@ class PageTemplate extends React.Component {
       this.setState({ loading: false, error })
     }
 
-    this.props.apiGet(success, failure)
+    this.props.apiGet(this.props.nameLink, success, failure)
   }
 
   headers = () => {
@@ -74,7 +74,7 @@ class PageTemplate extends React.Component {
         <Table.Row key={datum.id}>
           {cells}
           <Table.Cell>
-            <Link to={`${this.props.link}${datum.id}`}>Details</Link>
+            <Link to={`/${this.props.nameLink}/${datum.id}`}>Details</Link>
           </Table.Cell>
         </Table.Row>
       )
@@ -132,7 +132,7 @@ class PageTemplate extends React.Component {
             />
           </Flex.Item>
           <Flex.Item>
-            <Link to={`${this.props.link}create`}>
+            <Link to={`/${this.props.nameLink}/create`}>
               Add {this.props.nameSingular}
             </Link>
           </Flex.Item>
@@ -154,7 +154,7 @@ class PageTemplate extends React.Component {
 PageTemplate.propTypes = {
   apiGet: PropTypes.func.isRequired,
   columns: PropTypes.array.isRequired,
-  link: PropTypes.string.isRequired,
+  nameLink: PropTypes.string.isRequired,
   namePlural: PropTypes.string.isRequired,
   nameSingular: PropTypes.string.isRequired,
   startingSearch: PropTypes.string.isRequired,

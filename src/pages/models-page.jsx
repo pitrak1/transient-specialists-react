@@ -13,9 +13,9 @@ const ModelsPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.getModels}
+      apiGet={api.get}
       columns={columns}
-      link='/models/'
+      nameLink='models'
       namePlural='Models'
       nameSingular='Model'
       startingSearch={startingSearch}

@@ -10,9 +10,9 @@ const TypesPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.getTypes}
+      apiGet={api.get}
       columns={columns}
-      link='/types/'
+      nameLink='types'
       namePlural='Types'
       nameSingular='Type'
       startingSearch={startingSearch}

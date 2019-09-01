@@ -15,9 +15,9 @@ const EquipmentPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.getEquipment}
+      apiGet={api.get}
       columns={columns}
-      link='/equipment/'
+      nameLink='equipment'
       namePlural='Equipment'
       nameSingular='Equipment'
       startingSearch={startingSearch}

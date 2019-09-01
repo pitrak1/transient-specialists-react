@@ -13,7 +13,7 @@ describe('PageTemplate', () => {
     { label: 'Model Name', key: 'modelName' },
     { label: 'Type Name', key: 'typeName' },
   ]
-  const link = '/equipment/'
+  const nameLink = 'equipment'
   const namePlural = 'Equipment'
   const nameSingular = 'Equipment'
   let startingSearch
@@ -52,7 +52,7 @@ describe('PageTemplate', () => {
       <PageTemplate
         apiGet={apiGet}
         columns={columns}
-        link={link}
+        nameLink={nameLink}
         namePlural={namePlural}
         nameSingular={nameSingular}
         startingSearch={startingSearch}

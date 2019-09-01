@@ -10,9 +10,9 @@ const OemsPage = () => {
 
   return (
     <PageTemplate
-      apiGet={api.getOems}
+      apiGet={api.get}
       columns={columns}
-      link='/oems/'
+      nameLink='oems'
       namePlural='OEMs'
       nameSingular='OEM'
       startingSearch={startingSearch}
