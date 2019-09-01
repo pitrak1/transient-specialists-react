@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Layout from '../components/layout'
 import { Link } from 'react-router-dom'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
@@ -81,7 +80,7 @@ class PageTemplate extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <div>
         <Flex>
           <Flex.Item grow shrink>
             <Heading level='h1' margin='medium'>
@@ -110,7 +109,7 @@ class PageTemplate extends React.Component {
           </Table.Head>
           <Table.Body>{this.rows()}</Table.Body>
         </Table>
-      </Layout>
+      </div>
     )
   }
 }
