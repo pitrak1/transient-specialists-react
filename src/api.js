@@ -1,5 +1,12 @@
 import axios from 'axios'
-import ENV from '../env.js'
+let ENV
+import('../env.js')
+  .then(result => {
+    ENV = result.default
+  })
+  .catch(e => {
+    ENV = process.env
+  })
 
 const attachInterceptors = () => {
   axios.interceptors.response.use(

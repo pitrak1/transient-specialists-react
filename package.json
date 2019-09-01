@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@instructure/canvas-theme": "^6.9.0",
     "@instructure/ui-alerts": "^6.9.0",
     "@instructure/ui-buttons": "^6.9.0",
