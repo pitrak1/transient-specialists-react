@@ -45,7 +45,7 @@ const show = (resource, id, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
     .then(result => {
-      success(result)
+      success(convertObject(result.data.body))
     })
     .catch(error => {
       failure(error.data.body)
