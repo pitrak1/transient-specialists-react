@@ -1,46 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Heading, Spinner } from '@instructure/ui-elements'
+import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
-import { Alert } from '@instructure/ui-alerts'
 
-class PageTemplate extends React.Component {
-  state = {
-    ascending: true,
-    data: [],
-    error: null,
-    loading: true,
-    searchValue: this.props.startingSearch,
-    sortBy: this.props.startingSortBy,
+const PageTemplate = props => {
+  const handleSearchChange = (_e, value) => {
+    props.onChange({ searchValue: value })
   }
 
-  componentDidMount() {
-    const success = result => {
-      this.setState({ loading: false, data: result })
+  const handleSort = (_e, { id }) => {
+    if (props.sortBy === id) {
+      props.onChange({ ascending: !props.ascending })
+    } else {
+      props.onChange({ ascending: true, sortBy: id })
     }
-
-    const failure = error => {
-      this.setState({ loading: false, error })
-    }
-
-    this.props.apiIndex(this.props.nameLink, success, failure)
   }
 
-  headers = () => {
-    return this.props.columns.map(column => {
+  const headers = () => {
+    return props.columns.map(column => {
       let sortDirection = 'none'
-      if (this.state.sortBy === column.key) {
-        sortDirection = this.state.ascending ? 'ascending' : 'descending'
+      if (props.sortBy === column.key) {
+        sortDirection = props.ascending ? 'ascending' : 'descending'
       }
 
       return (
         <Table.ColHeader
           key={column.key}
           id={column.key}
-          onRequestSort={this.handleSort}
+          onRequestSort={handleSort}
           sortDirection={sortDirection}
         >
           {column.label}
@@ -49,116 +39,80 @@ class PageTemplate extends React.Component {
     })
   }
 
-  rows = () => {
-    const filtered = this.state.data.filter(datum => {
-      const value = this.state.searchValue.toLowerCase()
+  const rows = () => {
+    const filtered = props.data.filter(datum => {
+      const value = props.searchValue.toLowerCase()
       return (
         !value ||
-        this.props.columns.filter(column =>
+        props.columns.filter(column =>
           datum[column.key].toLowerCase().startsWith(value),
         ).length
       )
     })
 
     const sorted = filtered.sort((a, b) => {
-      return this.state.ascending
-        ? a[this.state.sortBy].localeCompare(b[this.state.sortBy])
-        : b[this.state.sortBy].localeCompare(a[this.state.sortBy])
+      return props.ascending
+        ? a[props.sortBy].localeCompare(b[props.sortBy])
+        : b[props.sortBy].localeCompare(a[props.sortBy])
     })
 
     return sorted.map(datum => {
-      const cells = this.props.columns.map(column => (
+      const cells = props.columns.map(column => (
         <Table.Cell key={column.key}>{datum[column.key]}</Table.Cell>
       ))
       return (
         <Table.Row key={datum.id}>
           {cells}
           <Table.Cell>
-            <Link to={`/${this.props.nameLink}/${datum.id}`}>Details</Link>
+            <Link to={`/${props.nameLink}/${datum.id}`}>Details</Link>
           </Table.Cell>
         </Table.Row>
       )
     })
   }
 
-  handleSearchChange = (_e, value) => {
-    this.setState({ searchValue: value })
-  }
-
-  handleSort = (_e, { id }) => {
-    if (this.state.sortBy === id) {
-      this.setState(prevState => ({ ascending: !prevState.ascending }))
-    } else {
-      this.setState({ ascending: true, sortBy: id })
-    }
-  }
-
-  render() {
-    if (this.state.loading) {
-      return (
-        <div>
+  return (
+    <div>
+      <Flex>
+        <Flex.Item grow shrink>
           <Heading level='h1' margin='medium'>
-            {this.props.namePlural}
+            {props.namePlural}
           </Heading>
-          <Spinner renderTitle='Loading' size='large' />
-        </div>
-      )
-    }
-
-    if (this.state.error) {
-      return (
-        <div>
-          <Heading level='h1' margin='medium'>
-            {this.props.namePlural}
-          </Heading>
-          <Alert variant='error'>{this.state.error}</Alert>
-        </div>
-      )
-    }
-
-    return (
-      <div>
-        <Flex>
-          <Flex.Item grow shrink>
-            <Heading level='h1' margin='medium'>
-              {this.props.namePlural}
-            </Heading>
-          </Flex.Item>
-          <Flex.Item margin='small'>
-            <TextInput
-              onChange={this.handleSearchChange}
-              renderLabel='Search'
-              value={this.state.searchValue}
-            />
-          </Flex.Item>
-          <Flex.Item>
-            <Link to={`/${this.props.nameLink}/create`}>
-              Add {this.props.nameSingular}
-            </Link>
-          </Flex.Item>
-        </Flex>
-        <Table caption={this.props.namePlural} hover={true}>
-          <Table.Head>
-            <Table.Row>
-              {this.headers()}
-              <Table.ColHeader id='Details'></Table.ColHeader>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>{this.rows()}</Table.Body>
-        </Table>
-      </div>
-    )
-  }
+        </Flex.Item>
+        <Flex.Item margin='small'>
+          <TextInput
+            onChange={handleSearchChange}
+            renderLabel='Search'
+            value={props.searchValue}
+          />
+        </Flex.Item>
+        <Flex.Item>
+          <Link to={`/${props.nameLink}/create`}>Add {props.nameSingular}</Link>
+        </Flex.Item>
+      </Flex>
+      <Table caption={props.namePlural} hover={true}>
+        <Table.Head>
+          <Table.Row>
+            {headers()}
+            <Table.ColHeader id='Details'></Table.ColHeader>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>{rows()}</Table.Body>
+      </Table>
+    </div>
+  )
 }
 
 PageTemplate.propTypes = {
-  apiIndex: PropTypes.func.isRequired,
+  ascending: PropTypes.bool.isRequired,
   columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   nameLink: PropTypes.string.isRequired,
   namePlural: PropTypes.string.isRequired,
   nameSingular: PropTypes.string.isRequired,
-  startingSearch: PropTypes.string.isRequired,
-  startingSortBy: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  sortBy: PropTypes.string.isRequired,
 }
 
 export default PageTemplate

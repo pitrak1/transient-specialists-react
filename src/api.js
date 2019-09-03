@@ -36,7 +36,7 @@ const index = (resource, success, failure) => {
       success(converted)
     })
     .catch(error => {
-      failure(error.data.body)
+      failure(error.response.data)
     })
 }
 
@@ -48,7 +48,7 @@ const show = (resource, id, success, failure) => {
       success(convertObject(result.data.body))
     })
     .catch(error => {
-      failure(error.data.body)
+      failure(error.response.data)
     })
 }
 

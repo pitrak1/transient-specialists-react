@@ -1,27 +1,42 @@
 import React from 'react'
+import LoadPage from './load-page.jsx'
 import PageTemplate from '../components/page-template.jsx'
 import api from '../api.js'
 
-const ModelsPage = () => {
-  const columns = [
-    { label: 'Name', key: 'name' },
-    { label: 'OEM Name', key: 'oemName' },
-  ]
+class ModelsPage extends LoadPage {
+  constructor(props) {
+    super(props)
 
-  // const startingSearch = (location.state && location.state.search) || ''
-  const startingSearch = ''
+    this.state.ascending = true
+    this.state.searchValue = ''
+    // const startingSearch = (location.state && location.state.search) || ''
+    this.state.sortBy = 'name'
+  }
 
-  return (
-    <PageTemplate
-      apiIndex={api.index}
-      columns={columns}
-      nameLink='models'
-      namePlural='Models'
-      nameSingular='Model'
-      startingSearch={startingSearch}
-      startingSortBy='name'
-    />
-  )
+  apiGet = () => {
+    api.index('models', this.apiSuccess, this.apiFailure)
+  }
+
+  renderOutput = () => {
+    const columns = [
+      { label: 'Name', key: 'name' },
+      { label: 'OEM Name', key: 'oemName' },
+    ]
+
+    return (
+      <PageTemplate
+        ascending={this.state.ascending}
+        columns={columns}
+        data={this.state.data}
+        nameLink='models'
+        namePlural='Models'
+        nameSingular='Model'
+        onChange={this.handleChange}
+        searchValue={this.state.searchValue}
+        sortBy={this.state.sortBy}
+      />
+    )
+  }
 }
 
 export default ModelsPage

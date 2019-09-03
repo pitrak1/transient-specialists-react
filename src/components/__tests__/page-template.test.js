@@ -6,21 +6,24 @@ import { TextInput } from '@instructure/ui-text-input'
 import sinon from 'sinon'
 
 describe('PageTemplate', () => {
-  let apiIndex
+  let ascending
   const columns = [
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'OEM Name', key: 'oemName' },
     { label: 'Model Name', key: 'modelName' },
     { label: 'Type Name', key: 'typeName' },
   ]
+  let data
   const nameLink = 'equipment'
   const namePlural = 'Equipment'
   const nameSingular = 'Equipment'
-  let startingSearch
-  let startingSortBy
+  let onChange
+  let searchValue
+  let sortBy
 
   beforeEach(() => {
-    apiIndex = sinon.stub().callsArgWith(1, [
+    ascending = true
+    data = [
       {
         id: 1,
         serialNumber: 'Equipment a 1',
@@ -42,21 +45,24 @@ describe('PageTemplate', () => {
         modelName: 'Model c 6',
         typeName: 'Type b 12',
       },
-    ])
-    startingSearch = ''
-    startingSortBy = 'serialNumber'
+    ]
+    onChange = sinon.stub()
+    searchValue = ''
+    sortBy = 'serialNumber'
   })
 
   const render = () =>
     shallow(
       <PageTemplate
-        apiIndex={apiIndex}
+        ascending={ascending}
         columns={columns}
+        data={data}
         nameLink={nameLink}
         namePlural={namePlural}
         nameSingular={nameSingular}
-        startingSearch={startingSearch}
-        startingSortBy={startingSortBy}
+        onChange={onChange}
+        searchValue={searchValue}
+        sortBy={sortBy}
       />,
     )
 
@@ -74,90 +80,47 @@ describe('PageTemplate', () => {
       .props()
       .onRequestSort(null, { id: colKey })
 
-  it('renders data table if loading and error are falsy', () => {
-    const node = render()
-    expect(node).toMatchSnapshot()
-  })
-
-  it('renders spinner if loading and no error', () => {
-    apiIndex = sinon.stub()
-    const node = render()
-    expect(node).toMatchSnapshot()
-  })
-
-  it('renders error if error', () => {
-    apiIndex = sinon.stub().callsArgWith(2, 'Some Error')
-    const node = render()
-    expect(node).toMatchSnapshot()
-  })
-
   it('shows all data if search is blank', () => {
     const node = render()
-    setSearchValue(node, '')
     expect(node).toMatchSnapshot()
   })
 
   it('hides data if no cell starts with the search value', () => {
+    searchValue = 'Equipment a'
     const node = render()
-    setSearchValue(node, 'Equipment a')
     expect(node).toMatchSnapshot()
   })
 
   it('hides all data if no rows have cells starting with the search value', () => {
+    searchValue = 'asdf'
     const node = render()
-    setSearchValue(node, 'asdf')
     expect(node).toMatchSnapshot()
   })
 
   it('searches with case insensitivity', () => {
-    const node = render()
-    setSearchValue(node, 'TYPE A')
-    expect(node).toMatchSnapshot()
-  })
-
-  it('searches by starting search', () => {
-    startingSearch = 'Type a'
+    searchValue = 'TYPE A'
     const node = render()
     expect(node).toMatchSnapshot()
   })
 
-  it('sorts by column ascending when clicking nonsorted column header', () => {
-    startingSortBy = 'serialNumber'
+  it('calls onChange with ascending true and sortBy column when clicking nonsorted column header', () => {
     const node = render()
     setSort(node, 3, 'modelName')
-    expect(node).toMatchSnapshot()
+    expect(onChange.firstCall.args[0]).toEqual({
+      ascending: true,
+      sortBy: 'modelName',
+    })
   })
 
-  it('sorts by column descending when clicking nonsorted column header', () => {
-    startingSortBy = 'serialNumber'
+  it('calls onChange with ascending negated when clicking sorted column header', () => {
     const node = render()
-    setSort(node, 3, 'modelName')
-    setSort(node, 3, 'modelName')
-    expect(node).toMatchSnapshot()
+    setSort(node, 3, 'serialNumber')
+    expect(onChange.firstCall.args[0]).toEqual({ ascending: false })
   })
 
-  it('sorts by column ascending when given starting sort', () => {
-    startingSortBy = 'typeName'
+  it('calls onChange with searchValue and value when changing the search', () => {
     const node = render()
-    expect(node).toMatchSnapshot()
-  })
-
-  it('passes none for sort order to nonsorted column headers', () => {
-    const node = render()
-    setSort(node, 4, 'typeName')
-    expect(node).toMatchSnapshot()
-  })
-
-  it('passes ascending for sort order when column is sorted ascending', () => {
-    const node = render()
-    setSort(node, 4, 'typeName')
-    expect(node).toMatchSnapshot()
-  })
-
-  it('passes ascending for sort order when column is sorted ascending', () => {
-    const node = render()
-    setSort(node, 4, 'typeName')
-    setSort(node, 4, 'typeName')
-    expect(node).toMatchSnapshot()
+    setSearchValue(node, 'Equipment 1')
+    expect(onChange.firstCall.args[0]).toEqual({ searchValue: 'Equipment 1' })
   })
 })

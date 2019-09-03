@@ -1,29 +1,44 @@
 import React from 'react'
+import LoadPage from './load-page.jsx'
 import PageTemplate from '../components/page-template.jsx'
 import api from '../api.js'
 
-const EquipmentPage = () => {
-  const columns = [
-    { label: 'Serial Number', key: 'serialNumber' },
-    { label: 'OEM Name', key: 'oemName' },
-    { label: 'Model Name', key: 'modelName' },
-    { label: 'Type Name', key: 'typeName' },
-  ]
+class EquipmentPage extends LoadPage {
+  constructor(props) {
+    super(props)
 
-  // const startingSearch = (location.state && location.state.search) || ''
-  const startingSearch = ''
+    this.state.ascending = true
+    this.state.searchValue = ''
+    // const startingSearch = (location.state && location.state.search) || ''
+    this.state.sortBy = 'serialNumber'
+  }
 
-  return (
-    <PageTemplate
-      apiIndex={api.index}
-      columns={columns}
-      nameLink='equipment'
-      namePlural='Equipment'
-      nameSingular='Equipment'
-      startingSearch={startingSearch}
-      startingSortBy='serialNumber'
-    />
-  )
+  apiGet = () => {
+    api.index('equipment', this.apiSuccess, this.apiFailure)
+  }
+
+  renderOutput = () => {
+    const columns = [
+      { label: 'Serial Number', key: 'serialNumber' },
+      { label: 'OEM Name', key: 'oemName' },
+      { label: 'Model Name', key: 'modelName' },
+      { label: 'Type Name', key: 'typeName' },
+    ]
+
+    return (
+      <PageTemplate
+        ascending={this.state.ascending}
+        columns={columns}
+        data={this.state.data}
+        nameLink='equipment'
+        namePlural='Equipment'
+        nameSingular='Equipment'
+        onChange={this.handleChange}
+        searchValue={this.state.searchValue}
+        sortBy={this.state.sortBy}
+      />
+    )
+  }
 }
 
 export default EquipmentPage

@@ -1,24 +1,39 @@
 import React from 'react'
+import LoadPage from './load-page.jsx'
 import PageTemplate from '../components/page-template.jsx'
 import api from '../api.js'
 
-const TypesPage = () => {
-  const columns = [{ label: 'Name', key: 'name' }]
+class TypesPage extends LoadPage {
+  constructor(props) {
+    super(props)
 
-  // const startingSearch = (location.state && location.state.search) || ''
-  const startingSearch = ''
+    this.state.ascending = true
+    this.state.searchValue = ''
+    // const startingSearch = (location.state && location.state.search) || ''
+    this.state.sortBy = 'name'
+  }
 
-  return (
-    <PageTemplate
-      apiIndex={api.index}
-      columns={columns}
-      nameLink='types'
-      namePlural='Types'
-      nameSingular='Type'
-      startingSearch={startingSearch}
-      startingSortBy='name'
-    />
-  )
+  apiGet = () => {
+    api.index('types', this.apiSuccess, this.apiFailure)
+  }
+
+  renderOutput = () => {
+    const columns = [{ label: 'Name', key: 'name' }]
+
+    return (
+      <PageTemplate
+        ascending={this.state.ascending}
+        columns={columns}
+        data={this.state.data}
+        nameLink='types'
+        namePlural='Types'
+        nameSingular='Type'
+        onChange={this.handleChange}
+        searchValue={this.state.searchValue}
+        sortBy={this.state.sortBy}
+      />
+    )
+  }
 }
 
 export default TypesPage

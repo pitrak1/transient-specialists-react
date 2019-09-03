@@ -29,6 +29,10 @@ class LoadPage extends React.Component {
     // Abstract
   }
 
+  handleChange = object => {
+    this.setState(object)
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner renderTitle='Loading' size='large' />
