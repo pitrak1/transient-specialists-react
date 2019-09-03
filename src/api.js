@@ -40,4 +40,16 @@ const index = (resource, success, failure) => {
     })
 }
 
-export default { index }
+const show = (resource, id, success, failure) => {
+  attachInterceptors()
+  return axios
+    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
+    .then(result => {
+      success(result)
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
+export default { index, show }
