@@ -8,8 +8,7 @@ class EquipmentPage extends LoadPage {
     super(props)
 
     this.state.ascending = true
-    this.state.searchValue = ''
-    // const startingSearch = (location.state && location.state.search) || ''
+    this.state.searchValue = this.props.match.params.search || ''
     this.state.sortBy = 'serialNumber'
   }
 

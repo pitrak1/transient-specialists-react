@@ -1,6 +1,7 @@
 import React from 'react'
 import LoadPage from './load-page.jsx'
 import { Heading, Text } from '@instructure/ui-elements'
+import { Link } from 'react-router-dom'
 import api from '../api.js'
 
 class ModelsDetailsPage extends LoadPage {
@@ -33,6 +34,9 @@ class ModelsDetailsPage extends LoadPage {
           {model.name}
         </Heading>
         {fields}
+        <Link to={`/equipment/search/${model.name}`}>
+          Show Equipment for Model
+        </Link>
       </div>
     )
   }

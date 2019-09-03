@@ -9,7 +9,6 @@ class TypesPage extends LoadPage {
 
     this.state.ascending = true
     this.state.searchValue = ''
-    // const startingSearch = (location.state && location.state.search) || ''
     this.state.sortBy = 'name'
   }
 
