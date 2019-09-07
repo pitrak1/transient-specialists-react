@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Layout from './components/layout.jsx'
 import EquipmentPage from './pages/equipment-page.jsx'
 import EquipmentDetailsPage from './pages/equipment-details-page.jsx'
+import EquipmentCreatePage from './pages/equipment-create-page.jsx'
 import ModelsPage from './pages/models-page.jsx'
 import ModelsDetailsPage from './pages/models-details-page.jsx'
 import OemsPage from './pages/oems-page.jsx'
@@ -15,20 +16,28 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Layout>
-        <Route path='/' exact component={EquipmentPage} />
-        <Route path='/equipment/:id' exact component={EquipmentDetailsPage} />
-        <Route
-          path='/equipment/search/:search'
-          exact
-          component={EquipmentPage}
-        />
-        <Route path='/oems' exact component={OemsPage} />
-        <Route path='/oems/:id' exact component={OemsDetailsPage} />
-        <Route path='/models' exact component={ModelsPage} />
-        <Route path='/models/:id' exact component={ModelsDetailsPage} />
-        <Route path='/models/search/:search' exact component={ModelsPage} />
-        <Route path='/types' exact component={TypesPage} />
-        <Route path='/types/:id' exact component={TypesDetailsPage} />
+        <Switch>
+          <Route path='/' exact component={EquipmentPage} />
+          <Route
+            path='/equipment/create'
+            exact
+            component={EquipmentCreatePage}
+          />
+          <Route path='/equipment/:id' exact component={EquipmentDetailsPage} />
+          <Route
+            path='/equipment/search/:search'
+            exact
+            component={EquipmentPage}
+          />
+
+          <Route path='/oems' exact component={OemsPage} />
+          <Route path='/oems/:id' exact component={OemsDetailsPage} />
+          <Route path='/models' exact component={ModelsPage} />
+          <Route path='/models/:id' exact component={ModelsDetailsPage} />
+          <Route path='/models/search/:search' exact component={ModelsPage} />
+          <Route path='/types' exact component={TypesPage} />
+          <Route path='/types/:id' exact component={TypesDetailsPage} />
+        </Switch>
       </Layout>
     </BrowserRouter>
   )

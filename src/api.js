@@ -52,4 +52,16 @@ const show = (resource, id, success, failure) => {
     })
 }
 
-export default { index, show }
+const getNew = (resource, success, failure) => {
+  attachInterceptors()
+  return axios
+    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
+    .then(result => {
+      success(convertObject(result.data.body))
+    })
+    .catch(error => {
+      failure(error.response.data)
+    })
+}
+
+export default { index, show, getNew, convertObject }
