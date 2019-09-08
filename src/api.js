@@ -98,4 +98,54 @@ export const createEquipment = (data, success, failure) => {
     })
 }
 
-export default { index, show, getNew, createEquipment, convertObject }
+export const createModel = (data, success, failure) => {
+  attachInterceptors()
+  return axios
+    .post(`${process.env.LAMBDA_ENDPOINT}models`, data)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
+export const createOem = (data, success, failure) => {
+  attachInterceptors()
+  return axios
+    .post(`${process.env.LAMBDA_ENDPOINT}oems`, data)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
+export const createType = (data, success, failure) => {
+  attachInterceptors()
+  return axios
+    .post(`${process.env.LAMBDA_ENDPOINT}types`, data)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
+const dummy = (success, failure) => {
+  success({})
+}
+
+export default {
+  index,
+  show,
+  getNew,
+  createEquipment,
+  createModel,
+  createOem,
+  createType,
+  dummy,
+  convertObject,
+}
