@@ -6,7 +6,7 @@ import api from '../api.js'
 
 class ModelsDetailsPage extends LoadPage {
   apiGet = () => {
-    api.show(
+    api.getShow(
       'models',
       this.props.match.params.id,
       this.apiSuccess,

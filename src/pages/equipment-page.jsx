@@ -13,7 +13,7 @@ class EquipmentPage extends LoadPage {
   }
 
   apiGet = () => {
-    api.index('equipment', this.apiSuccess, this.apiFailure)
+    api.getIndex('equipment', this.apiSuccess, this.apiFailure)
   }
 
   renderOutput = () => {

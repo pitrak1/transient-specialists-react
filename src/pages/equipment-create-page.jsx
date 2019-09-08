@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadPage from './load-page.jsx'
+import LoadFormPage from './load-form-page.jsx'
 import { Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
 import FormTextInput from '../components/form-text-input.jsx'
@@ -7,111 +7,71 @@ import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class EquipmentCreatePage extends LoadPage {
+class EquipmentCreatePage extends LoadFormPage {
   constructor(props) {
     super(props)
 
-    this.state.modelId = null
-    this.state.modelIdValid = false
-    this.state.oemId = null
-    this.state.oemIdValid = false
-    this.state.serialNumber = ''
-    this.state.serialNumberValid = false
-    this.state.typeId = null
-    this.state.typeIdValid = false
+    this.state.resource = 'equipment'
+    this.state.label = 'Equipment'
   }
+
+  formFields = () => [
+    {
+      identifier: 'serialNumber',
+      label: 'Serial Number',
+      required: true,
+      type: 'text',
+    },
+    {
+      defaultOptionLabel: 'Select an OEM',
+      identifier: 'oemId',
+      label: 'OEM',
+      required: true,
+      type: 'select',
+      options: () => this.state.data.oems,
+    },
+    {
+      defaultOptionLabel: 'Select a Model',
+      identifier: 'modelId',
+      label: 'Model',
+      required: true,
+      type: 'select',
+      options: () =>
+        this.state.data.models.filter(
+          model => model.oemId === this.state.oemId,
+        ),
+      disabled: () => !this.state.oemId,
+    },
+    {
+      defaultOptionLabel: 'Select a Type',
+      identifier: 'typeId',
+      label: 'Type',
+      required: true,
+      type: 'select',
+      options: () => this.state.data.types,
+    },
+  ]
 
   apiGet = () => {
     api.getNew('equipment', this.apiSuccess, this.apiFailure)
   }
 
-  handleChange = (identifier, value, valid) => {
-    const state = {}
-    state[identifier] = value
-    state[`${identifier}Valid`] = valid
+  onSubmitSuccess = () => {
+    this.props.history.push('/')
+  }
 
+  handleCustomChange = (identifier, value, valid, state) => {
     if (identifier === 'oemId') {
       state.modelId = null
       state.modelIdValid = false
     }
-
-    this.setState(state)
   }
 
-  handleClick = () => {
-    const { serialNumber, modelId, typeId } = this.state
-    this.setState()
-    const success = data => {
-      this.props.history.push('/')
-    }
-    const failure = error => {
-      this.setState({ loading: false, alert: error })
-    }
-    this.setState({ loading: true, alert: null })
-    api.createEquipment({ serialNumber, modelId, typeId }, success, failure)
-  }
-
-  oemOptions = () => this.state.data.oems.map(oem => api.convertObject(oem))
-  modelOptions = () =>
-    this.state.data.models
-      .filter(model => model.oem_id === this.state.oemId)
-      .map(model => api.convertObject(model))
-  typeOptions = () => this.state.data.types.map(type => api.convertObject(type))
   formValid = () =>
     this.state.serialNumberValid &&
     this.state.oemIdValid &&
     this.state.modelIdValid &&
     this.state.typeIdValid
-
-  renderOutput = () => {
-    return (
-      <div>
-        <Heading level='h1' margin='medium'>
-          Add Equipment
-        </Heading>
-        <FormTextInput
-          identifier='serialNumber'
-          label='Serial Number'
-          onChange={this.handleChange}
-          required={true}
-          value={this.state.serialNumber}
-        />
-        <FormSelect
-          defaultOptionLabel='Select an OEM'
-          disabled={false}
-          identifier='oemId'
-          label='OEM'
-          onChange={this.handleChange}
-          options={this.oemOptions()}
-          required={true}
-          value={this.state.oemId}
-        />
-        <FormSelect
-          defaultOptionLabel='Select a Model'
-          disabled={!this.state.oemId}
-          identifier='modelId'
-          label='Model'
-          onChange={this.handleChange}
-          options={this.modelOptions()}
-          required={true}
-          value={this.state.modelId}
-        />
-        <FormSelect
-          defaultOptionLabel='Select a Type'
-          disabled={false}
-          identifier='typeId'
-          label='Type'
-          onChange={this.handleChange}
-          options={this.typeOptions()}
-          required={true}
-          value={this.state.typeId}
-        />
-        <Button disabled={!this.formValid()} onClick={this.handleClick}>
-          Submit
-        </Button>
-      </div>
-    )
-  }
 }
 
 export default withRouter(EquipmentCreatePage)

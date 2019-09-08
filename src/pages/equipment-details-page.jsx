@@ -5,7 +5,7 @@ import api from '../api.js'
 
 class EquipmentDetailsPage extends LoadPage {
   apiGet = () => {
-    api.show(
+    api.getShow(
       'equipment',
       this.props.match.params.id,
       this.apiSuccess,

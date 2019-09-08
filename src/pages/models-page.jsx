@@ -13,7 +13,7 @@ class ModelsPage extends LoadPage {
   }
 
   apiGet = () => {
-    api.index('models', this.apiSuccess, this.apiFailure)
+    api.getIndex('models', this.apiSuccess, this.apiFailure)
   }
 
   renderOutput = () => {

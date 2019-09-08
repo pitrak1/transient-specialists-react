@@ -13,7 +13,7 @@ class TypesPage extends LoadPage {
   }
 
   apiGet = () => {
-    api.index('types', this.apiSuccess, this.apiFailure)
+    api.getIndex('types', this.apiSuccess, this.apiFailure)
   }
 
   renderOutput = () => {

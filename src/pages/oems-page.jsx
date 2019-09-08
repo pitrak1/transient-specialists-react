@@ -13,7 +13,7 @@ class OemsPage extends LoadPage {
   }
 
   apiGet = () => {
-    api.index('oems', this.apiSuccess, this.apiFailure)
+    api.getIndex('oems', this.apiSuccess, this.apiFailure)
   }
 
   renderOutput = () => {

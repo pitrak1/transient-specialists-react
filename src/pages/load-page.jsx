@@ -9,12 +9,14 @@ class LoadPage extends React.Component {
     loading: true,
   }
 
+  // Abstract method to fetch data, apiSuccess and apiFailure must be provided as callbacks to the API module
+  apiGet = () => {}
+
+  // Abstract method to render anything outside of the loading/error elements for page loading
+  renderOutput = () => {}
+
   componentDidMount() {
     this.apiGet()
-  }
-
-  apiGet = () => {
-    // ABSTRACT
   }
 
   apiSuccess = result => {
@@ -23,10 +25,6 @@ class LoadPage extends React.Component {
 
   apiFailure = error => {
     this.setState({ loading: false, error })
-  }
-
-  renderOutput = () => {
-    // Abstract
   }
 
   handleChange = object => {
