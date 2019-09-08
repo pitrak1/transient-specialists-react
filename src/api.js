@@ -111,6 +111,18 @@ export const postCreate = (resource, data, success, failure) => {
     })
 }
 
+export const deleteDestroy = (resource, id, success, failure) => {
+  attachInterceptors()
+  return axios
+    .delete(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
 const dummy = (success, _failure) => {
   success({})
 }
@@ -120,5 +132,6 @@ export default {
   getShow,
   getNew,
   postCreate,
+  deleteDestroy,
   dummy,
 }

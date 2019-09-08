@@ -1,7 +1,9 @@
 import React from 'react'
 import LoadPage from './load-page.jsx'
 import { Heading, Text } from '@instructure/ui-elements'
+import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
+import { withRouter } from 'react-router'
 
 class EquipmentDetailsPage extends LoadPage {
   apiGet = () => {
@@ -11,6 +13,20 @@ class EquipmentDetailsPage extends LoadPage {
       this.apiSuccess,
       this.apiFailure,
     )
+  }
+
+  handleDeleteClick = () => {
+    if (confirm('Are you sure you want to delete this equipment?')) {
+      const success = _response => {
+        this.props.history.push('/')
+      }
+
+      const failure = error => {
+        console.log('FAILURE')
+        console.log(error)
+      }
+      api.deleteDestroy('equipment', this.state.data.id, success, failure)
+    }
   }
 
   renderOutput = () => {
@@ -37,9 +53,10 @@ class EquipmentDetailsPage extends LoadPage {
           {equipment.serialNumber}
         </Heading>
         {fields}
+        <Button onClick={this.handleDeleteClick}>Delete</Button>
       </div>
     )
   }
 }
 
-export default EquipmentDetailsPage
+export default withRouter(EquipmentDetailsPage)

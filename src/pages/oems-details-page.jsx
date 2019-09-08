@@ -2,7 +2,9 @@ import React from 'react'
 import LoadPage from './load-page.jsx'
 import { Heading, Text } from '@instructure/ui-elements'
 import { Link } from 'react-router-dom'
+import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
+import { withRouter } from 'react-router'
 
 class OemsDetailsPage extends LoadPage {
   apiGet = () => {
@@ -12,6 +14,20 @@ class OemsDetailsPage extends LoadPage {
       this.apiSuccess,
       this.apiFailure,
     )
+  }
+
+  handleDeleteClick = () => {
+    if (confirm('Are you sure you want to delete this oem?')) {
+      const success = _response => {
+        this.props.history.push('/oems')
+      }
+
+      const failure = error => {
+        console.log('FAILURE')
+        console.log(error)
+      }
+      api.deleteDestroy('oems', this.state.data.id, success, failure)
+    }
   }
 
   renderOutput = () => {
@@ -34,9 +50,10 @@ class OemsDetailsPage extends LoadPage {
         {fields}
         <Link to={`/models/search/${oem.name}`}>Show Models for OEM</Link>
         <Link to={`/equipment/search/${oem.name}`}>Show Equipment for OEM</Link>
+        <Button onClick={this.handleDeleteClick}>Delete</Button>
       </div>
     )
   }
 }
 
-export default OemsDetailsPage
+export default withRouter(OemsDetailsPage)

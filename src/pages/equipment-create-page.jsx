@@ -1,9 +1,4 @@
-import React from 'react'
 import LoadFormPage from './load-form-page.jsx'
-import { Heading } from '@instructure/ui-elements'
-import { Button } from '@instructure/ui-buttons'
-import FormTextInput from '../components/form-text-input.jsx'
-import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

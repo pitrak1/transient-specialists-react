@@ -2,7 +2,9 @@ import React from 'react'
 import LoadPage from './load-page.jsx'
 import { Heading, Text } from '@instructure/ui-elements'
 import { Link } from 'react-router-dom'
+import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
+import { withRouter } from 'react-router'
 
 class TypesDetailsPage extends LoadPage {
   apiGet = () => {
@@ -12,6 +14,20 @@ class TypesDetailsPage extends LoadPage {
       this.apiSuccess,
       this.apiFailure,
     )
+  }
+
+  handleDeleteClick = () => {
+    if (confirm('Are you sure you want to delete this type?')) {
+      const success = _response => {
+        this.props.history.push('/types')
+      }
+
+      const failure = error => {
+        console.log('FAILURE')
+        console.log(error)
+      }
+      api.deleteDestroy('types', this.state.data.id, success, failure)
+    }
   }
 
   renderOutput = () => {
@@ -35,9 +51,10 @@ class TypesDetailsPage extends LoadPage {
         <Link to={`/equipment/search/${type.name}`}>
           Show Equipment for Type
         </Link>
+        <Button onClick={this.handleDeleteClick}>Delete</Button>
       </div>
     )
   }
 }
 
-export default TypesDetailsPage
+export default withRouter(TypesDetailsPage)
