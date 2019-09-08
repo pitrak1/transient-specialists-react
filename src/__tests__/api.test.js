@@ -20,12 +20,12 @@ describe('API', () => {
     mock.restore()
   })
 
-  describe('index', () => {
+  describe('getIndex', () => {
     it('calls success with converted data on success', () => {
       mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
         body: [{ some_key: 'some value', some_other_key: 'some other value' }],
       })
-      return api.index('resource', success, failure).then(_data => {
+      return api.getIndex('resource', success, failure).then(_data => {
         expect(success.firstCall.args[0]).toEqual([
           {
             someKey: 'some value',
@@ -39,18 +39,18 @@ describe('API', () => {
       mock
         .onGet(`${process.env.LAMBDA_ENDPOINT}resource`)
         .reply(500, 'some error message')
-      return api.index('resource', success, failure).then(_data => {
+      return api.getIndex('resource', success, failure).then(_data => {
         expect(failure.firstCall.args[0]).toBe('some error message')
       })
     })
   })
 
-  describe('show', () => {
+  describe('getShow', () => {
     it('calls success with converted data on success', () => {
       mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?id=3`).reply(200, {
         body: { some_key: 'some value', some_other_key: 'some other value' },
       })
-      return api.show('resource', 3, success, failure).then(_data => {
+      return api.getShow('resource', 3, success, failure).then(_data => {
         expect(success.firstCall.args[0]).toEqual({
           someKey: 'some value',
           someOtherKey: 'some other value',
@@ -62,7 +62,7 @@ describe('API', () => {
       mock
         .onGet(`${process.env.LAMBDA_ENDPOINT}resource?id=3`)
         .reply(500, 'some error message')
-      return api.show('resource', 3, success, failure).then(_data => {
+      return api.getShow('resource', 3, success, failure).then(_data => {
         expect(failure.firstCall.args[0]).toBe('some error message')
       })
     })
