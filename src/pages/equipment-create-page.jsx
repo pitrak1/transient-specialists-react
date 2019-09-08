@@ -5,6 +5,7 @@ import { Button } from '@instructure/ui-buttons'
 import FormTextInput from '../components/form-text-input.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
+import { withRouter } from 'react-router'
 
 class EquipmentCreatePage extends LoadPage {
   constructor(props) {
@@ -41,15 +42,13 @@ class EquipmentCreatePage extends LoadPage {
     const { serialNumber, modelId, typeId } = this.state
     this.setState()
     const success = data => {
-      console.log(data)
-      // navigate('/')
+      this.props.history.push('/')
     }
     const failure = error => {
-      console.log(error)
-      // this.setState({ loading: false, alert: error })
+      this.setState({ loading: false, alert: error })
     }
     this.setState({ loading: true, alert: null })
-    // createEquipment({ serialNumber, modelId, typeId }, success, failure)
+    api.createEquipment({ serialNumber, modelId, typeId }, success, failure)
   }
 
   oemOptions = () => this.state.data.oems.map(oem => api.convertObject(oem))
@@ -115,4 +114,4 @@ class EquipmentCreatePage extends LoadPage {
   }
 }
 
-export default EquipmentCreatePage
+export default withRouter(EquipmentCreatePage)

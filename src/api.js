@@ -13,6 +13,28 @@ const attachInterceptors = () => {
   )
 }
 
+const translateError = error => {
+  if (error.includes('duplicate key value violates unique constraint')) {
+    if (error.includes('idx_type_name')) {
+      return 'Name must be unique (case insensitive)'
+    }
+
+    if (error.includes('idx_oem_name')) {
+      return 'Name must be unique (case insensitive)'
+    }
+
+    if (error.includes('idx_model_name')) {
+      return 'Name must be unique (case insensitive)'
+    }
+
+    if (error.includes('idx_equipment_serial_number')) {
+      return 'Serial Number must be unique (case insensitive)'
+    }
+  }
+
+  return error
+}
+
 const snakeToPascal = value => value.replace(/(\_\w)/g, m => m[1].toUpperCase())
 
 const convertObject = object => {
@@ -64,4 +86,16 @@ const getNew = (resource, success, failure) => {
     })
 }
 
-export default { index, show, getNew, convertObject }
+export const createEquipment = (data, success, failure) => {
+  attachInterceptors()
+  return axios
+    .post(`${process.env.LAMBDA_ENDPOINT}equipment`, data)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
+export default { index, show, getNew, createEquipment, convertObject }
