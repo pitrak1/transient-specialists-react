@@ -32,6 +32,20 @@ const translateError = error => {
     }
   }
 
+  if (error.includes('violates foreign key constraint')) {
+    if (error.includes('equipments_model_id_fkey')) {
+      return 'Model cannot be deleted because it has related equipment'
+    }
+
+    if (error.includes('equipments_type_id_fkey')) {
+      return 'Type cannot be deleted because it has related equipment'
+    }
+
+    if (error.includes('models_oem_id_fkey')) {
+      return 'OEM cannot be deleted because it has related models'
+    }
+  }
+
   return error
 }
 
