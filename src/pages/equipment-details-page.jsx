@@ -22,8 +22,7 @@ class EquipmentDetailsPage extends LoadPage {
       }
 
       const failure = error => {
-        console.log('FAILURE')
-        console.log(error)
+        this.setState({ loading: false, alert: error })
       }
       api.deleteDestroy('equipment', this.state.data.id, success, failure)
     }

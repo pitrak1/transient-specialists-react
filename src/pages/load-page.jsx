@@ -4,6 +4,7 @@ import { Alert } from '@instructure/ui-alerts'
 
 class LoadPage extends React.Component {
   state = {
+    alert: null,
     data: {},
     error: null,
     loading: true,
@@ -40,7 +41,12 @@ class LoadPage extends React.Component {
       return <Alert variant='error'>{this.state.error}</Alert>
     }
 
-    return this.renderOutput()
+    return (
+      <div>
+        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
+        {this.renderOutput()}
+      </div>
+    )
   }
 }
 
