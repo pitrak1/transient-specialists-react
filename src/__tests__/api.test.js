@@ -150,4 +150,56 @@ describe('API', () => {
       })
     })
   })
+
+  // update or delete on table "models" violates foreign key constraint "equipments_model_id_fkey" on table "equipments"
+
+  describe('deleteDestroy', () => {
+    it('calls success with data on success', () => {
+      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+        body: {},
+      })
+      return api.deleteDestroy('resource', 1, success, failure).then(_data => {
+        expect(success.firstCall.args[0]).toEqual({})
+      })
+    })
+
+    it('calls failure with translated error on foreign key model id on equipment error', () => {
+      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+        statusCode: 500,
+        body:
+          'update or delete on table "models" violates foreign key constraint "equipments_model_id_fkey" on table "equipments"',
+      })
+      return api.deleteDestroy('resource', 1, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toBe(
+          'Model cannot be deleted because it has related equipment',
+        )
+      })
+    })
+
+    it('calls failure with translated error on foreign key type id on equipment error', () => {
+      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+        statusCode: 500,
+        body:
+          'update or delete on table "types" violates foreign key constraint "equipments_type_id_fkey" on table "equipments"',
+      })
+      return api.deleteDestroy('resource', 1, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toBe(
+          'Type cannot be deleted because it has related equipment',
+        )
+      })
+    })
+
+    it('calls failure with translated error on foreign key model id on OEMs error', () => {
+      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+        statusCode: 500,
+        body:
+          'update or delete on table "oems" violates foreign key constraint "models_oem_id_fkey" on table "models"',
+      })
+      return api.deleteDestroy('resource', 1, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toBe(
+          'OEM cannot be deleted because it has related models',
+        )
+      })
+    })
+  })
 })
