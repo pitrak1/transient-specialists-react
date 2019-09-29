@@ -2,6 +2,7 @@ import React from 'react'
 import LoadPage from './load-page.jsx'
 import { Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
+import { Alert } from '@instructure/ui-alerts'
 import FormTextInput from '../components/form-text-input.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
@@ -108,6 +109,7 @@ class LoadFormPage extends LoadPage {
 
     return (
       <div>
+        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
         <Heading level='h1' margin='medium'>
           Add {this.state.label}
         </Heading>
