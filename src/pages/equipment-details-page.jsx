@@ -45,6 +45,14 @@ class EquipmentDetailsPage extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Spinner renderTitle='Loading' size='large' />
+    }
+
+    if (this.state.error) {
+      return <Alert variant='error'>{this.state.error}</Alert>
+    }
+
     const equipment = this.state.data
     const fields = [
       { label: 'ID: ', value: equipment.id },
@@ -61,14 +69,6 @@ class EquipmentDetailsPage extends React.Component {
         <Text>{field.value}</Text>
       </div>
     ))
-
-    if (this.state.loading) {
-      return <Spinner renderTitle='Loading' size='large' />
-    }
-
-    if (this.state.error) {
-      return <Alert variant='error'>{this.state.error}</Alert>
-    }
 
     return (
       <div>

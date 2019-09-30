@@ -6,6 +6,8 @@ import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
+import { Button } from '@instructure/ui-buttons'
+import { withRouter } from 'react-router'
 import api from '../api.js'
 
 class EquipmentPage extends React.Component {
@@ -41,6 +43,15 @@ class EquipmentPage extends React.Component {
     } else {
       this.setState({ ascending: true, sortBy: id })
     }
+  }
+
+  handleDetailsClick = event => {
+    const id = event.target.getAttribute('data-id')
+    this.props.history.push(`/equipment/${id}`)
+  }
+
+  handleAddClick = _event => {
+    this.props.history.push(`/equipment/create`)
   }
 
   getSortDirection = id => {
@@ -84,7 +95,9 @@ class EquipmentPage extends React.Component {
           <Table.Cell>{datum.modelName}</Table.Cell>
           <Table.Cell>{datum.typeName}</Table.Cell>
           <Table.Cell>
-            <Link to={`/models/${datum.id}`}>Details</Link>
+            <Button data-id={datum.id} onClick={this.handleDetailsClick}>
+              Details
+            </Button>
           </Table.Cell>
         </Table.Row>
       )
@@ -107,7 +120,7 @@ class EquipmentPage extends React.Component {
             />
           </Flex.Item>
           <Flex.Item>
-            <Link to={`/equipment/create`}>Add Equipment</Link>
+            <Button onClick={this.handleAddClick}>Add Equipment</Button>
           </Flex.Item>
         </Flex>
         <Table caption='Equipment' hover={true}>
@@ -141,7 +154,7 @@ class EquipmentPage extends React.Component {
               >
                 Type Name
               </Table.ColHeader>
-              <Table.ColHeader id='Details'></Table.ColHeader>
+              <Table.ColHeader id='Details' width='2%'></Table.ColHeader>
             </Table.Row>
           </Table.Head>
           <Table.Body>{rows}</Table.Body>

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
-import { Link } from 'react-router-dom'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
+import { Button } from '@instructure/ui-buttons'
+import { withRouter } from 'react-router'
 import api from '../api.js'
 
 class TypesPage extends React.Component {
@@ -43,6 +44,39 @@ class TypesPage extends React.Component {
     }
   }
 
+  handleDeleteClick = event => {
+    if (confirm('Are you sure you want to delete this type?')) {
+      this.setState({ loading: true })
+      api.deleteDestroy(
+        'types',
+        event.target.getAttribute('data-id'),
+        _response => {
+          api.getIndex(
+            'types',
+            result => {
+              this.setState({ loading: false, data: result })
+            },
+            error => {
+              this.setState({ loading: false, error })
+            },
+          )
+        },
+        error => {
+          this.setState({ loading: false, alert: error })
+        },
+      )
+    }
+  }
+
+  handleShowClick = event => {
+    const name = event.target.getAttribute('data-name')
+    this.props.history.push(`/equipment/search/${name}`)
+  }
+
+  handleAddClick = event => {
+    this.props.history.push(`/types/create`)
+  }
+
   getSortDirection = id => {
     if (this.state.sortBy === id) {
       return this.state.ascending ? 'ascending' : 'descending'
@@ -76,7 +110,14 @@ class TypesPage extends React.Component {
         <Table.Row key={datum.id}>
           <Table.Cell>{datum.name}</Table.Cell>
           <Table.Cell>
-            <Link to={`/types/${datum.id}`}>Details</Link>
+            <Button data-name={datum.name} onClick={this.handleShowClick}>
+              Show Equipment
+            </Button>
+          </Table.Cell>
+          <Table.Cell>
+            <Button data-id={datum.id} onClick={this.handleDeleteClick}>
+              Delete
+            </Button>
           </Table.Cell>
         </Table.Row>
       )
@@ -99,7 +140,7 @@ class TypesPage extends React.Component {
             />
           </Flex.Item>
           <Flex.Item>
-            <Link to={`/types/create`}>Add Type</Link>
+            <Button onClick={this.handleAddClick}>Add Type</Button>
           </Flex.Item>
         </Flex>
         <Table caption='Types' hover={true}>
@@ -112,7 +153,8 @@ class TypesPage extends React.Component {
               >
                 Name
               </Table.ColHeader>
-              <Table.ColHeader id='Details'></Table.ColHeader>
+              <Table.ColHeader id='Equipment' width='2%'></Table.ColHeader>
+              <Table.ColHeader id='Delete' width='2%'></Table.ColHeader>
             </Table.Row>
           </Table.Head>
           <Table.Body>{rows}</Table.Body>
@@ -122,4 +164,4 @@ class TypesPage extends React.Component {
   }
 }
 
-export default TypesPage
+export default withRouter(TypesPage)

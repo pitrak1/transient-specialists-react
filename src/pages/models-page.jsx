@@ -1,11 +1,12 @@
 import React from 'react'
 import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
-import { Link } from 'react-router-dom'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
+import { Button } from '@instructure/ui-buttons'
+import { withRouter } from 'react-router'
 import api from '../api.js'
 
 class ModelsPage extends React.Component {
@@ -41,6 +42,39 @@ class ModelsPage extends React.Component {
     } else {
       this.setState({ ascending: true, sortBy: id })
     }
+  }
+
+  handleDeleteClick = event => {
+    if (confirm('Are you sure you want to delete this model?')) {
+      this.setState({ loading: true })
+      api.deleteDestroy(
+        'models',
+        event.target.getAttribute('data-id'),
+        _response => {
+          api.getIndex(
+            'models',
+            result => {
+              this.setState({ loading: false, data: result })
+            },
+            error => {
+              this.setState({ loading: false, error })
+            },
+          )
+        },
+        error => {
+          this.setState({ loading: false, alert: error })
+        },
+      )
+    }
+  }
+
+  handleShowClick = event => {
+    const name = event.target.getAttribute('data-name')
+    this.props.history.push(`/equipment/search/${name}`)
+  }
+
+  handleAddClick = event => {
+    this.props.history.push(`/models/create`)
   }
 
   getSortDirection = id => {
@@ -80,7 +114,14 @@ class ModelsPage extends React.Component {
           <Table.Cell>{datum.name}</Table.Cell>
           <Table.Cell>{datum.oemName}</Table.Cell>
           <Table.Cell>
-            <Link to={`/models/${datum.id}`}>Details</Link>
+            <Button data-name={datum.name} onClick={this.handleShowClick}>
+              Show Equipment
+            </Button>
+          </Table.Cell>
+          <Table.Cell>
+            <Button data-id={datum.id} onClick={this.handleDeleteClick}>
+              Delete
+            </Button>
           </Table.Cell>
         </Table.Row>
       )
@@ -103,7 +144,7 @@ class ModelsPage extends React.Component {
             />
           </Flex.Item>
           <Flex.Item>
-            <Link to={`/models/create`}>Add Model</Link>
+            <Button onClick={this.handleAddClick}>Add Model</Button>
           </Flex.Item>
         </Flex>
         <Table caption='Models' hover={true}>
@@ -123,7 +164,8 @@ class ModelsPage extends React.Component {
               >
                 OEM Name
               </Table.ColHeader>
-              <Table.ColHeader id='Details'></Table.ColHeader>
+              <Table.ColHeader id='Equipment' width='2%'></Table.ColHeader>
+              <Table.ColHeader id='Delete' width='2%'></Table.ColHeader>
             </Table.Row>
           </Table.Head>
           <Table.Body>{rows}</Table.Body>
@@ -133,4 +175,4 @@ class ModelsPage extends React.Component {
   }
 }
 
-export default ModelsPage
+export default withRouter(ModelsPage)

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
-import { Link } from 'react-router-dom'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
+import { Button } from '@instructure/ui-buttons'
+import { withRouter } from 'react-router'
 import api from '../api.js'
 
 class OemsPage extends React.Component {
@@ -43,6 +44,44 @@ class OemsPage extends React.Component {
     }
   }
 
+  handleDeleteClick = event => {
+    if (confirm('Are you sure you want to delete this OEM?')) {
+      this.setState({ loading: true })
+      api.deleteDestroy(
+        'oems',
+        event.target.getAttribute('data-id'),
+        _response => {
+          api.getIndex(
+            'oems',
+            result => {
+              this.setState({ loading: false, data: result })
+            },
+            error => {
+              this.setState({ loading: false, error })
+            },
+          )
+        },
+        error => {
+          this.setState({ loading: false, alert: error })
+        },
+      )
+    }
+  }
+
+  handleShowEquipmentClick = event => {
+    const name = event.target.getAttribute('data-name')
+    this.props.history.push(`/equipment/search/${name}`)
+  }
+
+  handleShowModelsClick = event => {
+    const name = event.target.getAttribute('data-name')
+    this.props.history.push(`/models/search/${name}`)
+  }
+
+  handleAddClick = event => {
+    this.props.history.push(`/oems/create`)
+  }
+
   getSortDirection = id => {
     if (this.state.sortBy === id) {
       return this.state.ascending ? 'ascending' : 'descending'
@@ -76,7 +115,22 @@ class OemsPage extends React.Component {
         <Table.Row key={datum.id}>
           <Table.Cell>{datum.name}</Table.Cell>
           <Table.Cell>
-            <Link to={`/oems/${datum.id}`}>Details</Link>
+            <Button
+              data-name={datum.name}
+              onClick={this.handleShowEquipmentClick}
+            >
+              Show Equipment
+            </Button>
+          </Table.Cell>
+          <Table.Cell>
+            <Button data-name={datum.name} onClick={this.handleShowModelsClick}>
+              Show Models
+            </Button>
+          </Table.Cell>
+          <Table.Cell>
+            <Button data-id={datum.id} onClick={this.handleDeleteClick}>
+              Delete
+            </Button>
           </Table.Cell>
         </Table.Row>
       )
@@ -99,7 +153,7 @@ class OemsPage extends React.Component {
             />
           </Flex.Item>
           <Flex.Item>
-            <Link to={`/oems/create`}>Add OEM</Link>
+            <Button onClick={this.handleAddClick}>Add OEM</Button>
           </Flex.Item>
         </Flex>
         <Table caption='OEMs' hover={true}>
@@ -112,7 +166,9 @@ class OemsPage extends React.Component {
               >
                 Name
               </Table.ColHeader>
-              <Table.ColHeader id='Details'></Table.ColHeader>
+              <Table.ColHeader id='Equipment' width='2%'></Table.ColHeader>
+              <Table.ColHeader id='Models' width='2%'></Table.ColHeader>
+              <Table.ColHeader id='Delete' width='2%'></Table.ColHeader>
             </Table.Row>
           </Table.Head>
           <Table.Body>{rows}</Table.Body>
@@ -122,4 +178,4 @@ class OemsPage extends React.Component {
   }
 }
 
-export default OemsPage
+export default withRouter(OemsPage)
