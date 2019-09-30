@@ -137,15 +137,10 @@ export const deleteDestroy = (resource, id, success, failure) => {
     })
 }
 
-const dummy = (success, _failure) => {
-  success({})
-}
-
 export default {
   getIndex,
   getShow,
   getNew,
   postCreate,
   deleteDestroy,
-  dummy,
 }
