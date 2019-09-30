@@ -1,18 +1,34 @@
 import React from 'react'
-import LoadPage from './load-page.jsx'
+import { Spinner } from '@instructure/ui-elements'
+import { Alert } from '@instructure/ui-alerts'
 import { Heading, Text } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class EquipmentDetailsPage extends LoadPage {
-  apiGet = () => {
+class EquipmentDetailsPage extends React.Component {
+  state = {
+    alert: null,
+    data: {},
+    error: null,
+    loading: true,
+  }
+
+  componentDidMount() {
     api.getShow(
       'equipment',
       this.props.match.params.id,
-      this.apiSuccess,
-      this.apiFailure,
+      result => {
+        this.setState({ loading: false, data: result })
+      },
+      error => {
+        this.setState({ loading: false, error })
+      },
     )
+  }
+
+  handleChange = object => {
+    this.setState(object)
   }
 
   handleDeleteClick = () => {
@@ -28,7 +44,7 @@ class EquipmentDetailsPage extends LoadPage {
     }
   }
 
-  renderOutput = () => {
+  render() {
     const equipment = this.state.data
     const fields = [
       { label: 'ID: ', value: equipment.id },
@@ -46,8 +62,17 @@ class EquipmentDetailsPage extends LoadPage {
       </div>
     ))
 
+    if (this.state.loading) {
+      return <Spinner renderTitle='Loading' size='large' />
+    }
+
+    if (this.state.error) {
+      return <Alert variant='error'>{this.state.error}</Alert>
+    }
+
     return (
       <div>
+        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
         <Heading level='h1' margin='medium'>
           {equipment.serialNumber}
         </Heading>

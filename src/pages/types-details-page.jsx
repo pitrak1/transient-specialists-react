@@ -1,19 +1,35 @@
 import React from 'react'
-import LoadPage from './load-page.jsx'
+import { Spinner } from '@instructure/ui-elements'
+import { Alert } from '@instructure/ui-alerts'
 import { Heading, Text } from '@instructure/ui-elements'
 import { Link } from 'react-router-dom'
 import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class TypesDetailsPage extends LoadPage {
-  apiGet = () => {
+class TypesDetailsPage extends React.Component {
+  state = {
+    alert: null,
+    data: {},
+    error: null,
+    loading: true,
+  }
+
+  componentDidMount() {
     api.getShow(
       'types',
       this.props.match.params.id,
-      this.apiSuccess,
-      this.apiFailure,
+      result => {
+        this.setState({ loading: false, data: result })
+      },
+      error => {
+        this.setState({ loading: false, error })
+      },
     )
+  }
+
+  handleChange = object => {
+    this.setState(object)
   }
 
   handleDeleteClick = () => {
@@ -29,7 +45,7 @@ class TypesDetailsPage extends LoadPage {
     }
   }
 
-  renderOutput = () => {
+  render() {
     const type = this.state.data
     const fields = [
       { label: 'ID: ', value: type.id },
@@ -41,8 +57,17 @@ class TypesDetailsPage extends LoadPage {
       </div>
     ))
 
+    if (this.state.loading) {
+      return <Spinner renderTitle='Loading' size='large' />
+    }
+
+    if (this.state.error) {
+      return <Alert variant='error'>{this.state.error}</Alert>
+    }
+
     return (
       <div>
+        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
         <Heading level='h1' margin='medium'>
           {type.name}
         </Heading>

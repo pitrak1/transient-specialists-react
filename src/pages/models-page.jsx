@@ -1,39 +1,65 @@
 import React from 'react'
-import LoadPage from './load-page.jsx'
+import { Spinner } from '@instructure/ui-elements'
+import { Alert } from '@instructure/ui-alerts'
 import PageTemplate from '../components/page-template.jsx'
 import api from '../api.js'
 
-class ModelsPage extends LoadPage {
-  constructor(props) {
-    super(props)
-
-    this.state.ascending = true
-    this.state.searchValue = this.props.match.params.search || ''
-    this.state.sortBy = 'name'
+class ModelsPage extends React.Component {
+  state = {
+    alert: null,
+    ascending: true,
+    data: {},
+    error: null,
+    loading: true,
+    searchValue: this.props.match.params.search || '',
+    sortBy: 'name',
   }
 
-  apiGet = () => {
-    api.getIndex('models', this.apiSuccess, this.apiFailure)
+  componentDidMount() {
+    api.getIndex(
+      'models',
+      result => {
+        this.setState({ loading: false, data: result })
+      },
+      error => {
+        this.setState({ loading: false, error })
+      },
+    )
   }
 
-  renderOutput = () => {
+  handleChange = object => {
+    this.setState(object)
+  }
+
+  render() {
     const columns = [
       { label: 'Name', key: 'name' },
       { label: 'OEM Name', key: 'oemName' },
     ]
 
+    if (this.state.loading) {
+      return <Spinner renderTitle='Loading' size='large' />
+    }
+
+    if (this.state.error) {
+      return <Alert variant='error'>{this.state.error}</Alert>
+    }
+
     return (
-      <PageTemplate
-        ascending={this.state.ascending}
-        columns={columns}
-        data={this.state.data}
-        nameLink='models'
-        namePlural='Models'
-        nameSingular='Model'
-        onChange={this.handleChange}
-        searchValue={this.state.searchValue}
-        sortBy={this.state.sortBy}
-      />
+      <div>
+        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
+        <PageTemplate
+          ascending={this.state.ascending}
+          columns={columns}
+          data={this.state.data}
+          nameLink='models'
+          namePlural='Models'
+          nameSingular='Model'
+          onChange={this.handleChange}
+          searchValue={this.state.searchValue}
+          sortBy={this.state.sortBy}
+        />
+      </div>
     )
   }
 }
