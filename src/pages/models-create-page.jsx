@@ -8,7 +8,7 @@ import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class ModelsCreatePage extends React.Component {
+export class ModelsCreatePage extends React.Component {
   state = {
     alert: null,
     data: {},

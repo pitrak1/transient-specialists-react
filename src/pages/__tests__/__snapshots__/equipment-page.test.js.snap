@@ -1,0 +1,1445 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EquipmentPage filters data based on OEM name 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value="OEM 1"
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="2"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={2}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage filters data based on model name 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value="Model 1"
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="1"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={1}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage filters data based on serial number 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value="Equipment 1"
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="1"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={1}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage filters data based on type name 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value="Type 1"
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="3"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={3}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage renders an error if load fails 1`] = `
+<Alert
+  liveRegionPoliteness="assertive"
+  margin="x-small 0"
+  open={true}
+  screenReaderOnly={false}
+  timeout={0}
+  transition="fade"
+  variant="error"
+>
+  some error
+</Alert>
+`;
+
+exports[`EquipmentPage renders data if load succeeds 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value=""
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="1"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={1}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="2"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={2}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="3"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={3}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage renders spinner if not yet loaded 1`] = `
+<Spinner
+  as="div"
+  renderTitle="Loading"
+  size="large"
+  variant="default"
+/>
+`;
+
+exports[`EquipmentPage sorts data ascending when column header is clicked 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value=""
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="ascending"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="2"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={2}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="3"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={3}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="1"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={1}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;
+
+exports[`EquipmentPage sorts data descending when sorted column header is clicked 1`] = `
+<div>
+  <Flex
+    as="span"
+    direction="row"
+    elementRef={[Function]}
+    inline={false}
+    justifyItems="start"
+    visualDebug={false}
+    wrapItems={false}
+  >
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={true}
+      shrink={true}
+    >
+      <Heading
+        border="none"
+        color="inherit"
+        ellipsis={false}
+        level="h1"
+        margin="medium"
+      >
+        Equipment
+      </Heading>
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      margin="small"
+      shrink={false}
+    >
+      <TextInput
+        display="block"
+        inputContainerRef={[Function]}
+        inputRef={[Function]}
+        interaction="enabled"
+        isRequired={false}
+        messages={Array []}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        renderLabel="Search"
+        size="medium"
+        textAlign="start"
+        type="text"
+        value=""
+      />
+    </FlexItem>
+    <FlexItem
+      as="span"
+      elementRef={[Function]}
+      grow={false}
+      shrink={false}
+    >
+      <Button
+        as="button"
+        buttonRef={[Function]}
+        cursor="pointer"
+        fluidWidth={false}
+        margin="0"
+        onClick={[Function]}
+        size="medium"
+        type="button"
+        variant="default"
+      >
+        Add Equipment
+      </Button>
+    </FlexItem>
+  </Flex>
+  <Table
+    caption="Equipment"
+    hover={true}
+    layout="auto"
+  >
+    <Head>
+      <Row>
+        <ColHeader
+          id="serialNumber"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Serial Number
+        </ColHeader>
+        <ColHeader
+          id="oemName"
+          onRequestSort={[Function]}
+          sortDirection="descending"
+          textAlign="start"
+        >
+          OEM Name
+        </ColHeader>
+        <ColHeader
+          id="modelName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Model Name
+        </ColHeader>
+        <ColHeader
+          id="typeName"
+          onRequestSort={[Function]}
+          sortDirection="none"
+          textAlign="start"
+        >
+          Type Name
+        </ColHeader>
+        <ColHeader
+          id="Details"
+          sortDirection="none"
+          textAlign="start"
+          width="2%"
+        />
+      </Row>
+    </Head>
+    <Body>
+      <Row
+        key="1"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={1}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="3"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={3}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+      <Row
+        key="2"
+      >
+        <Cell
+          textAlign="start"
+        >
+          Equipment 2
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          OEM 1
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Model 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          Type 3
+        </Cell>
+        <Cell
+          textAlign="start"
+        >
+          <Button
+            as="button"
+            buttonRef={[Function]}
+            cursor="pointer"
+            data-id={2}
+            fluidWidth={false}
+            margin="0"
+            onClick={[Function]}
+            size="medium"
+            type="button"
+            variant="default"
+          >
+            Details
+          </Button>
+        </Cell>
+      </Row>
+    </Body>
+  </Table>
+</div>
+`;

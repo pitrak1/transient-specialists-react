@@ -7,7 +7,7 @@ import FormTextInput from '../components/form-text-input.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class OemsCreatePage extends React.Component {
+export class OemsCreatePage extends React.Component {
   state = {
     alert: null,
     loading: false,

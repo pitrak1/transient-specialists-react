@@ -9,7 +9,7 @@ import { Button } from '@instructure/ui-buttons'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
-class ModelsPage extends React.Component {
+export class ModelsPage extends React.Component {
   state = {
     alert: null,
     ascending: true,

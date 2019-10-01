@@ -6,7 +6,7 @@ import { Button } from '@instructure/ui-buttons'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
-class EquipmentDetailsPage extends React.Component {
+export class EquipmentDetailsPage extends React.Component {
   state = {
     alert: null,
     data: {},

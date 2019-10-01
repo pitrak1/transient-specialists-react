@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
-import { Link } from 'react-router-dom'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
 import { TextInput } from '@instructure/ui-text-input'
@@ -10,7 +9,7 @@ import { Button } from '@instructure/ui-buttons'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
-class EquipmentPage extends React.Component {
+export class EquipmentPage extends React.Component {
   state = {
     alert: null,
     ascending: true,
@@ -164,4 +163,4 @@ class EquipmentPage extends React.Component {
   }
 }
 
-export default EquipmentPage
+export default withRouter(EquipmentPage)

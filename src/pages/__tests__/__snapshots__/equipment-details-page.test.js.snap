@@ -1,0 +1,425 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EquipmentDetailsPage displays alert if submit fails 1`] = `
+<div>
+  <Alert
+    liveRegionPoliteness="assertive"
+    margin="x-small 0"
+    open={true}
+    screenReaderOnly={false}
+    timeout={0}
+    transition="fade"
+    variant="error"
+  >
+    some error
+  </Alert>
+  <Heading
+    border="none"
+    color="inherit"
+    ellipsis={false}
+    level="h1"
+    margin="medium"
+  >
+    some serail number
+  </Heading>
+  <div
+    key="ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      1
+    </Text>
+  </div>
+  <div
+    key="Serial Number: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Serial Number: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      some serail number
+    </Text>
+  </div>
+  <div
+    key="OEM ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      OEM ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      2
+    </Text>
+  </div>
+  <div
+    key="OEM Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      OEM Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      OEM 2
+    </Text>
+  </div>
+  <div
+    key="Model ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Model ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      3
+    </Text>
+  </div>
+  <div
+    key="Model Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Model Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      Model 3
+    </Text>
+  </div>
+  <div
+    key="Type ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Type ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      4
+    </Text>
+  </div>
+  <div
+    key="Type Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Type Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      Type 4
+    </Text>
+  </div>
+  <Button
+    as="button"
+    buttonRef={[Function]}
+    cursor="pointer"
+    fluidWidth={false}
+    margin="0"
+    onClick={[Function]}
+    size="medium"
+    type="button"
+    variant="default"
+  >
+    Delete
+  </Button>
+</div>
+`;
+
+exports[`EquipmentDetailsPage renders an error if load fails 1`] = `
+<Alert
+  liveRegionPoliteness="assertive"
+  margin="x-small 0"
+  open={true}
+  screenReaderOnly={false}
+  timeout={0}
+  transition="fade"
+  variant="error"
+>
+  some error
+</Alert>
+`;
+
+exports[`EquipmentDetailsPage renders page if load succeeds 1`] = `
+<div>
+  <Heading
+    border="none"
+    color="inherit"
+    ellipsis={false}
+    level="h1"
+    margin="medium"
+  >
+    some serail number
+  </Heading>
+  <div
+    key="ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      1
+    </Text>
+  </div>
+  <div
+    key="Serial Number: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Serial Number: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      some serail number
+    </Text>
+  </div>
+  <div
+    key="OEM ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      OEM ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      2
+    </Text>
+  </div>
+  <div
+    key="OEM Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      OEM Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      OEM 2
+    </Text>
+  </div>
+  <div
+    key="Model ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Model ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      3
+    </Text>
+  </div>
+  <div
+    key="Model Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Model Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      Model 3
+    </Text>
+  </div>
+  <div
+    key="Type ID: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Type ID: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      4
+    </Text>
+  </div>
+  <div
+    key="Type Name: "
+  >
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      weight="bold"
+      wrap="normal"
+    >
+      Type Name: 
+    </Text>
+    <Text
+      as="span"
+      letterSpacing="normal"
+      size="medium"
+      wrap="normal"
+    >
+      Type 4
+    </Text>
+  </div>
+  <Button
+    as="button"
+    buttonRef={[Function]}
+    cursor="pointer"
+    fluidWidth={false}
+    margin="0"
+    onClick={[Function]}
+    size="medium"
+    type="button"
+    variant="default"
+  >
+    Delete
+  </Button>
+</div>
+`;
+
+exports[`EquipmentDetailsPage renders spinner if not yet loaded 1`] = `
+<Spinner
+  as="div"
+  renderTitle="Loading"
+  size="large"
+  variant="default"
+/>
+`;
