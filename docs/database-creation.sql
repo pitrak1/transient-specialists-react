@@ -41,9 +41,10 @@ CREATE TABLE Events
 (
   id SERIAL PRIMARY KEY,
   status varchar(255),
-  time timestamptz,
+  job_number varchar(255),
   company_notes varchar(255),
   start_date timestamptz,
   end_date timestamptz,
+  updated_at timestamptz,
   equipment_id int REFERENCES Equipments(id)
 );

@@ -3,6 +3,7 @@ import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading, Text } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
+import { Table } from '@instructure/ui-table'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
@@ -40,7 +41,12 @@ export class EquipmentDetailsPage extends React.Component {
       const failure = error => {
         this.setState({ loading: false, alert: error })
       }
-      api.deleteDestroy('equipment', this.state.data.id, success, failure)
+      api.deleteDestroy(
+        'equipment',
+        this.state.data.equipment.id,
+        success,
+        failure,
+      )
     }
   }
 
@@ -53,7 +59,7 @@ export class EquipmentDetailsPage extends React.Component {
       return <Alert variant='error'>{this.state.error}</Alert>
     }
 
-    const equipment = this.state.data
+    const equipment = this.state.data.equipment
     const fields = [
       { label: 'ID: ', value: equipment.id },
       { label: 'Serial Number: ', value: equipment.serialNumber },
@@ -70,6 +76,14 @@ export class EquipmentDetailsPage extends React.Component {
       </div>
     ))
 
+    const events = this.state.data.events
+    const rows = events.map(event => (
+      <Table.Row key={event.id}>
+        <Table.Cell>{event.id}</Table.Cell>
+        <Table.Cell>{event.status}</Table.Cell>
+      </Table.Row>
+    ))
+
     return (
       <div>
         {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
@@ -77,6 +91,15 @@ export class EquipmentDetailsPage extends React.Component {
           {equipment.serialNumber}
         </Heading>
         {fields}
+        <Table caption='events'>
+          <Table.Head>
+            <Table.Row>
+              <Table.ColHeader id='id'>ID</Table.ColHeader>
+              <Table.ColHeader id='status'>Status</Table.ColHeader>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>{rows}</Table.Body>
+        </Table>
         <Button onClick={this.handleDeleteClick}>Delete</Button>
       </div>
     )
