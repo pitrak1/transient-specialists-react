@@ -151,8 +151,6 @@ describe('API', () => {
     })
   })
 
-  // update or delete on table "models" violates foreign key constraint "equipments_model_id_fkey" on table "equipments"
-
   describe('deleteDestroy', () => {
     it('calls success with data on success', () => {
       mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {

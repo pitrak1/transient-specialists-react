@@ -1,4 +1,5 @@
 import axios from 'axios'
+import utils from './utils'
 
 const attachInterceptors = () => {
   axios.interceptors.response.use(
@@ -49,40 +50,12 @@ const translateError = error => {
   return error
 }
 
-const snakeToPascal = value => value.replace(/(\_\w)/g, m => m[1].toUpperCase())
-
-const convertObject = object => {
-  if (typeof object === 'object') {
-    if (Array.isArray(object)) {
-      return object.map(elem => convertObject(elem))
-    } else {
-      const result = {}
-      for (let [key, value] of Object.entries(object)) {
-        if (object.hasOwnProperty(key)) {
-          let convertedValue = value
-          if (typeof value === 'object') {
-            if (Array.isArray(value)) {
-              convertedValue = value.map(elem => convertObject(elem))
-            } else {
-              convertedValue = convertObject(value)
-            }
-          }
-          result[snakeToPascal(key)] = convertedValue
-        }
-      }
-      return result
-    }
-  }
-
-  return {}
-}
-
 const getIndex = (resource, success, failure) => {
   attachInterceptors()
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}`)
     .then(result => {
-      success(convertObject(result.data.body))
+      success(utils.convertObject(result.data.body))
     })
     .catch(error => {
       failure(error.response.data)
@@ -94,7 +67,7 @@ const getShow = (resource, id, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
     .then(result => {
-      success(convertObject(result.data.body))
+      success(utils.cconvertObject(result.data.body))
     })
     .catch(error => {
       failure(error.response.data)
@@ -106,7 +79,7 @@ const getNew = (resource, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
     .then(result => {
-      success(convertObject(result.data.body))
+      success(utils.cconvertObject(result.data.body))
     })
     .catch(error => {
       failure(error.response.data)
