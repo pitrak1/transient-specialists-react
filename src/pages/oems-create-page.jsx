@@ -1,8 +1,5 @@
 import React from 'react'
-import { Spinner } from '@instructure/ui-elements'
-import { Alert } from '@instructure/ui-alerts'
-import { Heading } from '@instructure/ui-elements'
-import { Button } from '@instructure/ui-buttons'
+import { Button, CircularProgress, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
@@ -38,15 +35,13 @@ export class OemsCreatePage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <Spinner renderTitle='Loading' size='large' />
+      return <CircularProgress />
     }
 
     return (
       <div>
-        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
-        <Heading level='h1' margin='medium'>
-          Add OEM
-        </Heading>
+        {this.state.alert && <div>{this.state.alert}</div>}
+        <Typography variant='h5'>Add OEM</Typography>
         <FormTextField
           identifier='name'
           label='Name'

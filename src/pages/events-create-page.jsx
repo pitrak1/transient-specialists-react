@@ -1,8 +1,5 @@
 import React from 'react'
-import { Spinner } from '@instructure/ui-elements'
-import { Alert } from '@instructure/ui-alerts'
-import { Heading } from '@instructure/ui-elements'
-import { Button } from '@instructure/ui-buttons'
+import { Button, CircularProgress, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
@@ -20,7 +17,7 @@ export class EventsCreatePage extends React.Component {
     loading: false,
     startDate: '',
     startDateValid: true,
-    status: null,
+    status: 0,
     statusValid: false,
     updatedAt: '',
     updatedAtValid: true,
@@ -67,15 +64,13 @@ export class EventsCreatePage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <Spinner renderTitle='Loading' size='large' />
+      return <CircularProgress />
     }
 
     return (
       <div>
-        {this.state.alert && <Alert variant='error'>{this.state.alert}</Alert>}
-        <Heading level='h1' margin='medium'>
-          Add Event
-        </Heading>
+        {this.state.alert && <div>{this.state.alert}</div>}
+        <Typography variant='h5'>Add Event</Typography>
         <FormSelect
           defaultOptionLabel='Select a Status'
           disabled={false}
