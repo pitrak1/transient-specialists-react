@@ -3,9 +3,9 @@ import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
-import { TextInput } from '@instructure/ui-text-input'
 import { Table } from '@instructure/ui-table'
 import { Button } from '@instructure/ui-buttons'
+import TextField from '@material-ui/core/TextField'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -32,8 +32,8 @@ export class EquipmentPage extends React.Component {
     )
   }
 
-  handleSearchChange = (_e, value) => {
-    this.setState({ searchValue: value })
+  handleSearchChange = event => {
+    this.setState({ searchValue: event.target.value })
   }
 
   handleSort = (_e, { id }) => {
@@ -112,10 +112,12 @@ export class EquipmentPage extends React.Component {
             </Heading>
           </Flex.Item>
           <Flex.Item margin='small'>
-            <TextInput
-              onChange={this.handleSearchChange}
-              renderLabel='Search'
+            <TextField
+              id='search'
+              label='Search'
               value={this.state.searchValue}
+              onChange={this.handleSearchChange}
+              variant='outlined'
             />
           </Flex.Item>
           <Flex.Item>

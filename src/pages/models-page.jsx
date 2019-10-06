@@ -3,7 +3,7 @@ import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-layout'
-import { TextInput } from '@instructure/ui-text-input'
+import TextField from '@material-ui/core/TextField'
 import { Table } from '@instructure/ui-table'
 import { Button } from '@instructure/ui-buttons'
 import { withRouter } from 'react-router'
@@ -137,10 +137,12 @@ export class ModelsPage extends React.Component {
             </Heading>
           </Flex.Item>
           <Flex.Item margin='small'>
-            <TextInput
-              onChange={this.handleSearchChange}
-              renderLabel='Search'
+            <TextField
+              id='search'
+              label='Search'
               value={this.state.searchValue}
+              onChange={this.handleSearchChange}
+              variant='outlined'
             />
           </Flex.Item>
           <Flex.Item>

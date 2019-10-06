@@ -3,7 +3,7 @@ import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
-import FormTextInput from '../components/form-text-input.jsx'
+import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
@@ -68,7 +68,7 @@ export class ModelsCreatePage extends React.Component {
         <Heading level='h1' margin='medium'>
           Add Model
         </Heading>
-        <FormTextInput
+        <FormTextField
           identifier='name'
           label='Name'
           onChange={this.handleChange}

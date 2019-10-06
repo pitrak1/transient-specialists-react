@@ -3,7 +3,7 @@ import { Spinner } from '@instructure/ui-elements'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
-import FormTextInput from '../components/form-text-input.jsx'
+import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
@@ -90,35 +90,35 @@ export class EventsCreatePage extends React.Component {
           required={true}
           value={this.state.status}
         />
-        <FormTextInput
+        <FormTextField
           identifier='jobNumber'
           label='Job Number'
           onChange={this.handleChange}
           required={false}
           value={this.state.jobNumber}
         />
-        <FormTextInput
+        <FormTextField
           identifier='companyNotes'
           label='Company Notes'
           onChange={this.handleChange}
           required={false}
           value={this.state.companyNotes}
         />
-        <FormTextInput
+        <FormTextField
           identifier='startDate'
           label='Start Date'
           onChange={this.handleChange}
           required={false}
           value={this.state.startDate}
         />
-        <FormTextInput
+        <FormTextField
           identifier='endDate'
           label='End Date'
           onChange={this.handleChange}
           required={false}
           value={this.state.endDate}
         />
-        <FormTextInput
+        <FormTextField
           identifier='updatedAt'
           label='Updated At'
           onChange={this.handleChange}
