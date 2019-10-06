@@ -56,38 +56,38 @@ INSERT INTO Equipments (serial_number, type_id, model_id)
 VALUES ('Equipment a 6', 3, 1);
 
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 1', 1);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 1', 1, '2017-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 2', 2);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 2', 2, '2017-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 3', 3);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 3', 3, '2017-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 4', 4);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 4', 4, '2017-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 5', 4);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 5', 4, '2018-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 6', 5);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 6', 5, '2019-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 7', 5);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 7', 5, '2017-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 8', 5);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 8', 5, '2018-12-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 9', 6);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 9', 6, '2018-06-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 10', 6);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 10', 6, '2017-04-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 11', 6);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 11', 6, '2019-09-17 07:37:16-05');
 
-INSERT INTO Events (status, equipment_id)
-VALUES ('Event 12', 6);
+INSERT INTO Events (status, equipment_id, updated_at)
+VALUES ('Event 12', 6, '2018-12-17 07:37:16-05');

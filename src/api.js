@@ -58,7 +58,7 @@ const getIndex = (resource, success, failure) => {
       success(utils.convertObject(result.data.body))
     })
     .catch(error => {
-      failure(error.response.data)
+      failure(error.data.body)
     })
 }
 
@@ -70,7 +70,7 @@ const getShow = (resource, id, success, failure) => {
       success(utils.convertObject(result.data.body))
     })
     .catch(error => {
-      failure(error.response.data)
+      failure(error.data.body)
     })
 }
 
@@ -82,7 +82,7 @@ const getNew = (resource, success, failure) => {
       success(utils.convertObject(result.data.body))
     })
     .catch(error => {
-      failure(error.response.data)
+      failure(error.data.body)
     })
 }
 

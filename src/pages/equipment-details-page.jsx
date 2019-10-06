@@ -79,8 +79,12 @@ export class EquipmentDetailsPage extends React.Component {
     const events = this.state.data.events
     const rows = events.map(event => (
       <Table.Row key={event.id}>
-        <Table.Cell>{event.id}</Table.Cell>
         <Table.Cell>{event.status}</Table.Cell>
+        <Table.Cell>{event.jobNumber}</Table.Cell>
+        <Table.Cell>{event.companyNotes}</Table.Cell>
+        <Table.Cell>{event.startDate}</Table.Cell>
+        <Table.Cell>{event.endDate}</Table.Cell>
+        <Table.Cell>{event.updatedAt}</Table.Cell>
       </Table.Row>
     ))
 
@@ -96,11 +100,15 @@ export class EquipmentDetailsPage extends React.Component {
             <Table.Row>
               <Table.ColHeader id='id'>ID</Table.ColHeader>
               <Table.ColHeader id='status'>Status</Table.ColHeader>
+              <Table.ColHeader id='jobNumber'>Job Number</Table.ColHeader>
+              <Table.ColHeader id='startDate'>Start Date</Table.ColHeader>
+              <Table.ColHeader id='endDate'>End Date</Table.ColHeader>
+              <Table.ColHeader id='updatedAt'>Updated At</Table.ColHeader>
             </Table.Row>
           </Table.Head>
           <Table.Body>{rows}</Table.Body>
         </Table>
-        <Button onClick={this.handleDeleteClick}>Delete</Button>
+        <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
       </div>
     )
   }
