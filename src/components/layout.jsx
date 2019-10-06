@@ -1,49 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Heading } from '@instructure/ui-elements'
-import { Link } from 'react-router-dom'
-import { View, Flex } from '@instructure/ui-layout'
-import styles from './layout.module.css'
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core'
+import { withRouter } from 'react-router'
 
 import { theme } from '@instructure/canvas-theme'
 theme.use()
 
-const Layout = ({ children }) => {
+const Layout = ({ children, history }) => {
   return (
     <div>
-      <View
-        as='div'
-        background='info'
-        display='inline-block'
-        padding='medium'
-        width='100%'
-      >
-        <Flex>
-          <Flex.Item grow margin='small' shrink>
-            <Heading level='h2'>Transient Specialists</Heading>
-          </Flex.Item>
-          <Flex.Item margin='small'>
-            <Link to='/' className={styles.navlink}>
-              Equipment
-            </Link>
-          </Flex.Item>
-          <Flex.Item margin='small'>
-            <Link to='/oems' className={styles.navlink}>
-              OEMs
-            </Link>
-          </Flex.Item>
-          <Flex.Item margin='small'>
-            <Link to='/models' className={styles.navlink}>
-              Models
-            </Link>
-          </Flex.Item>
-          <Flex.Item margin='small'>
-            <Link to='/types' className={styles.navlink}>
-              Types
-            </Link>
-          </Flex.Item>
-        </Flex>
-      </View>
+      <AppBar position='static'>
+        <Toolbar>
+          <Typography variant='h6'>Transient Specialists</Typography>
+          <div style={{ flexGrow: 1 }}></div>
+          <Button
+            color='inherit'
+            onClick={() => {
+              history.push(`/`)
+            }}
+          >
+            Equipment
+          </Button>
+          <Button
+            color='inherit'
+            onClick={() => {
+              history.push(`/oems`)
+            }}
+          >
+            OEMs
+          </Button>
+          <Button
+            color='inherit'
+            onClick={() => {
+              history.push(`/models`)
+            }}
+          >
+            Models
+          </Button>
+          <Button
+            color='inherit'
+            onClick={() => {
+              history.push(`/types`)
+            }}
+          >
+            Types
+          </Button>
+        </Toolbar>
+      </AppBar>
       <main>{children}</main>
     </div>
   )
@@ -53,4 +56,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+export default withRouter(Layout)
