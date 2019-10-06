@@ -5,6 +5,7 @@ import Layout from './components/layout.jsx'
 import EquipmentPage from './pages/equipment-page.jsx'
 import EquipmentDetailsPage from './pages/equipment-details-page.jsx'
 import EquipmentCreatePage from './pages/equipment-create-page.jsx'
+import EventsCreatePage from './pages/events-create-page.jsx'
 import ModelsPage from './pages/models-page.jsx'
 import ModelsCreatePage from './pages/models-create-page.jsx'
 import OemsPage from './pages/oems-page.jsx'
@@ -29,6 +30,7 @@ export default function AppRouter() {
             exact
             component={EquipmentPage}
           />
+          <Route path='/events/create/:id' exact component={EventsCreatePage} />
           <Route path='/oems' exact component={OemsPage} />
           <Route path='/oems/create' exact component={OemsCreatePage} />
           <Route path='/models' exact component={ModelsPage} />

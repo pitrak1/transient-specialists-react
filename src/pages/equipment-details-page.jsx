@@ -50,6 +50,11 @@ export class EquipmentDetailsPage extends React.Component {
     }
   }
 
+  handleAddEventClick = () => {
+    const id = this.state.data.equipment.id
+    this.props.history.push(`/events/create/${id}`)
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner renderTitle='Loading' size='large' />
@@ -98,9 +103,9 @@ export class EquipmentDetailsPage extends React.Component {
         <Table caption='events'>
           <Table.Head>
             <Table.Row>
-              <Table.ColHeader id='id'>ID</Table.ColHeader>
               <Table.ColHeader id='status'>Status</Table.ColHeader>
               <Table.ColHeader id='jobNumber'>Job Number</Table.ColHeader>
+              <Table.ColHeader id='companyNotes'>Company Notes</Table.ColHeader>
               <Table.ColHeader id='startDate'>Start Date</Table.ColHeader>
               <Table.ColHeader id='endDate'>End Date</Table.ColHeader>
               <Table.ColHeader id='updatedAt'>Updated At</Table.ColHeader>
@@ -109,6 +114,7 @@ export class EquipmentDetailsPage extends React.Component {
           <Table.Body>{rows}</Table.Body>
         </Table>
         <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
+        <Button onClick={this.handleAddEventClick}>Add Event</Button>
       </div>
     )
   }
