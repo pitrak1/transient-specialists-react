@@ -31,7 +31,6 @@ class FormTextField extends React.Component {
         label={this.props.label}
         onChange={this.handleChange}
         value={this.props.value}
-        variant='outlined'
       />
     )
   }

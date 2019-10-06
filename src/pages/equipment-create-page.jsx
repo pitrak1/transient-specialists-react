@@ -14,13 +14,13 @@ export class EquipmentCreatePage extends React.Component {
     data: {},
     error: null,
     loading: true,
-    modelId: null,
+    modelId: 0,
     modelIdValid: false,
-    oemId: null,
+    oemId: 0,
     oemIdValid: false,
     serialNumber: '',
     serialNumberValid: false,
-    typeId: null,
+    typeId: 0,
     typeIdValid: false,
   }
 
@@ -42,7 +42,7 @@ export class EquipmentCreatePage extends React.Component {
     state[`${identifier}Valid`] = valid
 
     if (identifier === 'oemId') {
-      state.modelId = null
+      state.modelId = 0
       state.modelIdValid = false
     }
 

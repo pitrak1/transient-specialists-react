@@ -1,50 +1,49 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Select } from '@instructure/ui-forms'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 class FormSelect extends React.Component {
   state = {
-    messages: [],
+    error: null,
   }
 
   options = () => {
     const startingOption = (
-      <option key='0' value='0'>
+      <MenuItem key='0' value={0}>
         {this.props.defaultOptionLabel}
-      </option>
+      </MenuItem>
     )
     const options = this.props.options.map(option => (
-      <option key={option.id.toString()} value={option.id.toString()}>
+      <MenuItem key={option.id.toString()} value={option.id}>
         {option.name}
-      </option>
+      </MenuItem>
     ))
     return [startingOption, ...options]
   }
 
-  handleChange = (_e, option) => {
-    const value = parseInt(option.value) || null
+  handleChange = event => {
+    const value = event.target.value
     const valid = !this.props.required || !!value
-    const messages = !valid
-      ? [{ type: 'error', text: `${this.props.label} is required` }]
-      : []
+    const error = !valid ? `${this.props.label} is required` : null
 
     this.props.onChange(this.props.identifier, value, valid)
-    this.setState({ messages })
+    this.setState({ error })
   }
 
   render() {
     return (
       <div>
-        <Select
-          disabled={this.props.disabled}
-          label={this.props.label}
-          messages={this.state.messages}
-          onChange={this.handleChange}
-          selectedOption={this.props.value ? this.props.value.toString() : '0'}
-        >
-          {this.options()}
-        </Select>
-        <p>{this.state.message}</p>
+        <FormControl disabled={this.props.disabled} error={!!this.state.error}>
+          <InputLabel>{this.props.label}</InputLabel>
+          <Select onChange={this.handleChange} value={this.props.value}>
+            {this.options()}
+          </Select>
+          <FormHelperText>{this.state.error}</FormHelperText>
+        </FormControl>
       </div>
     )
   }
