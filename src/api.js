@@ -67,7 +67,7 @@ const getShow = (resource, id, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
     .then(result => {
-      success(utils.cconvertObject(result.data.body))
+      success(utils.convertObject(result.data.body))
     })
     .catch(error => {
       failure(error.response.data)
@@ -79,7 +79,7 @@ const getNew = (resource, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
     .then(result => {
-      success(utils.cconvertObject(result.data.body))
+      success(utils.convertObject(result.data.body))
     })
     .catch(error => {
       failure(error.response.data)
