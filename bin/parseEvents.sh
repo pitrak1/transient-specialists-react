@@ -1,5 +1,10 @@
 #! /bin/bash
 
+# NOTE: before continuing, run three replacements on the CSV:
+# "" => "null"
+# "," => `
+# % => ~
+
 if [ -z "$1" ]
 then
     echo "no input filename provided"
@@ -25,7 +30,7 @@ do
       echo "," >> $OUTPUT
     fi
 
-    IFS=',' read -ra COLUMNS <<< "$LINE"
+    IFS='`' read -ra COLUMNS <<< "$LINE"
 
     printf "(" >> $OUTPUT
 
@@ -33,42 +38,42 @@ do
     printf "$ID" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
-    STATUS=${COLUMNS[1]//\"/\'}
-    printf "$STATUS" >> $OUTPUT
+    STATUS=${COLUMNS[1]}
+    printf "'$STATUS'" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
-    UPDATEDAT=${COLUMNS[2]//\"/\'}
-    printf "$UPDATEDAT" >> $OUTPUT
+    UPDATEDAT=${COLUMNS[2]}
+    printf "'$UPDATEDAT'" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
-    EQUIPMENTID=${COLUMNS[3]//\"/}
+    EQUIPMENTID=${COLUMNS[3]}
     printf "$EQUIPMENTID" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
     COMPANYNOTES=${COLUMNS[4]}
-    if [ "$COMPANYNOTES" == "\"null\"" ]
+    if [ "$COMPANYNOTES" == "null" ]
     then
-      printf "${COMPANYNOTES//\"/}" >> $OUTPUT
+      printf "${COMPANYNOTES}" >> $OUTPUT
     else
-      printf "${COMPANYNOTES//\"/\'}" >> $OUTPUT
+      printf "'${COMPANYNOTES}'" >> $OUTPUT
     fi
     printf ', ' >> $OUTPUT
 
     STARTDATE=${COLUMNS[5]}
-    if [ "$STARTDATE" == "\"null\"" ]
+    if [ "$STARTDATE" == "null" ]
     then
-      printf "${STARTDATE//\"/}" >> $OUTPUT
+      printf "'${STARTDATE}'" >> $OUTPUT
     else
-      printf "${STARTDATE//\"/\'}" >> $OUTPUT
+      printf "'${STARTDATE}'" >> $OUTPUT
     fi
     printf ', ' >> $OUTPUT
 
-    ENDDATE=${COLUMNS[6]}
-    if [ "$ENDDATE" == "\"null\"" ]
+    ENDDATE=${COLUMNS[6]//\"/}
+    if [ "$ENDDATE" == "null" ]
     then
-      printf "${ENDDATE//\"/}" >> $OUTPUT
+      printf "${ENDDATE}" >> $OUTPUT
     else
-      printf "${ENDDATE//\"/\'}" >> $OUTPUT
+      printf "'${ENDDATE}'" >> $OUTPUT
     fi
 
     printf ")" >> $OUTPUT

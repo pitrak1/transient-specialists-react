@@ -1,6 +1,9 @@
 #! /bin/bash
 
-echo "NOTE: filenames cannot have any spaces"
+# NOTE: before continuing, run three replacements on the CSV:
+# "" => "null"
+# "," => `
+# % => ~
 
 if [ -z "$1" ]
 then
@@ -27,7 +30,7 @@ do
       echo "," >> $OUTPUT
     fi
 
-    IFS=',' read -ra COLUMNS <<< "$LINE"
+    IFS='`' read -ra COLUMNS <<< "$LINE"
 
     printf "(" >> $OUTPUT
 
@@ -35,38 +38,38 @@ do
     printf "$ID" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
-    SERIALNUMBER=${COLUMNS[1]//\"/\'}
-    printf "$SERIALNUMBER" >> $OUTPUT
+    SERIALNUMBER=${COLUMNS[1]}
+    printf "'$SERIALNUMBER'" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
     NOTES=${COLUMNS[2]}
-    if [ "$NOTES" == "\"null\"" ]
+    if [ "$NOTES" == "null" ]
     then
-      printf "${NOTES//\"/}" >> $OUTPUT
+      printf "null" >> $OUTPUT
     else
-      printf "${NOTES//\"/\'}" >> $OUTPUT
+      printf "'${NOTES}'" >> $OUTPUT
     fi
     printf ', ' >> $OUTPUT
 
     CALCOMPANY=${COLUMNS[4]}
-    if [ "$CALCOMPANY" == "\"null\"" ]
+    if [ "$CALCOMPANY" == "null" ]
     then
-      printf "${CALCOMPANY//\"/}" >> $OUTPUT
+      printf "${CALCOMPANY}" >> $OUTPUT
     else
-      printf "${CALCOMPANY//\"/\'}" >> $OUTPUT
+      printf "'${CALCOMPANY}'" >> $OUTPUT
     fi
     printf ', ' >> $OUTPUT
 
     CALDUE=${COLUMNS[5]}
-    if [ "$CALDUE" == "\"null\"" ]
+    if [ "$CALDUE" == "null" ]
     then
-      printf "${CALDUE//\"/}" >> $OUTPUT
+      printf "${CALDUE}" >> $OUTPUT
     else
-      printf "${CALDUE//\"/\'}" >> $OUTPUT
+      printf "'${CALDUE}'" >> $OUTPUT
     fi
     printf ', ' >> $OUTPUT
 
-    TYPEID=${COLUMNS[6]//\"/}
+    TYPEID=${COLUMNS[6]}
     printf "$TYPEID" >> $OUTPUT
     printf ', ' >> $OUTPUT
 

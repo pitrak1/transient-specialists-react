@@ -1,5 +1,10 @@
 #! /bin/bash
 
+# NOTE: before continuing, run three replacements on the CSV:
+# "" => "null"
+# "," => `
+# % => ~
+
 if [ -z "$1" ]
 then
     echo "no input filename provided"
@@ -25,8 +30,7 @@ do
       echo "," >> $OUTPUT
     fi
 
-
-    IFS=',' read -ra COLUMNS <<< "$LINE"
+    IFS='`' read -ra COLUMNS <<< "$LINE"
 
     printf "(" >> $OUTPUT
 
@@ -34,12 +38,12 @@ do
     printf "$ID" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
-    NAME=${COLUMNS[1]//\"/\'}
-    printf "$NAME" >> $OUTPUT
+    NAME=${COLUMNS[1]}
+    printf "'$NAME'" >> $OUTPUT
     printf ', ' >> $OUTPUT
 
     OEMID=${COLUMNS[2]//\"/}
-    printf "$OEMID" >> $OUTPUT
+    printf "'$OEMID'" >> $OUTPUT
 
     printf ")" >> $OUTPUT
 
