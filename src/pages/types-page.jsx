@@ -2,15 +2,10 @@ import React from 'react'
 import {
   Button,
   CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
   TextField,
   Typography,
 } from '@material-ui/core'
+import ToolbarTable from '../components/toolbar-table.jsx'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -22,7 +17,7 @@ export class TypesPage extends React.Component {
     error: null,
     loading: true,
     page: 0,
-    perPage: 1,
+    perPage: 10,
     searchValue: '',
     sortBy: 'name',
   }
@@ -52,6 +47,28 @@ export class TypesPage extends React.Component {
     )
   }
 
+  handleShowClick = id => {
+    this.props.history.push(`/equipment/search/${id}`)
+  }
+
+  handleDeleteClick = id => {
+    if (confirm('Are you sure you want to delete this type?')) {
+      this.setState({ loading: true })
+      api.deleteDestroy(
+        'types',
+        id,
+        _response => this.getData,
+        error => {
+          this.setState({ loading: false, alert: error })
+        },
+      )
+    }
+  }
+
+  handleAddClick = _event => {
+    this.props.history.push(`/types/create`)
+  }
+
   handleSearchChange = (_e, value) => {
     this.setState({ searchValue: value })
   }
@@ -60,45 +77,16 @@ export class TypesPage extends React.Component {
     this.getData()
   }
 
-  handleDeleteClick = event => {
-    if (confirm('Are you sure you want to delete this type?')) {
-      this.setState({ loading: true })
-      api.deleteDestroy(
-        'types',
-        event.target.getAttribute('data-id'),
-        _response => {
-          api.getIndex(
-            'types',
-            result => {
-              this.setState({ loading: false, data: result })
-            },
-            error => {
-              this.setState({ loading: false, error })
-            },
-          )
-        },
-        error => {
-          this.setState({ loading: false, alert: error })
-        },
-      )
-    }
-  }
-
-  handleShowClick = event => {
-    const name = event.target.getAttribute('data-name')
-    this.props.history.push(`/equipment/search/${name}`)
-  }
-
-  handleAddClick = event => {
-    this.props.history.push(`/types/create`)
-  }
-
   handlePageChange = (_event, newPage) => {
     this.setState({ page: newPage }, this.getData)
   }
 
   handlePerPageChange = event => {
     this.setState({ perPage: event.target.value }, this.getData)
+  }
+
+  handleSort = (sortBy, ascending) => {
+    this.setState({ sortBy, ascending }, this.getData)
   }
 
   render() {
@@ -110,23 +98,30 @@ export class TypesPage extends React.Component {
       return <div>{this.state.error}</div>
     }
 
-    const rows = this.state.data.types.map(datum => {
-      return (
-        <TableRow key={datum.id}>
-          <TableCell>{datum.name}</TableCell>
-          <TableCell>
-            <Button data-name={datum.name} onClick={this.handleShowClick}>
-              Show Equipment
-            </Button>
-          </TableCell>
-          <TableCell>
-            <Button data-id={datum.id} onClick={this.handleDeleteClick}>
-              Delete
-            </Button>
-          </TableCell>
-        </TableRow>
-      )
-    })
+    const headers = [
+      { type: 'value', id: 'name', label: 'Name' },
+      { type: 'button', id: 'showEquipment' },
+      { type: 'button', id: 'delete' },
+    ]
+
+    const data = this.state.data.types.map(type => ({
+      id: type.id,
+      cells: [
+        { id: 'name', type: 'value', value: type.name },
+        {
+          id: 'showEquipment',
+          type: 'button',
+          value: 'Show Equipment',
+          callback: this.handleShowClick,
+        },
+        {
+          id: 'delete',
+          type: 'button',
+          value: 'Delete',
+          callback: this.handleDeleteClick,
+        },
+      ],
+    }))
 
     return (
       <div>
@@ -141,24 +136,18 @@ export class TypesPage extends React.Component {
         />
         <Button onClick={this.handleSearchClick}>Search</Button>
         <Button onClick={this.handleAddClick}>Add Type</Button>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[1, 5, 10, 25]}
-          component='div'
+        <ToolbarTable
+          ascending={this.state.ascending}
           count={this.state.data.count}
-          rowsPerPage={this.state.perPage}
+          data={data}
+          headers={headers}
+          onPageChange={this.handlePageChange}
+          onPerPageChange={this.handlePerPageChange}
+          onSort={this.handleSort}
           page={this.state.page}
-          onChangePage={this.handlePageChange}
-          onChangeRowsPerPage={this.handlePerPageChange}
+          perPage={this.state.perPage}
+          perPageOptions={[5, 10, 25]}
+          sortBy={this.state.sortBy}
         />
       </div>
     )

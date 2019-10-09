@@ -2,14 +2,10 @@ import React from 'react'
 import {
   Button,
   CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from '@material-ui/core'
+import ToolbarTable from '../components/toolbar-table.jsx'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -20,13 +16,28 @@ export class ModelsPage extends React.Component {
     data: {},
     error: null,
     loading: true,
+    page: 0,
+    perPage: 10,
     searchValue: this.props.match.params.search || '',
     sortBy: 'name',
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  getData = () => {
+    this.setState({ loading: true })
+    const { ascending, page, perPage, searchValue, sortBy } = this.state
     api.getIndex(
       'models',
+      {
+        ascending,
+        page,
+        perPage,
+        searchValue,
+        sortBy,
+      },
       result => {
         this.setState({ loading: false, data: result })
       },
@@ -36,22 +47,20 @@ export class ModelsPage extends React.Component {
     )
   }
 
-  handleSearchChange = (_e, value) => {
-    this.setState({ searchValue: value })
+  handleShowClick = id => {
+    this.props.history.push(`/equipment/search/${id}`)
   }
 
-  handleDeleteClick = event => {
+  handleDeleteClick = id => {
     if (confirm('Are you sure you want to delete this model?')) {
       this.setState({ loading: true })
       api.deleteDestroy(
         'models',
-        event.target.getAttribute('data-id'),
+        id,
         _response => {
           api.getIndex(
             'models',
-            result => {
-              this.setState({ loading: false, data: result })
-            },
+            result => this.getData,
             error => {
               this.setState({ loading: false, error })
             },
@@ -64,13 +73,28 @@ export class ModelsPage extends React.Component {
     }
   }
 
-  handleShowClick = event => {
-    const name = event.target.getAttribute('data-name')
-    this.props.history.push(`/equipment/search/${name}`)
+  handleAddClick = _event => {
+    this.props.history.push(`/models/create`)
   }
 
-  handleAddClick = event => {
-    this.props.history.push(`/models/create`)
+  handleSearchChange = (_e, value) => {
+    this.setState({ searchValue: value })
+  }
+
+  handleSearchClick = () => {
+    this.getData()
+  }
+
+  handlePageChange = (_event, newPage) => {
+    this.setState({ page: newPage }, this.getData)
+  }
+
+  handlePerPageChange = event => {
+    this.setState({ perPage: event.target.value }, this.getData)
+  }
+
+  handleSort = (sortBy, ascending) => {
+    this.setState({ sortBy, ascending }, this.getData)
   }
 
   render() {
@@ -82,24 +106,32 @@ export class ModelsPage extends React.Component {
       return <div>{this.state.error}</div>
     }
 
-    const rows = this.state.data.map(datum => {
-      return (
-        <TableRow key={datum.id}>
-          <TableCell>{datum.name}</TableCell>
-          <TableCell>{datum.oemName}</TableCell>
-          <TableCell>
-            <Button data-name={datum.name} onClick={this.handleShowClick}>
-              Show Equipment
-            </Button>
-          </TableCell>
-          <TableCell>
-            <Button data-id={datum.id} onClick={this.handleDeleteClick}>
-              Delete
-            </Button>
-          </TableCell>
-        </TableRow>
-      )
-    })
+    const headers = [
+      { type: 'value', id: 'name', label: 'Name' },
+      { type: 'value', id: 'oemName', label: 'OEM' },
+      { type: 'button', id: 'showEquipment' },
+      { type: 'button', id: 'delete' },
+    ]
+
+    const data = this.state.data.models.map(model => ({
+      id: model.id,
+      cells: [
+        { id: 'name', type: 'value', value: model.name },
+        { id: 'oemName', type: 'value', value: model.oemName },
+        {
+          id: 'showEquipment',
+          type: 'button',
+          value: 'Show Equipment',
+          callback: this.handleShowClick,
+        },
+        {
+          id: 'delete',
+          type: 'button',
+          value: 'Delete',
+          callback: this.handleDeleteClick,
+        },
+      ],
+    }))
 
     return (
       <div>
@@ -112,18 +144,21 @@ export class ModelsPage extends React.Component {
           onChange={this.handleSearchChange}
           variant='outlined'
         />
+        <Button onClick={this.handleSearchClick}>Search</Button>
         <Button onClick={this.handleAddClick}>Add Model</Button>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>OEM Name</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
+        <ToolbarTable
+          ascending={this.state.ascending}
+          count={this.state.data.count}
+          data={data}
+          headers={headers}
+          onPageChange={this.handlePageChange}
+          onPerPageChange={this.handlePerPageChange}
+          onSort={this.handleSort}
+          page={this.state.page}
+          perPage={this.state.perPage}
+          perPageOptions={[5, 10, 25]}
+          sortBy={this.state.sortBy}
+        />
       </div>
     )
   }

@@ -1,5 +1,11 @@
 const snakeToPascal = value => value.replace(/(\_\w)/g, m => m[1].toUpperCase())
 
+const pascalToSnake = value =>
+  value
+    .split(/(?=[A-Z])/)
+    .join('_')
+    .toLowerCase()
+
 const convertObject = object => {
   if (object != null && Array.isArray(object)) {
     return object.map(elem => convertObject(elem))
@@ -20,5 +26,6 @@ const convertObject = object => {
 
 export default {
   snakeToPascal,
+  pascalToSnake,
   convertObject,
 }

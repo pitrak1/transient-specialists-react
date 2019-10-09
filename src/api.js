@@ -55,7 +55,11 @@ const getIndex = (resource, options, success, failure) => {
   const { ascending, page, perPage, searchValue, sortBy } = options
   return axios
     .get(
-      `${process.env.LAMBDA_ENDPOINT}${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${sortBy}`,
+      `${
+        process.env.LAMBDA_ENDPOINT
+      }${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${utils.pascalToSnake(
+        sortBy,
+      )}`,
     )
     .then(result => {
       success(utils.convertObject(result.data.body))

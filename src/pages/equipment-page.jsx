@@ -2,14 +2,10 @@ import React from 'react'
 import {
   Button,
   CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from '@material-ui/core'
+import ToolbarTable from '../components/toolbar-table.jsx'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -27,6 +23,11 @@ export class EquipmentPage extends React.Component {
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  getData = () => {
+    this.setState({ loading: true })
     const { ascending, page, perPage, searchValue, sortBy } = this.state
     api.getIndex(
       'equipment',
@@ -46,17 +47,32 @@ export class EquipmentPage extends React.Component {
     )
   }
 
-  handleSearchChange = event => {
-    this.setState({ searchValue: event.target.value })
-  }
-
-  handleDetailsClick = event => {
-    const id = event.target.getAttribute('data-id')
+  handleDetailsClick = id => {
     this.props.history.push(`/equipment/${id}`)
   }
 
   handleAddClick = _event => {
     this.props.history.push(`/equipment/create`)
+  }
+
+  handleSearchChange = event => {
+    this.setState({ searchValue: event.target.value })
+  }
+
+  handleSearchClick = () => {
+    this.getData()
+  }
+
+  handlePageChange = (_event, newPage) => {
+    this.setState({ page: newPage }, this.getData)
+  }
+
+  handlePerPageChange = event => {
+    this.setState({ perPage: event.target.value }, this.getData)
+  }
+
+  handleSort = (sortBy, ascending) => {
+    this.setState({ sortBy, ascending }, this.getData)
   }
 
   render() {
@@ -68,21 +84,29 @@ export class EquipmentPage extends React.Component {
       return <div>{this.state.error}</div>
     }
 
-    const rows = this.state.data.map(datum => {
-      return (
-        <TableRow key={datum.id}>
-          <TableCell>{datum.serialNumber}</TableCell>
-          <TableCell>{datum.oemName}</TableCell>
-          <TableCell>{datum.modelName}</TableCell>
-          <TableCell>{datum.typeName}</TableCell>
-          <TableCell>
-            <Button data-id={datum.id} onClick={this.handleDetailsClick}>
-              Details
-            </Button>
-          </TableCell>
-        </TableRow>
-      )
-    })
+    const headers = [
+      { type: 'value', id: 'serialNumber', label: 'Serial Number' },
+      { type: 'value', id: 'oemName', label: 'OEM' },
+      { type: 'value', id: 'modelName', label: 'Model' },
+      { type: 'value', id: 'typeName', label: 'Type' },
+      { type: 'button', id: 'details' },
+    ]
+
+    const data = this.state.data.equipment.map(equipment => ({
+      id: equipment.id,
+      cells: [
+        { id: 'serialNumber', type: 'value', value: equipment.serialNumber },
+        { id: 'oemName', type: 'value', value: equipment.oemName },
+        { id: 'modelName', type: 'value', value: equipment.modelName },
+        { id: 'typeName', type: 'value', value: equipment.typeName },
+        {
+          id: 'details',
+          type: 'button',
+          value: 'Details',
+          callback: this.handleDetailsClick,
+        },
+      ],
+    }))
 
     return (
       <div>
@@ -95,19 +119,21 @@ export class EquipmentPage extends React.Component {
           onChange={this.handleSearchChange}
           variant='outlined'
         />
+        <Button onClick={this.handleSearchClick}>Search</Button>
         <Button onClick={this.handleAddClick}>Add Equipment</Button>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Serial Number</TableCell>
-              <TableCell>OEM Name</TableCell>
-              <TableCell>Model Name</TableCell>
-              <TableCell>Type Name</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
+        <ToolbarTable
+          ascending={this.state.ascending}
+          count={this.state.data.count}
+          data={data}
+          headers={headers}
+          onPageChange={this.handlePageChange}
+          onPerPageChange={this.handlePerPageChange}
+          onSort={this.handleSort}
+          page={this.state.page}
+          perPage={this.state.perPage}
+          perPageOptions={[5, 10, 25]}
+          sortBy={this.state.sortBy}
+        />
       </div>
     )
   }
