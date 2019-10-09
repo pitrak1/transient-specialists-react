@@ -27,8 +27,6 @@ describe('FormTextField', () => {
       />,
     )
 
-  const getTextInputProps = node => node.find(TextField).props()
-
   const longString = () => {
     const array = new Array(257)
     return array.join('a')
@@ -36,7 +34,10 @@ describe('FormTextField', () => {
 
   it('calls onChange prop with identifier and value when value is changed', () => {
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: 'some value' } })
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: 'some value' } })
     expect(onChange.firstCall.args).toEqual([
       identifier,
       'some value',
@@ -47,47 +48,70 @@ describe('FormTextField', () => {
   it('sets helper text to required message if required and value is changed to empty string', () => {
     required = true
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: '' } })
-    expect(getTextInputProps(node).helperText).toBe(`Some Label is required`)
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: '' } })
+    expect(node.find(TextField).props().helperText).toBe(
+      `Some Label is required`,
+    )
   })
 
   it('sets error to true if required and value is changed to empty string', () => {
     required = true
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: '' } })
-    expect(getTextInputProps(node).error).toBe(true)
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: '' } })
+    expect(node.find(TextField).props().error).toBe(true)
   })
 
   it('calls onChange prop with false validity flag if required and value is changed to empty string', () => {
     required = true
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: '' } })
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: '' } })
     expect(onChange.firstCall.args[2]).toBe(false)
   })
 
   it('does not helper text to required message if not required and value is changed to empty string', () => {
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: '' } })
-    expect(getTextInputProps(node).helperText).toBe(null)
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: '' } })
+    expect(node.find(TextField).props().helperText).toBe(null)
   })
 
   it('calls onChange prop with true validity flag if not required and value is changed to empty string', () => {
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: '' } })
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: '' } })
     expect(onChange.firstCall.args[2]).toBe(true)
   })
 
   it('sets helper text to max length message if value is changed to be over 255 characters', () => {
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: longString() } })
-    expect(getTextInputProps(node).helperText).toBe(
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: longString() } })
+    expect(node.find(TextField).props().helperText).toBe(
       `Some Label must be 255 characters or fewer`,
     )
   })
 
   it('calls onChange prop with false validity flag if value is changed to be over 255 characters', () => {
     const node = render()
-    getTextInputProps(node).onChange({ target: { value: longString() } })
+    node
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: longString() } })
     expect(onChange.firstCall.args[2]).toBe(false)
   })
 })
