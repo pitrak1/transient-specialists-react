@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import ToolbarTable from '../components/toolbar-table.jsx'
+import FullTable from '../components/full-table.jsx'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -121,7 +121,7 @@ export class EquipmentPage extends React.Component {
         />
         <Button onClick={this.handleSearchClick}>Search</Button>
         <Button onClick={this.handleAddClick}>Add Equipment</Button>
-        <ToolbarTable
+        <FullTable
           ascending={this.state.ascending}
           count={this.state.data.count}
           data={data}

@@ -11,7 +11,7 @@ import {
   TableSortLabel,
 } from '@material-ui/core'
 
-const ToolbarTable = props => {
+const FullTable = props => {
   const handleSort = id => {
     if (props.sortBy === id) {
       props.onSort(id, !props.ascending)
@@ -76,7 +76,7 @@ const ToolbarTable = props => {
   )
 }
 
-ToolbarTable.propTypes = {
+FullTable.propTypes = {
   ascending: PropTypes.bool.isRequired,
   count: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired,
@@ -90,4 +90,4 @@ ToolbarTable.propTypes = {
   sortBy: PropTypes.string.isRequired,
 }
 
-export default ToolbarTable
+export default FullTable
