@@ -50,10 +50,13 @@ const translateError = error => {
   return error
 }
 
-const getIndex = (resource, success, failure) => {
+const getIndex = (resource, options, success, failure) => {
   attachInterceptors()
+  const { ascending, page, perPage, searchValue, sortBy } = options
   return axios
-    .get(`${process.env.LAMBDA_ENDPOINT}${resource}`)
+    .get(
+      `${process.env.LAMBDA_ENDPOINT}${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${sortBy}`,
+    )
     .then(result => {
       success(utils.convertObject(result.data.body))
     })

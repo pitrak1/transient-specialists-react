@@ -20,13 +20,23 @@ export class EquipmentPage extends React.Component {
     data: {},
     error: null,
     loading: true,
+    page: 0,
+    perPage: 10,
     searchValue: this.props.match.params.search || '',
     sortBy: 'serialNumber',
   }
 
   componentDidMount() {
+    const { ascending, page, perPage, searchValue, sortBy } = this.state
     api.getIndex(
       'equipment',
+      {
+        ascending,
+        page,
+        perPage,
+        searchValue,
+        sortBy,
+      },
       result => {
         this.setState({ loading: false, data: result })
       },

@@ -6,6 +6,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   TextField,
   Typography,
@@ -20,13 +21,28 @@ export class TypesPage extends React.Component {
     data: {},
     error: null,
     loading: true,
+    page: 0,
+    perPage: 1,
     searchValue: '',
     sortBy: 'name',
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  getData = () => {
+    this.setState({ loading: true })
+    const { ascending, page, perPage, searchValue, sortBy } = this.state
     api.getIndex(
       'types',
+      {
+        ascending,
+        page,
+        perPage,
+        searchValue,
+        sortBy,
+      },
       result => {
         this.setState({ loading: false, data: result })
       },
@@ -38,6 +54,10 @@ export class TypesPage extends React.Component {
 
   handleSearchChange = (_e, value) => {
     this.setState({ searchValue: value })
+  }
+
+  handleSearchClick = () => {
+    this.getData()
   }
 
   handleDeleteClick = event => {
@@ -73,6 +93,14 @@ export class TypesPage extends React.Component {
     this.props.history.push(`/types/create`)
   }
 
+  handlePageChange = (_event, newPage) => {
+    this.setState({ page: newPage }, this.getData)
+  }
+
+  handlePerPageChange = event => {
+    this.setState({ perPage: event.target.value }, this.getData)
+  }
+
   render() {
     if (this.state.loading) {
       return <CircularProgress />
@@ -82,7 +110,7 @@ export class TypesPage extends React.Component {
       return <div>{this.state.error}</div>
     }
 
-    const rows = this.state.data.map(datum => {
+    const rows = this.state.data.types.map(datum => {
       return (
         <TableRow key={datum.id}>
           <TableCell>{datum.name}</TableCell>
@@ -111,6 +139,7 @@ export class TypesPage extends React.Component {
           onChange={this.handleSearchChange}
           variant='outlined'
         />
+        <Button onClick={this.handleSearchClick}>Search</Button>
         <Button onClick={this.handleAddClick}>Add Type</Button>
         <Table>
           <TableHead>
@@ -122,6 +151,15 @@ export class TypesPage extends React.Component {
           </TableHead>
           <TableBody>{rows}</TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[1, 5, 10, 25]}
+          component='div'
+          count={this.state.data.count}
+          rowsPerPage={this.state.perPage}
+          page={this.state.page}
+          onChangePage={this.handlePageChange}
+          onChangeRowsPerPage={this.handlePerPageChange}
+        />
       </div>
     )
   }
