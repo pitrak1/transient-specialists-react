@@ -21,26 +21,31 @@ describe('API', () => {
   })
 
   describe('getIndex', () => {
+    const options = {
+      ascending: true,
+      page: 0,
+      perPage: 10,
+      searchValue: '',
+      sortBy: 'name',
+    }
+
     it('calls success with converted data on success', () => {
-      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
-        body: [{ some_key: 'some value', some_other_key: 'some other value' }],
-      })
-      return api.getIndex('resource', success, failure).then(_data => {
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+        )
+        .reply(200, {
+          body: [
+            { some_key: 'some value', some_other_key: 'some other value' },
+          ],
+        })
+      return api.getIndex('resource', options, success, failure).then(_data => {
         expect(success.firstCall.args[0]).toEqual([
           {
             someKey: 'some value',
             someOtherKey: 'some other value',
           },
         ])
-      })
-    })
-
-    it('calls failure with error on failure', () => {
-      mock
-        .onGet(`${process.env.LAMBDA_ENDPOINT}resource`)
-        .reply(500, 'some error message')
-      return api.getIndex('resource', success, failure).then(_data => {
-        expect(failure.firstCall.args[0]).toBe('some error message')
       })
     })
   })
@@ -57,15 +62,6 @@ describe('API', () => {
         })
       })
     })
-
-    it('calls failure with error on failure', () => {
-      mock
-        .onGet(`${process.env.LAMBDA_ENDPOINT}resource?id=3`)
-        .reply(500, 'some error message')
-      return api.getShow('resource', 3, success, failure).then(_data => {
-        expect(failure.firstCall.args[0]).toBe('some error message')
-      })
-    })
   })
 
   describe('getNew', () => {
@@ -78,15 +74,6 @@ describe('API', () => {
           someKey: 'some value',
           someOtherKey: 'some other value',
         })
-      })
-    })
-
-    it('calls failure with error on failure', () => {
-      mock
-        .onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`)
-        .reply(500, 'some error message')
-      return api.getNew('resource', success, failure).then(_data => {
-        expect(failure.firstCall.args[0]).toBe('some error message')
       })
     })
   })
