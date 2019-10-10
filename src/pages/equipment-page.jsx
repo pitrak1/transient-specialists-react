@@ -89,6 +89,11 @@ export class EquipmentPage extends React.Component {
       { type: 'value', id: 'oemName', label: 'OEM' },
       { type: 'value', id: 'modelName', label: 'Model' },
       { type: 'value', id: 'typeName', label: 'Type' },
+      { type: 'value', id: 'notes', label: 'Notes' },
+      { type: 'value', id: 'eventStatus', label: 'Status' },
+      { type: 'value', id: 'eventCompanyNotes', label: 'Company/Notes' },
+      { type: 'value', id: 'eventStartDate', label: 'Start Date' },
+      { type: 'value', id: 'eventEndDate', label: 'End Date' },
       { type: 'button', id: 'details' },
     ]
 
@@ -99,6 +104,19 @@ export class EquipmentPage extends React.Component {
         { id: 'oemName', type: 'value', value: equipment.oemName },
         { id: 'modelName', type: 'value', value: equipment.modelName },
         { id: 'typeName', type: 'value', value: equipment.typeName },
+        { id: 'notes', type: 'value', value: equipment.notes },
+        { id: 'eventStatus', type: 'value', value: equipment.eventStatus },
+        {
+          id: 'eventCompanyNotes',
+          type: 'value',
+          value: equipment.eventCompanyNotes,
+        },
+        {
+          id: 'eventStartDate',
+          type: 'value',
+          value: equipment.eventStartDate,
+        },
+        { id: 'eventEndDate', type: 'value', value: equipment.eventEndDate },
         {
           id: 'details',
           type: 'button',
