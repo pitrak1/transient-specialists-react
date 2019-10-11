@@ -117,13 +117,13 @@ export class OemsPage extends React.Component {
         {
           id: 'showEquipment',
           type: 'button',
-          value: 'Show Equipment',
+          value: 'Equipment',
           callback: this.handleShowEquipmentClick,
         },
         {
           id: 'showModels',
           type: 'button',
-          value: 'Show Models',
+          value: 'Models',
           callback: this.handleShowModelsClick,
         },
         {
