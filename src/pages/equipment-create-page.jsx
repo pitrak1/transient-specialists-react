@@ -8,11 +8,17 @@ import { withRouter } from 'react-router'
 export class EquipmentCreatePage extends React.Component {
   state = {
     alert: null,
+    calCompany: '',
+    calCompanyValid: false,
+    calDue: '',
+    calDueValid: false,
     data: {},
     error: null,
     loading: true,
     modelId: 0,
     modelIdValid: false,
+    notes: '',
+    notesValid: false,
     oemId: 0,
     oemIdValid: false,
     serialNumber: '',
@@ -47,12 +53,24 @@ export class EquipmentCreatePage extends React.Component {
   }
 
   handleClick = () => {
+    const convertDate = date => {
+      if (!date) {
+        return null
+      }
+
+      const dateObj = new Date(date)
+      return dateObj.toISOString()
+    }
+
     this.setState({ loading: true, alert: null })
     api.postCreate(
       'equipment',
       {
+        calCompany: this.state.calCompany,
+        calDue: convertDate(this.state.calDue),
         serialNumber: this.state.serialNumber,
         modelId: this.state.modelId,
+        notes: this.state.notes,
         typeId: this.state.typeId,
       },
       () => {
@@ -128,6 +146,33 @@ export class EquipmentCreatePage extends React.Component {
             options={this.state.data.types}
             required={true}
             value={this.state.typeId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='notes'
+            label='Notes'
+            onChange={this.handleChange}
+            required={false}
+            value={this.state.notes}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='calCompany'
+            label='Calibration Company'
+            onChange={this.handleChange}
+            required={false}
+            value={this.state.calCompany}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='calDue'
+            label='Calibration Due'
+            onChange={this.handleChange}
+            required={false}
+            value={this.state.calDue}
           />
         </Grid>
         <Grid item xs={12}>
