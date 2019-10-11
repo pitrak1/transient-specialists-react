@@ -48,3 +48,29 @@ CREATE TABLE Events
   updated_at timestamptz,
   equipment_id int REFERENCES Equipments(id)
 );
+
+CREATE VIEW RecentEvents AS
+SELECT
+	y.id AS id,
+	y.status AS status,
+	y.job_number AS job_number,
+	y.company_notes AS company_notes,
+	y.start_date AS start_date,
+	y.end_date AS end_date,
+  y.equipment_id AS equipment_id
+FROM (
+	SELECT
+		x.id,
+		x.status,
+		x.job_number,
+		x.company_notes,
+		x.start_date,
+		x.end_date,
+		x.updated_at,
+		x.equipment_id,
+		ROW_NUMBER() OVER(
+		PARTITION BY x.equipment_id ORDER BY x.updated_at DESC
+		) AS rk
+	FROM Events x
+) y
+WHERE y.rk = 1
