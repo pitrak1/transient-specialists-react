@@ -7,6 +7,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Toolbar,
   Typography,
 } from '@material-ui/core'
 import api from '../api.js'
@@ -105,6 +106,11 @@ export class EquipmentDetailsPage extends React.Component {
           {equipment.serialNumber}
         </Typography>
         {fields}
+        <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
+        <Toolbar>
+          <Typography variant='h5'>Events</Typography>
+          <Button onClick={this.handleAddEventClick}>Add</Button>
+        </Toolbar>
         <Table>
           <TableHead>
             <TableRow>
@@ -118,8 +124,6 @@ export class EquipmentDetailsPage extends React.Component {
           </TableHead>
           <TableBody>{rows}</TableBody>
         </Table>
-        <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
-        <Button onClick={this.handleAddEventClick}>Add Event</Button>
       </div>
     )
   }

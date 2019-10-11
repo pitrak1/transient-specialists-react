@@ -3,6 +3,7 @@ import {
   Button,
   CircularProgress,
   TextField,
+  Toolbar,
   Typography,
 } from '@material-ui/core'
 import FullTable from '../components/full-table.jsx'
@@ -99,7 +100,7 @@ export class ModelsPage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress />
+      return <CircularProgress size={120} />
     }
 
     if (this.state.error) {
@@ -121,7 +122,7 @@ export class ModelsPage extends React.Component {
         {
           id: 'showEquipment',
           type: 'button',
-          value: 'Show Equipment',
+          value: 'Equipment',
           callback: this.handleShowClick,
         },
         {
@@ -136,16 +137,18 @@ export class ModelsPage extends React.Component {
     return (
       <div>
         {this.state.alert && <div>{this.state.alert}</div>}
-        <Typography variant='h5'>Models</Typography>
-        <TextField
-          id='search'
-          label='Search'
-          value={this.state.searchValue}
-          onChange={this.handleSearchChange}
-          variant='outlined'
-        />
-        <Button onClick={this.handleSearchClick}>Search</Button>
-        <Button onClick={this.handleAddClick}>Add Model</Button>
+        <Toolbar>
+          <Typography variant='h5'>Models</Typography>
+          <Button onClick={this.handleAddClick}>Add</Button>
+          <div style={{ flexGrow: 1 }}></div>
+          <TextField
+            id='search'
+            label='Search'
+            value={this.state.searchValue}
+            onChange={this.handleSearchChange}
+          />
+          <Button onClick={this.handleSearchClick}>Search</Button>
+        </Toolbar>
         <FullTable
           ascending={this.state.ascending}
           count={this.state.data.count}

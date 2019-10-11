@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
@@ -35,24 +35,34 @@ export class OemsCreatePage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress />
+      return <CircularProgress size={120} />
     }
 
     return (
-      <div>
-        {this.state.alert && <div>{this.state.alert}</div>}
-        <Typography variant='h5'>Add OEM</Typography>
-        <FormTextField
-          identifier='name'
-          label='Name'
-          onChange={this.handleChange}
-          required={true}
-          value={this.state.name}
-        />
-        <Button disabled={!this.state.nameValid} onClick={this.handleClick}>
-          Submit
-        </Button>
-      </div>
+      <Grid container>
+        {this.state.alert && (
+          <Grid item xs={12}>
+            {this.state.alert}
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          <Typography variant='h6'>Add OEM</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='name'
+            label='Name'
+            onChange={this.handleChange}
+            required={true}
+            value={this.state.name}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button disabled={!this.state.nameValid} onClick={this.handleClick}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
@@ -52,7 +52,7 @@ export class ModelsCreatePage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress />
+      return <CircularProgress size={120} />
     }
 
     if (this.state.error) {
@@ -60,33 +60,45 @@ export class ModelsCreatePage extends React.Component {
     }
 
     return (
-      <div>
-        {this.state.alert && <div>{this.state.alert}</div>}
-        <Typography variant='h5'>Add Model</Typography>
-        <FormTextField
-          identifier='name'
-          label='Name'
-          onChange={this.handleChange}
-          required={true}
-          value={this.state.name}
-        />
-        <FormSelect
-          defaultOptionLabel='Select an OEM'
-          disabled={false}
-          identifier={'oemId'}
-          label='OEM'
-          onChange={this.handleChange}
-          options={this.state.data.oems}
-          required={true}
-          value={this.state.oemId}
-        />
-        <Button
-          disabled={!(this.state.nameValid && this.state.oemIdValid)}
-          onClick={this.handleClick}
-        >
-          Submit
-        </Button>
-      </div>
+      <Grid container>
+        {this.state.alert && (
+          <Grid item xs={12}>
+            {this.state.alert}
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          <Typography variant='h6'>Add Model</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='name'
+            label='Name'
+            onChange={this.handleChange}
+            required={true}
+            value={this.state.name}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormSelect
+            defaultOptionLabel='Select an OEM'
+            disabled={false}
+            identifier={'oemId'}
+            label='OEM'
+            onChange={this.handleChange}
+            options={this.state.data.oems}
+            required={true}
+            value={this.state.oemId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            disabled={!(this.state.nameValid && this.state.oemIdValid)}
+            onClick={this.handleClick}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     )
   }
 }

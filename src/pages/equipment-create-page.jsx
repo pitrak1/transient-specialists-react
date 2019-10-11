@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
@@ -66,7 +66,7 @@ export class EquipmentCreatePage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress />
+      return <CircularProgress size={120} />
     }
 
     if (this.state.error) {
@@ -74,62 +74,78 @@ export class EquipmentCreatePage extends React.Component {
     }
 
     return (
-      <div>
-        {this.state.alert && <div>{this.state.alert}</div>}
-        <Typography variant='h5'>Add Equipment</Typography>
-        <FormTextField
-          identifier='serialNumber'
-          label='Serial Number'
-          onChange={this.handleChange}
-          required={true}
-          value={this.state.serialNumber}
-        />
-        <FormSelect
-          defaultOptionLabel='Select an OEM'
-          disabled={false}
-          identifier={'oemId'}
-          label='OEM'
-          onChange={this.handleChange}
-          options={this.state.data.oems}
-          required={true}
-          value={this.state.oemId}
-        />
-        <FormSelect
-          defaultOptionLabel='Select a Model'
-          disabled={!this.state.oemId}
-          identifier={'modelId'}
-          label='Model'
-          onChange={this.handleChange}
-          options={this.state.data.models.filter(
-            model => model.oemId === this.state.oemId,
-          )}
-          required={true}
-          value={this.state.modelId}
-        />
-        <FormSelect
-          defaultOptionLabel='Select a Type'
-          disabled={false}
-          identifier={'typeId'}
-          label='Type'
-          onChange={this.handleChange}
-          options={this.state.data.types}
-          required={true}
-          value={this.state.typeId}
-        />
-        <Button
-          disabled={
-            !(
-              this.state.serialNumberValid &&
-              this.state.oemIdValid &&
-              this.state.modelIdValid &&
-              this.state.typeIdValid
-            )
-          }
-          onClick={this.handleClick}
-        >
-          Submit
-        </Button>
-      </div>
+      <Grid container>
+        {this.state.alert && (
+          <Grid item xs={12}>
+            {this.state.alert}
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          <Typography variant='h6'>Add Equipment</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            identifier='serialNumber'
+            label='Serial Number'
+            onChange={this.handleChange}
+            required={true}
+            value={this.state.serialNumber}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormSelect
+            defaultOptionLabel='Select an OEM'
+            disabled={false}
+            identifier={'oemId'}
+            label='OEM'
+            onChange={this.handleChange}
+            options={this.state.data.oems}
+            required={true}
+            value={this.state.oemId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormSelect
+            defaultOptionLabel='Select a Model'
+            disabled={!this.state.oemId}
+            identifier={'modelId'}
+            label='Model'
+            onChange={this.handleChange}
+            options={this.state.data.models.filter(
+              model => model.oemId === this.state.oemId,
+            )}
+            required={true}
+            value={this.state.modelId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormSelect
+            defaultOptionLabel='Select a Type'
+            disabled={false}
+            identifier={'typeId'}
+            label='Type'
+            onChange={this.handleChange}
+            options={this.state.data.types}
+            required={true}
+            value={this.state.typeId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            disabled={
+              !(
+                this.state.serialNumberValid &&
+                this.state.oemIdValid &&
+                this.state.modelIdValid &&
+                this.state.typeIdValid
+              )
+            }
+            onClick={this.handleClick}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     )
   }
 }
