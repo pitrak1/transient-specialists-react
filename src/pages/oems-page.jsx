@@ -74,8 +74,8 @@ export class OemsPage extends React.Component {
     this.props.history.push(`/oems/create`)
   }
 
-  handleSearchChange = (_e, value) => {
-    this.setState({ searchValue: value })
+  handleSearchChange = event => {
+    this.setState({ searchValue: event.target.value })
   }
 
   handleSearchClick = () => {

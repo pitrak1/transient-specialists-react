@@ -78,8 +78,8 @@ export class ModelsPage extends React.Component {
     this.props.history.push(`/models/create`)
   }
 
-  handleSearchChange = (_e, value) => {
-    this.setState({ searchValue: value })
+  handleSearchChange = event => {
+    this.setState({ searchValue: event.target.value })
   }
 
   handleSearchClick = () => {
