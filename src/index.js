@@ -8,10 +8,13 @@ import EquipmentCreatePage from './pages/equipment-create-page.jsx'
 import EventsCreatePage from './pages/events-create-page.jsx'
 import ModelsPage from './pages/models-page.jsx'
 import ModelsCreatePage from './pages/models-create-page.jsx'
+import ModelsEditPage from './pages/models-edit-page.jsx'
 import OemsPage from './pages/oems-page.jsx'
 import OemsCreatePage from './pages/oems-create-page.jsx'
+import OemsEditPage from './pages/oems-edit-page.jsx'
 import TypesPage from './pages/types-page.jsx'
 import TypesCreatePage from './pages/types-create-page.jsx'
+import TypesEditPage from './pages/types-edit-page.jsx'
 
 export default function AppRouter() {
   return (
@@ -33,11 +36,14 @@ export default function AppRouter() {
           <Route path='/events/create/:id' exact component={EventsCreatePage} />
           <Route path='/oems' exact component={OemsPage} />
           <Route path='/oems/create' exact component={OemsCreatePage} />
+          <Route path='/oems/edit/:id' exact component={OemsEditPage} />
           <Route path='/models' exact component={ModelsPage} />
           <Route path='/models/create' exact component={ModelsCreatePage} />
           <Route path='/models/search/:search' exact component={ModelsPage} />
+          <Route path='/models/edit/:id' exact component={ModelsEditPage} />
           <Route path='/types' exact component={TypesPage} />
           <Route path='/types/create' exact component={TypesCreatePage} />
+          <Route path='/types/edit/:id' exact component={TypesEditPage} />
         </Switch>
       </Layout>
     </BrowserRouter>

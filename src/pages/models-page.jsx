@@ -52,6 +52,10 @@ export class ModelsPage extends React.Component {
     this.props.history.push(`/equipment/search/${id}`)
   }
 
+  handleEditClick = id => {
+    this.props.history.push(`/models/edit/${id}`)
+  }
+
   handleDeleteClick = id => {
     if (confirm('Are you sure you want to delete this model?')) {
       this.setState({ loading: true })
@@ -111,6 +115,7 @@ export class ModelsPage extends React.Component {
       { type: 'value', id: 'name', label: 'Name' },
       { type: 'value', id: 'oemName', label: 'OEM' },
       { type: 'button', id: 'showEquipment' },
+      { type: 'button', id: 'edit' },
       { type: 'button', id: 'delete' },
     ]
 
@@ -124,6 +129,12 @@ export class ModelsPage extends React.Component {
           type: 'button',
           value: 'Equipment',
           callback: this.handleShowClick,
+        },
+        {
+          id: 'edit',
+          type: 'button',
+          value: 'Edit',
+          callback: this.handleEditClick,
         },
         {
           id: 'delete',

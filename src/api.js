@@ -112,6 +112,18 @@ export const postCreate = (resource, data, success, failure) => {
     })
 }
 
+export const patchUpdate = (resource, data, success, failure) => {
+  attachInterceptors()
+  return axios
+    .patch(`${process.env.LAMBDA_ENDPOINT}${resource}`, data)
+    .then(response => {
+      success(response.data.body)
+    })
+    .catch(error => {
+      failure(translateError(error.data.body))
+    })
+}
+
 export const deleteDestroy = (resource, id, success, failure) => {
   attachInterceptors()
   return axios
@@ -129,5 +141,6 @@ export default {
   getShow,
   getNew,
   postCreate,
+  patchUpdate,
   deleteDestroy,
 }

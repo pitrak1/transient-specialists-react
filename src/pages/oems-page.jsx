@@ -56,6 +56,10 @@ export class OemsPage extends React.Component {
     this.props.history.push(`/models/search/${id}`)
   }
 
+  handleEditClick = id => {
+    this.props.history.push(`/oems/edit/${id}`)
+  }
+
   handleDeleteClick = id => {
     if (confirm('Are you sure you want to delete this OEM?')) {
       this.setState({ loading: true })
@@ -107,6 +111,7 @@ export class OemsPage extends React.Component {
       { type: 'value', id: 'name', label: 'Name' },
       { type: 'button', id: 'showEquipment' },
       { type: 'button', id: 'showModels' },
+      { type: 'button', id: 'edit' },
       { type: 'button', id: 'delete' },
     ]
 
@@ -125,6 +130,12 @@ export class OemsPage extends React.Component {
           type: 'button',
           value: 'Models',
           callback: this.handleShowModelsClick,
+        },
+        {
+          id: 'edit',
+          type: 'button',
+          value: 'Edit',
+          callback: this.handleEditClick,
         },
         {
           id: 'delete',

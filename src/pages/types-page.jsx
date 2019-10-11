@@ -52,6 +52,10 @@ export class TypesPage extends React.Component {
     this.props.history.push(`/equipment/search/${id}`)
   }
 
+  handleEditClick = id => {
+    this.props.history.push(`/types/edit/${id}`)
+  }
+
   handleDeleteClick = id => {
     if (confirm('Are you sure you want to delete this type?')) {
       this.setState({ loading: true })
@@ -102,6 +106,7 @@ export class TypesPage extends React.Component {
     const headers = [
       { type: 'value', id: 'name', label: 'Name' },
       { type: 'button', id: 'showEquipment' },
+      { type: 'button', id: 'edit' },
       { type: 'button', id: 'delete' },
     ]
 
@@ -114,6 +119,12 @@ export class TypesPage extends React.Component {
           type: 'button',
           value: 'Equipment',
           callback: this.handleShowClick,
+        },
+        {
+          id: 'edit',
+          type: 'button',
+          value: 'Edit',
+          callback: this.handleEditClick,
         },
         {
           id: 'delete',
