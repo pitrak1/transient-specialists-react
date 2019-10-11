@@ -69,10 +69,17 @@ const getIndex = (resource, options, success, failure) => {
     })
 }
 
-const getShow = (resource, id, success, failure) => {
+const getShow = (resource, id, options, success, failure) => {
   attachInterceptors()
+  const { ascending, page, perPage, sortBy } = options
   return axios
-    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
+    .get(
+      `${
+        process.env.LAMBDA_ENDPOINT
+      }${resource}?id=${id}&ascending=${ascending}&page=${page}&perPage=${perPage}&sortBy=${utils.pascalToSnake(
+        sortBy,
+      )}`,
+    )
     .then(result => {
       success(utils.convertObject(result.data.body))
     })

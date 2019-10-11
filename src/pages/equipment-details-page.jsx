@@ -2,29 +2,42 @@ import React from 'react'
 import {
   Button,
   CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+  Grid,
   Toolbar,
   Typography,
 } from '@material-ui/core'
+import FullTable from '../components/full-table.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
 export class EquipmentDetailsPage extends React.Component {
   state = {
     alert: null,
+    ascending: false,
     data: {},
     error: null,
     loading: true,
+    page: 0,
+    perPage: 10,
+    sortBy: 'updatedAt',
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  getData = () => {
+    this.setState({ loading: true })
+    const { ascending, page, perPage, sortBy } = this.state
     api.getShow(
       'equipment',
       this.props.match.params.id,
+      {
+        ascending,
+        page,
+        perPage,
+        sortBy,
+      },
       result => {
         this.setState({ loading: false, data: result })
       },
@@ -47,6 +60,7 @@ export class EquipmentDetailsPage extends React.Component {
       const failure = error => {
         this.setState({ loading: false, alert: error })
       }
+
       api.deleteDestroy(
         'equipment',
         this.state.data.equipment.id,
@@ -61,9 +75,21 @@ export class EquipmentDetailsPage extends React.Component {
     this.props.history.push(`/events/create/${id}`)
   }
 
+  handlePageChange = (_event, newPage) => {
+    this.setState({ page: newPage }, this.getData)
+  }
+
+  handlePerPageChange = event => {
+    this.setState({ perPage: event.target.value }, this.getData)
+  }
+
+  handleSort = (sortBy, ascending) => {
+    this.setState({ sortBy, ascending }, this.getData)
+  }
+
   render() {
     if (this.state.loading) {
-      return <CircularProgress />
+      return <CircularProgress size={120} />
     }
 
     if (this.state.error) {
@@ -72,58 +98,74 @@ export class EquipmentDetailsPage extends React.Component {
 
     const equipment = this.state.data.equipment
     const fields = [
-      { label: 'ID: ', value: equipment.id },
-      { label: 'Serial Number: ', value: equipment.serialNumber },
-      { label: 'OEM ID: ', value: equipment.oemId },
       { label: 'OEM Name: ', value: equipment.oemName },
-      { label: 'Model ID: ', value: equipment.modelId },
       { label: 'Model Name: ', value: equipment.modelName },
-      { label: 'Type ID: ', value: equipment.typeId },
       { label: 'Type Name: ', value: equipment.typeName },
+      { label: 'Status: ', value: equipment.eventStatus },
+      { label: 'Company/Notes: ', value: equipment.eventCompanyNotes },
     ].map(field => (
-      <Typography key={field.label} variant='body1'>
-        {field.label}
-        {field.value}
-      </Typography>
+      <Grid item xs={12} key={field.label}>
+        <Typography key={field.label} variant='body1'>
+          {field.label}
+          {field.value}
+        </Typography>
+      </Grid>
     ))
 
-    const events = this.state.data.events
-    const rows = events.map(event => (
-      <TableRow key={event.id}>
-        <TableCell>{event.status}</TableCell>
-        <TableCell>{event.jobNumber}</TableCell>
-        <TableCell>{event.companyNotes}</TableCell>
-        <TableCell>{event.startDate}</TableCell>
-        <TableCell>{event.endDate}</TableCell>
-        <TableCell>{event.updatedAt}</TableCell>
-      </TableRow>
-    ))
+    const headers = [
+      { type: 'value', id: 'status', label: 'Status' },
+      { type: 'value', id: 'jobNumber', label: 'Job Number' },
+      { type: 'value', id: 'companyNotes', label: 'Company/Notes' },
+      { type: 'value', id: 'startDate', label: 'Start Date' },
+      { type: 'value', id: 'endDate', label: 'End Date' },
+      { type: 'value', id: 'updatedAt', label: 'Updated At' },
+    ]
+
+    const data = this.state.data.events.map(event => ({
+      id: event.id,
+      cells: [
+        { id: 'status', type: 'value', value: event.status },
+        { id: 'jobNumber', type: 'value', value: event.jobNumber },
+        { id: 'companyNotes', type: 'value', value: event.companyNotes },
+        { id: 'startDate', type: 'value', value: event.startDate },
+        { id: 'endDate', type: 'value', value: event.endDate },
+        { id: 'updatedAt', type: 'value', value: event.updatedAt },
+      ],
+    }))
 
     return (
       <div>
-        {this.state.alert && <div>{this.state.alert}</div>}
-        <Typography level='h5' margin='medium'>
-          {equipment.serialNumber}
-        </Typography>
-        {fields}
-        <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
+        <Grid container>
+          {this.state.alert && (
+            <Grid item xs={12}>
+              {this.state.alert}
+            </Grid>
+          )}
+          <Grid item xs={12}>
+            <Typography variant='h5'>{equipment.serialNumber}</Typography>
+          </Grid>
+          {fields}
+          <Grid item xs={12}>
+            <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
+          </Grid>
+        </Grid>
         <Toolbar>
           <Typography variant='h5'>Events</Typography>
           <Button onClick={this.handleAddEventClick}>Add</Button>
         </Toolbar>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Status</TableCell>
-              <TableCell>Job Number</TableCell>
-              <TableCell>Company Notes</TableCell>
-              <TableCell>Start Date</TableCell>
-              <TableCell>End Date</TableCell>
-              <TableCell>Updated At</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
+        <FullTable
+          ascending={this.state.ascending}
+          count={this.state.data.count}
+          data={data}
+          headers={headers}
+          onPageChange={this.handlePageChange}
+          onPerPageChange={this.handlePerPageChange}
+          onSort={this.handleSort}
+          page={this.state.page}
+          perPage={this.state.perPage}
+          perPageOptions={[5, 10, 25]}
+          sortBy={this.state.sortBy}
+        />
       </div>
     )
   }
