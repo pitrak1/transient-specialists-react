@@ -49,7 +49,8 @@ export class ModelsPage extends React.Component {
   }
 
   handleShowClick = id => {
-    this.props.history.push(`/equipment/search/${id}`)
+    const model = this.state.data.models.filter(m => m.id == id)[0]
+    this.props.history.push(`/equipment/search/${model.name}`)
   }
 
   handleEditClick = id => {
@@ -65,7 +66,9 @@ export class ModelsPage extends React.Component {
         _response => {
           api.getIndex(
             'models',
-            result => this.getData,
+            result => {
+              this.getData()
+            },
             error => {
               this.setState({ loading: false, error })
             },

@@ -49,7 +49,8 @@ export class TypesPage extends React.Component {
   }
 
   handleShowClick = id => {
-    this.props.history.push(`/equipment/search/${id}`)
+    const type = this.state.data.types.filter(t => t.id == id)[0]
+    this.props.history.push(`/equipment/search/${type.name}`)
   }
 
   handleEditClick = id => {
@@ -62,7 +63,9 @@ export class TypesPage extends React.Component {
       api.deleteDestroy(
         'types',
         id,
-        _response => this.getData,
+        _response => {
+          this.getData()
+        },
         error => {
           this.setState({ loading: false, alert: error })
         },

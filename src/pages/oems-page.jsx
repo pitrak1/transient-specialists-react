@@ -49,11 +49,13 @@ export class OemsPage extends React.Component {
   }
 
   handleShowEquipmentClick = id => {
-    this.props.history.push(`/equipment/search/${id}`)
+    const oem = this.state.data.oems.filter(o => o.id == id)[0]
+    this.props.history.push(`/equipment/search/${oem.name}`)
   }
 
   handleShowModelsClick = id => {
-    this.props.history.push(`/models/search/${id}`)
+    const oem = this.state.data.oems.filter(o => o.id == id)[0]
+    this.props.history.push(`/models/search/${oem.name}`)
   }
 
   handleEditClick = id => {
@@ -66,7 +68,9 @@ export class OemsPage extends React.Component {
       api.deleteDestroy(
         'oems',
         id,
-        _response => this.getData,
+        _response => {
+          this.getData()
+        },
         error => {
           this.setState({ loading: false, alert: error })
         },
