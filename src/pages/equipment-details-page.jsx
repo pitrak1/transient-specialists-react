@@ -51,6 +51,11 @@ export class EquipmentDetailsPage extends React.Component {
     this.setState(object)
   }
 
+  handleEditClick = () => {
+    const id = this.state.data.equipment.id
+    this.props.history.push(`/equipment/edit/${id}`)
+  }
+
   handleDeleteClick = () => {
     if (confirm('Are you sure you want to delete this equipment?')) {
       const success = _response => {
@@ -87,6 +92,12 @@ export class EquipmentDetailsPage extends React.Component {
     this.setState({ sortBy, ascending }, this.getData)
   }
 
+  handleEventEditClick = id => {
+    this.props.history.push(
+      `/events/${this.state.data.equipment.id}/edit/${id}`,
+    )
+  }
+
   render() {
     if (this.state.loading) {
       return <CircularProgress size={120} />
@@ -119,6 +130,7 @@ export class EquipmentDetailsPage extends React.Component {
       { type: 'value', id: 'startDate', label: 'Start Date' },
       { type: 'value', id: 'endDate', label: 'End Date' },
       { type: 'value', id: 'updatedAt', label: 'Updated At' },
+      { type: 'button', id: 'edit' },
     ]
 
     const data = this.state.data.events.map(event => ({
@@ -130,6 +142,12 @@ export class EquipmentDetailsPage extends React.Component {
         { id: 'startDate', type: 'value', value: event.startDate },
         { id: 'endDate', type: 'value', value: event.endDate },
         { id: 'updatedAt', type: 'value', value: event.updatedAt },
+        {
+          id: 'edit',
+          type: 'button',
+          value: 'Edit',
+          callback: this.handleEventEditClick,
+        },
       ],
     }))
 
@@ -145,6 +163,9 @@ export class EquipmentDetailsPage extends React.Component {
             <Typography variant='h5'>{equipment.serialNumber}</Typography>
           </Grid>
           {fields}
+          <Grid item xs={12}>
+            <Button onClick={this.handleEditClick}>Edit Equipment</Button>
+          </Grid>
           <Grid item xs={12}>
             <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
           </Grid>

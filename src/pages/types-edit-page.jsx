@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
-import FormSelect from '../components/form-select.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
@@ -15,10 +14,9 @@ export class TypesEditPage extends React.Component {
   }
 
   componentDidMount() {
-    api.getShow(
+    api.getEdit(
       'types',
       this.props.match.params.id,
-      { ascending: null, page: null, perPage: null, sortBy: '' },
       result => {
         const { id, name } = result.type
         this.setState({ loading: false, id, name: name, nameValid: true })

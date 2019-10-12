@@ -18,10 +18,9 @@ export class ModelsEditPage extends React.Component {
   }
 
   componentDidMount() {
-    api.getShow(
+    api.getEdit(
       'models',
       this.props.match.params.id,
-      { ascending: null, page: null, perPage: null, sortBy: '' },
       result => {
         const { id, name, oemId } = result.model
         this.setState({

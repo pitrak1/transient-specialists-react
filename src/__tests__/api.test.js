@@ -52,15 +52,28 @@ describe('API', () => {
 
   describe('getShow', () => {
     it('calls success with converted data on success', () => {
-      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?id=3`).reply(200, {
-        body: { some_key: 'some value', some_other_key: 'some other value' },
-      })
-      return api.getShow('resource', 3, success, failure).then(_data => {
-        expect(success.firstCall.args[0]).toEqual({
-          someKey: 'some value',
-          someOtherKey: 'some other value',
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+        )
+        .reply(200, {
+          body: { some_key: 'some value', some_other_key: 'some other value' },
         })
-      })
+      const options = {
+        ascending: true,
+        page: 0,
+        perPage: 10,
+        searchValue: '',
+        sortBy: 'name',
+      }
+      return api
+        .getShow('resource', 3, options, success, failure)
+        .then(_data => {
+          expect(success.firstCall.args[0]).toEqual({
+            someKey: 'some value',
+            someOtherKey: 'some other value',
+          })
+        })
     })
   })
 

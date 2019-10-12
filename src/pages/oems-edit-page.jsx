@@ -14,10 +14,9 @@ export class OemsEditPage extends React.Component {
   }
 
   componentDidMount() {
-    api.getShow(
+    api.getEdit(
       'oems',
       this.props.match.params.id,
-      { ascending: null, page: null, perPage: null, sortBy: '' },
       result => {
         const { id, name } = result.oem
         this.setState({ loading: false, id, name: name, nameValid: true })

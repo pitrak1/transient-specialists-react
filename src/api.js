@@ -76,10 +76,22 @@ const getShow = (resource, id, options, success, failure) => {
     .get(
       `${
         process.env.LAMBDA_ENDPOINT
-      }${resource}?id=${id}&ascending=${ascending}&page=${page}&perPage=${perPage}&sortBy=${utils.pascalToSnake(
+      }${resource}?show=true&id=${id}&ascending=${ascending}&page=${page}&perPage=${perPage}&sortBy=${utils.pascalToSnake(
         sortBy,
       )}`,
     )
+    .then(result => {
+      success(utils.convertObject(result.data.body))
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
+const getEdit = (resource, id, success, failure) => {
+  attachInterceptors()
+  return axios
+    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?edit=true&id=${id}`)
     .then(result => {
       success(utils.convertObject(result.data.body))
     })
@@ -139,6 +151,7 @@ export const deleteDestroy = (resource, id, success, failure) => {
 export default {
   getIndex,
   getShow,
+  getEdit,
   getNew,
   postCreate,
   patchUpdate,
