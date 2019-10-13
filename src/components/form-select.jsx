@@ -53,13 +53,18 @@ class FormSelect extends React.Component {
 
 FormSelect.propTypes = {
   defaultOptionLabel: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   identifier: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
-  required: PropTypes.bool.isRequired,
+  required: PropTypes.bool,
   value: PropTypes.number,
+}
+
+FormSelect.defaultProps = {
+  disabled: false,
+  required: false,
 }
 
 export default FormSelect

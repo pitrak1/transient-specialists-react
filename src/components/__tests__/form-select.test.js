@@ -46,12 +46,6 @@ describe('FormSelect', () => {
     expect(node.find(MenuItem).length).toBe(4)
   })
 
-  it('is disabled if disabled is true', () => {
-    disabled = true
-    const node = render()
-    expect(node.find(FormControl).props().disabled).toBe(true)
-  })
-
   it('calls onChange prop with identifier and numeric value when value is changed', () => {
     const node = render()
     node
@@ -61,41 +55,64 @@ describe('FormSelect', () => {
     expect(onChange.firstCall.args).toEqual([identifier, 2, expect.anything()])
   })
 
-  it('sets helper text if given default option when required', () => {
-    required = true
-    const node = render()
-    node
-      .find(Select)
-      .props()
-      .onChange({ target: { value: 0 } })
-    expect(node.find(FormHelperText).text()).toBe(`Some Label is required`)
+  describe('when required and changed to default option', () => {
+    it('sets helper text to required text', () => {
+      required = true
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(node.find(FormHelperText).text()).toBe(`Some Label is required`)
+    })
+
+    it('sets error to true', () => {
+      required = true
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(node.find(FormControl).props().error).toBe(true)
+    })
+
+    it('calls onChange prop with false validity flag', () => {
+      required = true
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(onChange.firstCall.args[2]).toBe(false)
+    })
   })
 
-  it('calls onChange prop with false validity flag if given default value and required', () => {
-    required = true
-    const node = render()
-    node
-      .find(Select)
-      .props()
-      .onChange({ target: { value: 0 } })
-    expect(onChange.firstCall.args[2]).toBe(false)
-  })
+  describe('when not required and changed to default option', () => {
+    it('sets helper text to empty string', () => {
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(node.find(FormHelperText).text()).toBe('')
+    })
 
-  it('does not set helper text if given default option when not required', () => {
-    const node = render()
-    node
-      .find(Select)
-      .props()
-      .onChange({ target: { value: 0 } })
-    expect(node.find(FormHelperText).text()).toEqual('')
-  })
+    it('sets error to false', () => {
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(node.find(FormControl).props().error).toBe(false)
+    })
 
-  it('calls onChange prop with true validity flag if given default value and not required', () => {
-    const node = render()
-    node
-      .find(Select)
-      .props()
-      .onChange({ target: { value: 0 } })
-    expect(onChange.firstCall.args[2]).toBe(true)
+    it('calls onChange prop with true validity flag', () => {
+      const node = render()
+      node
+        .find(Select)
+        .props()
+        .onChange({ target: { value: 0 } })
+      expect(onChange.firstCall.args[2]).toBe(true)
+    })
   })
 })
