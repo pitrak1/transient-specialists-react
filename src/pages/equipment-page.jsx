@@ -144,7 +144,7 @@ export class EquipmentPage extends React.Component {
         </Toolbar>
         <FullTable
           ascending={this.state.ascending}
-          count={this.state.data.count}
+          count={parseInt(this.state.data.count)}
           data={data}
           headers={headers}
           onPageChange={this.handlePageChange}
