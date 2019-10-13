@@ -26,6 +26,7 @@ class FormTextField extends React.Component {
   render() {
     return (
       <TextField
+        disabled={this.props.disabled}
         error={!!this.state.error}
         helperText={this.state.error}
         label={this.props.label}
@@ -37,11 +38,18 @@ class FormTextField extends React.Component {
 }
 
 FormTextField.propTypes = {
+  disabled: PropTypes.bool,
   identifier: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool.isRequired,
-  value: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  value: PropTypes.string,
+}
+
+FormTextField.defaultProps = {
+  disabled: false,
+  required: false,
+  value: '',
 }
 
 export default FormTextField
