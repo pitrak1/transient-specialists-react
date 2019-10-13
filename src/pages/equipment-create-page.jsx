@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
+import FormDateField from '../components/form-date-field.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
@@ -10,7 +11,7 @@ export class EquipmentCreatePage extends React.Component {
     alert: null,
     calCompany: '',
     calCompanyValid: false,
-    calDue: '',
+    calDue: null,
     calDueValid: false,
     data: {},
     error: null,
@@ -53,21 +54,12 @@ export class EquipmentCreatePage extends React.Component {
   }
 
   handleClick = () => {
-    const convertDate = date => {
-      if (!date) {
-        return null
-      }
-
-      const dateObj = new Date(date)
-      return dateObj.toISOString()
-    }
-
     this.setState({ loading: true, alert: null })
     api.postCreate(
       'equipment',
       {
         calCompany: this.state.calCompany,
-        calDue: convertDate(this.state.calDue),
+        calDue: this.state.calDue ? this.state.calDue.toISOString() : null,
         serialNumber: this.state.serialNumber,
         modelId: this.state.modelId,
         notes: this.state.notes,
@@ -167,11 +159,10 @@ export class EquipmentCreatePage extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='calDue'
             label='Calibration Due'
             onChange={this.handleChange}
-            required={false}
             value={this.state.calDue}
           />
         </Grid>

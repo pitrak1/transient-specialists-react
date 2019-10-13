@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router'
 
-import { theme } from '@instructure/canvas-theme'
-theme.use()
-
 const Layout = ({ children, history }) => {
   return (
     <div>

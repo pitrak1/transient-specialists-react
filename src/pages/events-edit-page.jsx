@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
+import FormDateField from '../components/form-date-field.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
@@ -13,16 +14,16 @@ export class EventsEditPage extends React.Component {
     loading: true,
     companyNotes: '',
     companyNotesValid: true,
-    endDate: '',
+    endDate: null,
     endDateValid: true,
     jobNumber: '',
     jobNumberValid: true,
     loading: false,
-    startDate: '',
+    startDate: null,
     startDateValid: true,
     status: 0,
     statusValid: false,
-    updatedAt: '',
+    updatedAt: null,
     updatedAtValid: true,
   }
 
@@ -58,11 +59,11 @@ export class EventsEditPage extends React.Component {
           jobNumberValid: true,
           companyNotes: companyNotes || '',
           companyNotesValid: true,
-          startDate: startDate || '',
+          startDate: startDate ? new Date(startDate) : null,
           startDateValid: true,
-          endDate: endDate || '',
+          endDate: endDate ? new Date(endDate) : null,
           endDateValid: true,
-          updatedAt: updatedAt || '',
+          updatedAt: updatedAt ? new Date(updatedAt) : null,
           updatedAtValid: true,
         })
       },
@@ -80,15 +81,6 @@ export class EventsEditPage extends React.Component {
   }
 
   handleClick = () => {
-    const convertDate = date => {
-      if (!date) {
-        return null
-      }
-
-      const dateObj = new Date(date)
-      return dateObj.toISOString()
-    }
-
     this.setState({ loading: true, alert: null })
     const statusArray = ['ERROR', 'IN', 'OUT', 'READY']
     api.patchUpdate(
@@ -96,11 +88,15 @@ export class EventsEditPage extends React.Component {
       {
         id: this.state.id,
         companyNotes: this.state.companyNotes,
-        endDate: convertDate(this.state.endDate),
+        endDate: this.state.endDate ? this.state.endDate.toISOString() : null,
         jobNumber: this.state.jobNumber,
-        startDate: convertDate(this.state.startDate),
+        startDate: this.state.startDate
+          ? this.state.startDate.toISOString()
+          : null,
         status: statusArray[parseInt(this.state.status)],
-        updatedAt: convertDate(this.state.updatedAt),
+        updatedAt: this.state.updatedAt
+          ? this.state.updatedAt.toISOString()
+          : null,
       },
       () => {
         this.props.history.push(
@@ -163,29 +159,26 @@ export class EventsEditPage extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='startDate'
             label='Start Date'
             onChange={this.handleChange}
-            required={false}
             value={this.state.startDate}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='endDate'
             label='End Date'
             onChange={this.handleChange}
-            required={false}
             value={this.state.endDate}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='updatedAt'
             label='Updated At'
             onChange={this.handleChange}
-            required={false}
             value={this.state.updatedAt}
           />
         </Grid>

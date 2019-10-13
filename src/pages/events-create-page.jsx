@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import FormTextField from '../components/form-text-field.jsx'
 import FormSelect from '../components/form-select.jsx'
+import FormDateField from '../components/form-date-field.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
@@ -31,26 +32,21 @@ export class EventsCreatePage extends React.Component {
   }
 
   handleClick = () => {
-    const convertDate = date => {
-      if (!date) {
-        return null
-      }
-
-      const dateObj = new Date(date)
-      return dateObj.toISOString()
-    }
-
     this.setState({ loading: true, alert: null })
     const statusArray = ['ERROR', 'IN', 'OUT', 'READY']
     api.postCreate(
       'events',
       {
         companyNotes: this.state.companyNotes,
-        endDate: convertDate(this.state.endDate),
+        endDate: this.state.endDate ? this.state.endDate.toISOString() : null,
         jobNumber: this.state.jobNumber,
-        startDate: convertDate(this.state.startDate),
+        startDate: this.state.startDate
+          ? this.state.startDate.toISOString()
+          : null,
         status: statusArray[parseInt(this.state.status)],
-        updatedAt: convertDate(this.state.updatedAt),
+        updatedAt: this.state.updatedAt
+          ? this.state.updatedAt.toISOString()
+          : null,
         equipmentId: this.props.match.params.id,
       },
       () => {
@@ -112,29 +108,26 @@ export class EventsCreatePage extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='startDate'
             label='Start Date'
             onChange={this.handleChange}
-            required={false}
             value={this.state.startDate}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='endDate'
             label='End Date'
             onChange={this.handleChange}
-            required={false}
             value={this.state.endDate}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <FormDateField
             identifier='updatedAt'
             label='Updated At'
             onChange={this.handleChange}
-            required={false}
             value={this.state.updatedAt}
           />
         </Grid>
