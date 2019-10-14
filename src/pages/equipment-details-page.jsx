@@ -6,7 +6,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core'
-import FullTable from '../components/full-table.jsx'
+import FullTable from '../components/table/full-table.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
