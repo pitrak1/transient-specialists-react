@@ -1,12 +1,8 @@
 import React from 'react'
-import {
-  Button,
-  CircularProgress,
-  TextField,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
 import FullTable from '../components/table/full-table.jsx'
+import IndexToolbar from '../components/index-toolbar.jsx'
+import ErrorAlert from '../components/error-alert.jsx'
+import Spinner from '../components/spinner.jsx'
 import { withRouter } from 'react-router'
 import api from '../api.js'
 
@@ -78,11 +74,11 @@ export class EquipmentPage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress size={120} />
+      return <Spinner />
     }
 
     if (this.state.error) {
-      return <div>{this.state.error}</div>
+      return <ErrorAlert closable={false} text={this.state.error} />
     }
 
     const headers = [
@@ -129,19 +125,16 @@ export class EquipmentPage extends React.Component {
 
     return (
       <div>
-        {this.state.alert && <div>{this.state.alert}</div>}
-        <Toolbar>
-          <Typography variant='h5'>Equipment</Typography>
-          <Button onClick={this.handleAddClick}>Add</Button>
-          <div style={{ flexGrow: 1 }}></div>
-          <TextField
-            id='search'
-            label='Search'
-            value={this.state.searchValue}
-            onChange={this.handleSearchChange}
-          />
-          <Button onClick={this.handleSearchClick}>Search</Button>
-        </Toolbar>
+        {this.state.alert && (
+          <ErrorAlert closable={true} text={this.state.alert} />
+        )}
+        <IndexToolbar
+          onAddClick={this.handleAddClick}
+          onSearchChange={this.handleSearchChange}
+          onSearchClick={this.handleSearchClick}
+          searchValue={this.state.searchValue}
+          title='Equipment'
+        />
         <FullTable
           ascending={this.state.ascending}
           count={parseInt(this.state.data.count)}
