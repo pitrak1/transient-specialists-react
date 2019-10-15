@@ -6,6 +6,9 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core'
+import ErrorAlert from '../components/error-alert.jsx'
+import Spinner from '../components/spinner.jsx'
+import Title from '../components/title.jsx'
 import FullTable from '../components/table/full-table.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
@@ -100,28 +103,14 @@ export class EquipmentDetailsPage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <CircularProgress size={120} />
+      return <Spinner />
     }
 
     if (this.state.error) {
-      return <div>{this.state.error}</div>
+      return <ErrorAlert closable={false} text={this.state.error} />
     }
 
     const equipment = this.state.data.equipment
-    const fields = [
-      { label: 'OEM Name: ', value: equipment.oemName },
-      { label: 'Model Name: ', value: equipment.modelName },
-      { label: 'Type Name: ', value: equipment.typeName },
-      { label: 'Status: ', value: equipment.eventStatus },
-      { label: 'Company/Notes: ', value: equipment.eventCompanyNotes },
-    ].map(field => (
-      <Grid item xs={12} key={field.label}>
-        <Typography key={field.label} variant='body1'>
-          {field.label}
-          {field.value}
-        </Typography>
-      </Grid>
-    ))
 
     const headers = [
       { type: 'value', id: 'status', label: 'Status' },
@@ -155,14 +144,59 @@ export class EquipmentDetailsPage extends React.Component {
       <div>
         <Grid container>
           {this.state.alert && (
-            <Grid item xs={12}>
-              {this.state.alert}
-            </Grid>
+            <ErrorAlert closable={true} text={this.state.alert} />
           )}
           <Grid item xs={12}>
-            <Typography variant='h5'>{equipment.serialNumber}</Typography>
+            <Title label={equipment.serialNumber} />
           </Grid>
-          {fields}
+          <Grid item xs={12}>
+            OEM:
+            <Button
+              onClick={() => {
+                this.props.history.push(`/oems/search/${equipment.oemName}`)
+              }}
+            >
+              {equipment.oemName}
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            Model:
+            <Button
+              onClick={() => {
+                this.props.history.push(`/models/search/${equipment.modelName}`)
+              }}
+            >
+              {equipment.modelName}
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            Type:
+            <Button
+              onClick={() => {
+                this.props.history.push(`/types/search/${equipment.typeName}`)
+              }}
+            >
+              {equipment.typeName}
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            Notes: {equipment.notes}
+          </Grid>
+          <Grid item xs={12}>
+            Status: {equipment.eventStatus}
+          </Grid>
+          <Grid item xs={12}>
+            Job Number: {equipment.eventJobNumber}
+          </Grid>
+          <Grid item xs={12}>
+            Company/Notes: {equipment.eventCompanyNotes}
+          </Grid>
+          <Grid item xs={12}>
+            Calibration Company: {equipment.calCompany}
+          </Grid>
+          <Grid item xs={12}>
+            Calibration Due: {equipment.calDue}
+          </Grid>
           <Grid item xs={12}>
             <Button onClick={this.handleEditClick}>Edit Equipment</Button>
           </Grid>

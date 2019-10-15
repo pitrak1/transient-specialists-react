@@ -88,6 +88,7 @@ export class EquipmentPage extends React.Component {
       { type: 'value', id: 'typeName', label: 'Type' },
       { type: 'value', id: 'notes', label: 'Notes' },
       { type: 'value', id: 'eventStatus', label: 'Status' },
+      { type: 'value', id: 'eventJobNumber', label: 'Job Number' },
       { type: 'value', id: 'eventCompanyNotes', label: 'Company/Notes' },
       { type: 'value', id: 'eventStartDate', label: 'Start Date' },
       { type: 'value', id: 'eventEndDate', label: 'End Date' },
@@ -103,6 +104,11 @@ export class EquipmentPage extends React.Component {
         { id: 'typeName', type: 'value', value: equipment.typeName },
         { id: 'notes', type: 'value', value: equipment.notes },
         { id: 'eventStatus', type: 'value', value: equipment.eventStatus },
+        {
+          id: 'eventJobNumber',
+          type: 'value',
+          value: equipment.eventJobNumber,
+        },
         {
           id: 'eventCompanyNotes',
           type: 'value',
