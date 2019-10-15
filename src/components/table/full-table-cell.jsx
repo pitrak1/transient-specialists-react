@@ -17,7 +17,7 @@ const FullTableCell = props => {
 
 FullTableCell.propTypes = {
   callback: PropTypes.func,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string,
 }

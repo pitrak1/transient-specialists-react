@@ -8,7 +8,7 @@ const SearchField = props => {
       <TextField
         id='search'
         label='Search'
-        value={props.searchValue}
+        value={props.value}
         onChange={props.onSearchChange}
       />
       <Button onClick={props.onSearchClick}>Search</Button>
