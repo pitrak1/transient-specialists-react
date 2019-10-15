@@ -9,6 +9,7 @@ import {
 import ErrorAlert from '../components/error-alert.jsx'
 import Spinner from '../components/spinner.jsx'
 import Title from '../components/title.jsx'
+import Subtitle from '../components/subtitle.jsx'
 import FullTable from '../components/table/full-table.jsx'
 import api from '../api.js'
 import utils from '../utils.js'
@@ -181,9 +182,6 @@ export class EquipmentDetailsPage extends React.Component {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            Notes: {equipment.notes}
-          </Grid>
-          <Grid item xs={12}>
             Status: {equipment.eventStatus}
           </Grid>
           <Grid item xs={12}>
@@ -191,6 +189,15 @@ export class EquipmentDetailsPage extends React.Component {
           </Grid>
           <Grid item xs={12}>
             Company/Notes: {equipment.eventCompanyNotes}
+          </Grid>
+          <Grid item xs={12}>
+            <Subtitle label='Notes' />
+          </Grid>
+          <Grid item xs={12}>
+            {equipment.notes}
+          </Grid>
+          <Grid item xs={12}>
+            <Subtitle label='Calibration Info' />
           </Grid>
           <Grid item xs={12}>
             Calibration Company: {equipment.calCompany}
