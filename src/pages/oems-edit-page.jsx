@@ -1,83 +1,39 @@
 import React from 'react'
-import { Button, CircularProgress, Grid, Typography } from '@material-ui/core'
-import FormTextField from '../components/form-text-field.jsx'
+import OemsForm from '../components/oems-form.jsx'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 
 export class OemsEditPage extends React.Component {
-  state = {
-    alert: null,
-    error: null,
-    loading: true,
-    name: '',
-    nameValid: false,
-  }
-
-  componentDidMount() {
+  get = (id, success, failure) => {
     api.getEdit(
       'oems',
-      this.props.match.params.id,
+      id,
       result => {
         const { id, name } = result.oem
-        this.setState({ loading: false, id, name: name, nameValid: true })
+        success({ id, name, nameValid: true })
       },
-      error => {
-        this.setState({ loading: false, error })
-      },
+      failure,
     )
   }
 
-  handleChange = (identifier, value, valid) => {
-    const state = {}
-    state[identifier] = value
-    state[`${identifier}Valid`] = valid
-    this.setState(state)
-  }
-
-  handleClick = () => {
-    this.setState({ loading: true, alert: null })
+  submit = (state, success, failure) => {
     api.patchUpdate(
       'oems',
-      { id: this.state.id, name: this.state.name },
-      () => {
-        this.props.history.push('/oems')
-      },
-      error => {
-        this.setState({ loading: false, alert: error })
-      },
+      { id: state.id, name: state.name },
+      success,
+      failure,
     )
   }
 
   render() {
-    if (this.state.loading) {
-      return <CircularProgress size={120} />
-    }
-
     return (
-      <Grid container>
-        {this.state.alert && (
-          <Grid item xs={12}>
-            {this.state.alert}
-          </Grid>
-        )}
-        <Grid item xs={12}>
-          <Typography variant='h6'>Edit OEM</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField
-            identifier='name'
-            label='Name'
-            onChange={this.handleChange}
-            required={true}
-            value={this.state.name}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button disabled={!this.state.nameValid} onClick={this.handleClick}>
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
+      <OemsForm
+        get={this.get}
+        history={this.props.history}
+        id={this.props.match.params.id}
+        submit={this.submit}
+        title='Edit OEM'
+      />
     )
   }
 }

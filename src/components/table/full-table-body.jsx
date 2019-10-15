@@ -5,7 +5,7 @@ import FullTableRow from './full-table-row.jsx'
 
 const FullTableBody = props => {
   const rows = props.rows.map(row => (
-    <FullTableRow cells={row.cells} key={row.id} />
+    <FullTableRow cells={row.cells} key={row.id} rowId={row.id} />
   ))
   return <TableBody>{rows}</TableBody>
 }

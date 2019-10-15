@@ -36,7 +36,7 @@ export class EquipmentPage extends React.Component {
         sortBy,
       },
       result => {
-        this.setState({ loading: false, data: result })
+        this.setState({ loading: false, ...result })
       },
       error => {
         this.setState({ loading: false, error })
@@ -94,7 +94,7 @@ export class EquipmentPage extends React.Component {
       { type: 'button', id: 'details' },
     ]
 
-    const data = this.state.data.equipment.map(equipment => ({
+    const data = this.state.data.map(equipment => ({
       id: equipment.id,
       cells: [
         { id: 'serialNumber', type: 'value', value: equipment.serialNumber },
@@ -137,7 +137,7 @@ export class EquipmentPage extends React.Component {
         />
         <FullTable
           ascending={this.state.ascending}
-          count={parseInt(this.state.data.count)}
+          count={parseInt(this.state.count)}
           data={data}
           headers={headers}
           onPageChange={this.handlePageChange}

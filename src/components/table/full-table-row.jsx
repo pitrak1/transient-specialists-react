@@ -7,7 +7,7 @@ const FullTableRow = props => {
   const cells = props.cells.map(cell => (
     <FullTableCell
       callback={cell.callback}
-      id={cell.id}
+      id={props.rowId}
       key={cell.id}
       type={cell.type}
       value={cell.value}
@@ -17,6 +17,7 @@ const FullTableRow = props => {
 }
 
 FullTableRow.propTypes = {
+  rowId: PropTypes.number.isRequired,
   cells: PropTypes.array.isRequired,
 }
 

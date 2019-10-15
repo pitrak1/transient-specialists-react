@@ -40,7 +40,7 @@ export class ModelsPage extends React.Component {
         sortBy,
       },
       result => {
-        this.setState({ loading: false, data: result })
+        this.setState({ loading: false, ...result })
       },
       error => {
         this.setState({ loading: false, error })
@@ -49,7 +49,7 @@ export class ModelsPage extends React.Component {
   }
 
   handleShowClick = id => {
-    const model = this.state.data.models.filter(m => m.id == id)[0]
+    const model = this.state.data.filter(m => m.id == id)[0]
     this.props.history.push(`/equipment/search/${model.name}`)
   }
 
@@ -64,15 +64,7 @@ export class ModelsPage extends React.Component {
         'models',
         id,
         _response => {
-          api.getIndex(
-            'models',
-            result => {
-              this.getData()
-            },
-            error => {
-              this.setState({ loading: false, error })
-            },
-          )
+          this.getData()
         },
         error => {
           this.setState({ loading: false, alert: error })
@@ -122,7 +114,7 @@ export class ModelsPage extends React.Component {
       { type: 'button', id: 'delete' },
     ]
 
-    const data = this.state.data.models.map(model => ({
+    const data = this.state.data.map(model => ({
       id: model.id,
       cells: [
         { id: 'name', type: 'value', value: model.name },
@@ -165,7 +157,7 @@ export class ModelsPage extends React.Component {
         </Toolbar>
         <FullTable
           ascending={this.state.ascending}
-          count={parseInt(this.state.data.count)}
+          count={parseInt(this.state.count)}
           data={data}
           headers={headers}
           onPageChange={this.handlePageChange}

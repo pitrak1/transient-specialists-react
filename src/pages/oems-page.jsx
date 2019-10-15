@@ -40,7 +40,7 @@ export class OemsPage extends React.Component {
         sortBy,
       },
       result => {
-        this.setState({ loading: false, data: result })
+        this.setState({ loading: false, ...result })
       },
       error => {
         this.setState({ loading: false, error })
@@ -49,12 +49,12 @@ export class OemsPage extends React.Component {
   }
 
   handleShowEquipmentClick = id => {
-    const oem = this.state.data.oems.filter(o => o.id == id)[0]
+    const oem = this.state.data.filter(o => o.id == id)[0]
     this.props.history.push(`/equipment/search/${oem.name}`)
   }
 
   handleShowModelsClick = id => {
-    const oem = this.state.data.oems.filter(o => o.id == id)[0]
+    const oem = this.state.data.filter(o => o.id == id)[0]
     this.props.history.push(`/models/search/${oem.name}`)
   }
 
@@ -119,7 +119,7 @@ export class OemsPage extends React.Component {
       { type: 'button', id: 'delete' },
     ]
 
-    const data = this.state.data.oems.map(oem => ({
+    const data = this.state.data.map(oem => ({
       id: oem.id,
       cells: [
         { id: 'name', type: 'value', value: oem.name },
@@ -167,7 +167,7 @@ export class OemsPage extends React.Component {
         </Toolbar>
         <FullTable
           ascending={this.state.ascending}
-          count={parseInt(this.state.data.count)}
+          count={parseInt(this.state.count)}
           data={data}
           headers={headers}
           onPageChange={this.handlePageChange}

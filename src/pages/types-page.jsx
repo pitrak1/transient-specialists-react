@@ -40,7 +40,7 @@ export class TypesPage extends React.Component {
         sortBy,
       },
       result => {
-        this.setState({ loading: false, data: result })
+        this.setState({ loading: false, ...result })
       },
       error => {
         this.setState({ loading: false, error })
@@ -49,7 +49,7 @@ export class TypesPage extends React.Component {
   }
 
   handleShowClick = id => {
-    const type = this.state.data.types.filter(t => t.id == id)[0]
+    const type = this.state.data.filter(t => t.id == id)[0]
     this.props.history.push(`/equipment/search/${type.name}`)
   }
 
@@ -113,7 +113,7 @@ export class TypesPage extends React.Component {
       { type: 'button', id: 'delete' },
     ]
 
-    const data = this.state.data.types.map(type => ({
+    const data = this.state.data.map(type => ({
       id: type.id,
       cells: [
         { id: 'name', type: 'value', value: type.name },
@@ -155,7 +155,7 @@ export class TypesPage extends React.Component {
         </Toolbar>
         <FullTable
           ascending={this.state.ascending}
-          count={parseInt(this.state.data.count)}
+          count={parseInt(this.state.count)}
           data={data}
           headers={headers}
           onPageChange={this.handlePageChange}
