@@ -24,8 +24,17 @@ const convertObject = object => {
   return object
 }
 
+const convertISO = iso => {
+  if (iso) {
+    const date = new Date(iso)
+    return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+  }
+  return null
+}
+
 export default {
   snakeToPascal,
   pascalToSnake,
   convertObject,
+  convertISO,
 }

@@ -11,6 +11,7 @@ import Spinner from '../components/spinner.jsx'
 import Title from '../components/title.jsx'
 import FullTable from '../components/table/full-table.jsx'
 import api from '../api.js'
+import utils from '../utils.js'
 import { withRouter } from 'react-router'
 
 export class EquipmentDetailsPage extends React.Component {
@@ -128,9 +129,9 @@ export class EquipmentDetailsPage extends React.Component {
         { id: 'status', type: 'value', value: event.status },
         { id: 'jobNumber', type: 'value', value: event.jobNumber },
         { id: 'companyNotes', type: 'value', value: event.companyNotes },
-        { id: 'startDate', type: 'value', value: event.startDate },
-        { id: 'endDate', type: 'value', value: event.endDate },
-        { id: 'updatedAt', type: 'value', value: event.updatedAt },
+        { id: 'startDate', type: 'date', value: event.startDate },
+        { id: 'endDate', type: 'date', value: event.endDate },
+        { id: 'updatedAt', type: 'date', value: event.updatedAt },
         {
           id: 'edit',
           type: 'button',
@@ -195,7 +196,7 @@ export class EquipmentDetailsPage extends React.Component {
             Calibration Company: {equipment.calCompany}
           </Grid>
           <Grid item xs={12}>
-            Calibration Due: {equipment.calDue}
+            Calibration Due: {utils.convertISO(equipment.calDue)}
           </Grid>
           <Grid item xs={12}>
             <Button onClick={this.handleEditClick}>Edit Equipment</Button>

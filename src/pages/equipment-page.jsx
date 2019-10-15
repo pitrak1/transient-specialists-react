@@ -116,10 +116,10 @@ export class EquipmentPage extends React.Component {
         },
         {
           id: 'eventStartDate',
-          type: 'value',
+          type: 'date',
           value: equipment.eventStartDate,
         },
-        { id: 'eventEndDate', type: 'value', value: equipment.eventEndDate },
+        { id: 'eventEndDate', type: 'date', value: equipment.eventEndDate },
         {
           id: 'details',
           type: 'button',

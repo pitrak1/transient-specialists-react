@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, TableCell } from '@material-ui/core'
+import utils from '../../utils.js'
 
 const FullTableCell = props => {
   if (props.type === 'button') {
@@ -12,6 +13,11 @@ const FullTableCell = props => {
       </TableCell>
     )
   }
+
+  if (props.type === 'date') {
+    return <TableCell key={props.id}>{utils.convertISO(props.value)}</TableCell>
+  }
+
   return <TableCell key={props.id}>{props.value}</TableCell>
 }
 
