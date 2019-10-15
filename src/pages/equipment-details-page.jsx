@@ -81,7 +81,7 @@ export class EquipmentDetailsPage extends React.Component {
 
   handleAddEventClick = () => {
     const id = this.state.data.equipment.id
-    this.props.history.push(`/events/create/${id}`)
+    this.props.history.push(`/events/${id}/create`)
   }
 
   handlePageChange = (_event, newPage) => {
