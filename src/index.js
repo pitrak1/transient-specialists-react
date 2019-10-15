@@ -52,6 +52,7 @@ export default function AppRouter() {
           />
           <Route path='/oems' exact component={OemsPage} />
           <Route path='/oems/create' exact component={OemsCreatePage} />
+          <Route path='/oems/search/:search' exact component={OemsPage} />
           <Route path='/oems/edit/:id' exact component={OemsEditPage} />
           <Route path='/models' exact component={ModelsPage} />
           <Route path='/models/create' exact component={ModelsCreatePage} />
@@ -59,6 +60,7 @@ export default function AppRouter() {
           <Route path='/models/edit/:id' exact component={ModelsEditPage} />
           <Route path='/types' exact component={TypesPage} />
           <Route path='/types/create' exact component={TypesCreatePage} />
+          <Route path='/types/search/:search' exact component={TypesPage} />
           <Route path='/types/edit/:id' exact component={TypesEditPage} />
         </Switch>
       </Layout>

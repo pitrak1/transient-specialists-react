@@ -15,7 +15,7 @@ export class TypesPage extends React.Component {
     loading: true,
     page: 0,
     perPage: 10,
-    searchValue: '',
+    searchValue: this.props.match.params.search || '',
     sortBy: 'name',
   }
 
