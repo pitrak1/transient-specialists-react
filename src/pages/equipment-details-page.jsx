@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
+import { Button, Grid, Toolbar, Typography } from '@material-ui/core'
 import ErrorAlert from '../components/error-alert.jsx'
 import Spinner from '../components/spinner.jsx'
 import Title from '../components/title.jsx'
@@ -62,6 +56,7 @@ export class EquipmentDetailsPage extends React.Component {
   }
 
   handleDeleteClick = () => {
+    this.setState({ loading: true })
     if (confirm('Are you sure you want to delete this equipment?')) {
       const success = _response => {
         this.props.history.push('/')
@@ -103,6 +98,21 @@ export class EquipmentDetailsPage extends React.Component {
     )
   }
 
+  handleEventDeleteClick = id => {
+    this.setState({ loading: true })
+    if (confirm('Are you sure you want to delete this event?')) {
+      const success = _response => {
+        this.getData()
+      }
+
+      const failure = error => {
+        this.setState({ loading: false, alert: error })
+      }
+
+      api.deleteDestroy('events', id, success, failure)
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />
@@ -122,6 +132,7 @@ export class EquipmentDetailsPage extends React.Component {
       { type: 'value', id: 'endDate', label: 'End Date' },
       { type: 'value', id: 'updatedAt', label: 'Updated At' },
       { type: 'button', id: 'edit' },
+      { type: 'button', id: 'delete' },
     ]
 
     const data = this.state.data.events.map(event => ({
@@ -139,18 +150,26 @@ export class EquipmentDetailsPage extends React.Component {
           value: 'Edit',
           callback: this.handleEventEditClick,
         },
+        {
+          id: 'delete',
+          type: 'button',
+          value: 'Delete',
+          callback: this.handleEventDeleteClick,
+        },
       ],
     }))
 
     return (
       <div>
+        {this.state.alert && (
+          <ErrorAlert closable={true} text={this.state.alert} />
+        )}
+        <Toolbar>
+          <Title label={equipment.serialNumber} />
+          <Button onClick={this.handleEditClick}>Edit</Button>
+          <Button onClick={this.handleDeleteClick}>Delete</Button>
+        </Toolbar>
         <Grid container>
-          {this.state.alert && (
-            <ErrorAlert closable={true} text={this.state.alert} />
-          )}
-          <Grid item xs={12}>
-            <Title label={equipment.serialNumber} />
-          </Grid>
           <Grid item xs={12}>
             OEM:
             <Button
@@ -204,12 +223,6 @@ export class EquipmentDetailsPage extends React.Component {
           </Grid>
           <Grid item xs={12}>
             Calibration Due: {utils.convertISO(equipment.calDue)}
-          </Grid>
-          <Grid item xs={12}>
-            <Button onClick={this.handleEditClick}>Edit Equipment</Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button onClick={this.handleDeleteClick}>Delete Equipment</Button>
           </Grid>
         </Grid>
         <Toolbar>
