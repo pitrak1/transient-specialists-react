@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Layout from './components/layout.jsx'
+import Layout from './components/pages/layout.jsx'
 import EquipmentPage from './pages/equipment-page.jsx'
 import EquipmentDetailsPage from './pages/equipment-details-page.jsx'
 import EquipmentCreatePage from './pages/equipment-create-page.jsx'

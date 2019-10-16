@@ -1,112 +1,9 @@
 import React from 'react'
-import FullTable from '../components/table/full-table.jsx'
-import IndexToolbar from '../components/index-toolbar.jsx'
-import ErrorAlert from '../components/error-alert.jsx'
-import Spinner from '../components/spinner.jsx'
+import IndexPage from '../components/pages/index-page.jsx'
 import { withRouter } from 'react-router'
-import api from '../api.js'
 
 export class OemsPage extends React.Component {
-  state = {
-    alert: null,
-    ascending: true,
-    data: {},
-    error: null,
-    loading: true,
-    page: 0,
-    perPage: 10,
-    searchValue: this.props.match.params.search || '',
-    sortBy: 'name',
-  }
-
-  componentDidMount() {
-    this.getData()
-  }
-
-  getData = () => {
-    this.setState({ loading: true })
-    const { ascending, page, perPage, searchValue, sortBy } = this.state
-    api.getIndex(
-      'oems',
-      {
-        ascending,
-        page,
-        perPage,
-        searchValue,
-        sortBy,
-      },
-      result => {
-        this.setState({ loading: false, ...result })
-      },
-      error => {
-        this.setState({ loading: false, error })
-      },
-    )
-  }
-
-  handleShowEquipmentClick = id => {
-    const oem = this.state.data.filter(o => o.id == id)[0]
-    this.props.history.push(`/equipment/search/${oem.name}`)
-  }
-
-  handleShowModelsClick = id => {
-    const oem = this.state.data.filter(o => o.id == id)[0]
-    this.props.history.push(`/models/search/${oem.name}`)
-  }
-
-  handleEditClick = id => {
-    this.props.history.push(`/oems/edit/${id}`)
-  }
-
-  handleDeleteClick = id => {
-    if (confirm('Are you sure you want to delete this OEM?')) {
-      this.setState({ loading: true })
-      api.deleteDestroy(
-        'oems',
-        id,
-        _response => {
-          this.getData()
-        },
-        error => {
-          this.setState({ loading: false, alert: error })
-        },
-      )
-    }
-  }
-
-  handleAddClick = _event => {
-    this.props.history.push(`/oems/create`)
-  }
-
-  handleSearchChange = event => {
-    this.setState({ searchValue: event.target.value })
-  }
-
-  handleSearchClick = () => {
-    this.getData()
-  }
-
-  handlePageChange = (_event, newPage) => {
-    this.setState({ page: newPage }, this.getData)
-  }
-
-  handlePerPageChange = event => {
-    this.setState({ perPage: event.target.value }, this.getData)
-  }
-
-  handleSort = (sortBy, ascending) => {
-    this.setState({ sortBy, ascending }, this.getData)
-  }
-
   render() {
-    if (this.state.loading) {
-      return <Spinner />
-    }
-
-    if (this.state.error) {
-      return <ErrorAlert closable={false} text={this.state.error} />
-    }
-
     const headers = [
       { type: 'value', id: 'name', label: 'Name' },
       { type: 'button', id: 'showEquipment' },
@@ -115,63 +12,48 @@ export class OemsPage extends React.Component {
       { type: 'button', id: 'delete' },
     ]
 
-    const data = this.state.data.map(oem => ({
-      id: oem.id,
-      cells: [
-        { id: 'name', type: 'value', value: oem.name },
-        {
-          id: 'showEquipment',
-          type: 'button',
-          value: 'Equipment',
-          callback: this.handleShowEquipmentClick,
-        },
-        {
-          id: 'showModels',
-          type: 'button',
-          value: 'Models',
-          callback: this.handleShowModelsClick,
-        },
-        {
-          id: 'edit',
-          type: 'button',
-          value: 'Edit',
-          callback: this.handleEditClick,
-        },
-        {
-          id: 'delete',
-          type: 'button',
-          value: 'Delete',
-          callback: this.handleDeleteClick,
-        },
-      ],
-    }))
+    const transformData = data =>
+      data.map(oem => ({
+        id: oem.id,
+        cells: [
+          { id: 'name', type: 'value', value: oem.name },
+          {
+            id: 'showEquipment',
+            type: 'button',
+            value: 'Equipment',
+            callback: 'showEquipment',
+          },
+          {
+            id: 'showModels',
+            type: 'button',
+            value: 'Models',
+            callback: 'showModels',
+          },
+          {
+            id: 'edit',
+            type: 'button',
+            value: 'Edit',
+            callback: 'edit',
+          },
+          {
+            id: 'delete',
+            type: 'button',
+            value: 'Delete',
+            callback: 'delete',
+          },
+        ],
+      }))
 
     return (
-      <div>
-        {this.state.alert && (
-          <ErrorAlert closable={true} text={this.state.alert} />
-        )}
-        <IndexToolbar
-          onAddClick={this.handleAddClick}
-          onSearchChange={this.handleSearchChange}
-          onSearchClick={this.handleSearchClick}
-          searchValue={this.state.searchValue}
-          title='OEMs'
-        />
-        <FullTable
-          ascending={this.state.ascending}
-          count={parseInt(this.state.count)}
-          data={data}
-          headers={headers}
-          onPageChange={this.handlePageChange}
-          onPerPageChange={this.handlePerPageChange}
-          onSort={this.handleSort}
-          page={this.state.page}
-          perPage={this.state.perPage}
-          perPageOptions={[5, 10, 25]}
-          sortBy={this.state.sortBy}
-        />
-      </div>
+      <IndexPage
+        defaultSearchValue={this.props.match.params.search}
+        defaultSortBy={'name'}
+        headers={headers}
+        history={this.props.history}
+        resource='oems'
+        title='OEMs'
+        transformData={transformData}
+      />
     )
   }
 }
