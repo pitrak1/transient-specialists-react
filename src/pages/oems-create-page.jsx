@@ -1,5 +1,5 @@
 import React from 'react'
-import OemsForm from 'common/oems-form'
+import OemsEditCreatePage from 'common/pages/oems-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
@@ -14,7 +14,7 @@ export class OemsCreatePage extends React.Component {
 
   render() {
     return (
-      <OemsForm
+      <OemsEditCreatePage
         get={this.get}
         history={this.props.history}
         submit={this.submit}

@@ -20,19 +20,19 @@ export class TypesPage extends React.Component {
             id: 'showEquipment',
             type: 'button',
             value: 'Equipment',
-            callback: this.handleShowClick,
+            callback: 'showEquipment',
           },
           {
             id: 'edit',
             type: 'button',
             value: 'Edit',
-            callback: this.handleEditClick,
+            callback: 'edit',
           },
           {
             id: 'delete',
             type: 'button',
             value: 'Delete',
-            callback: this.handleDeleteClick,
+            callback: 'delete',
           },
         ],
       }))

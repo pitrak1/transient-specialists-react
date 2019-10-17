@@ -1,5 +1,5 @@
 import React from 'react'
-import TypesForm from 'common/types-form'
+import TypesEditCreatePage from 'common/pages/types-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
@@ -27,7 +27,7 @@ export class TypesEditPage extends React.Component {
 
   render() {
     return (
-      <TypesForm
+      <TypesEditCreatePage
         get={this.get}
         history={this.props.history}
         id={this.props.match.params.id}

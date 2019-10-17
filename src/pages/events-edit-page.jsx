@@ -1,5 +1,5 @@
 import React from 'react'
-import EventsForm from 'common/events-form'
+import EventsEditCreatePage from 'common/pages/events-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
@@ -68,7 +68,7 @@ export class EventsEditPage extends React.Component {
 
   render() {
     return (
-      <EventsForm
+      <EventsEditCreatePage
         equipmentId={this.props.match.params.equipmentId}
         eventId={this.props.match.params.eventId}
         get={this.get}

@@ -8,7 +8,7 @@ import FormTextField from 'common/form-text-field'
 import FormSelect from 'common/form-select'
 import FormDateField from 'common/form-date-field'
 
-export default class EquipmentForm extends React.Component {
+export default class EquipmentEditCreatePage extends React.Component {
   state = {
     alert: null,
     calCompany: '',
@@ -175,7 +175,7 @@ export default class EquipmentForm extends React.Component {
   }
 }
 
-EquipmentForm.propTypes = {
+EquipmentEditCreatePage.propTypes = {
   get: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   id: PropTypes.string,
@@ -183,6 +183,6 @@ EquipmentForm.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-EquipmentForm.defaultProps = {
+EquipmentEditCreatePage.defaultProps = {
   id: null,
 }

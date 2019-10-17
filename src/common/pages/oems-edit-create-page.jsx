@@ -6,7 +6,7 @@ import Spinner from 'common/spinner'
 import Title from 'common/title'
 import FormTextField from 'common/form-text-field'
 
-export default class OemsForm extends React.Component {
+export default class OemsEditCreatePage extends React.Component {
   state = {
     alert: null,
     error: null,
@@ -81,7 +81,7 @@ export default class OemsForm extends React.Component {
   }
 }
 
-OemsForm.propTypes = {
+OemsEditCreatePage.propTypes = {
   get: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   id: PropTypes.string,
@@ -89,6 +89,6 @@ OemsForm.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-OemsForm.defaultProps = {
+OemsEditCreatePage.defaultProps = {
   id: null,
 }

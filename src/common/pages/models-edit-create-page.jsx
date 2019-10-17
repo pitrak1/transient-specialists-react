@@ -7,7 +7,7 @@ import Title from 'common/title'
 import FormTextField from 'common/form-text-field'
 import FormSelect from 'common/form-select'
 
-export default class ModelsForm extends React.Component {
+export default class ModelsEditCreatePage extends React.Component {
   state = {
     alert: null,
     error: null,
@@ -96,7 +96,7 @@ export default class ModelsForm extends React.Component {
   }
 }
 
-ModelsForm.propTypes = {
+ModelsEditCreatePage.propTypes = {
   get: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   id: PropTypes.string,
@@ -104,6 +104,6 @@ ModelsForm.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-ModelsForm.defaultProps = {
+ModelsEditCreatePage.defaultProps = {
   id: null,
 }

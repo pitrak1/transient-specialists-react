@@ -1,5 +1,5 @@
 import React from 'react'
-import EquipmentForm from 'common/equipment-form'
+import EquipmentEditCreatePage from 'common/pages/equipment-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
@@ -26,7 +26,7 @@ export class EquipmentCreatePage extends React.Component {
 
   render() {
     return (
-      <EquipmentForm
+      <EquipmentEditCreatePage
         get={this.get}
         history={this.props.history}
         submit={this.submit}

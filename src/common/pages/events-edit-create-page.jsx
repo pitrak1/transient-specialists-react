@@ -8,7 +8,7 @@ import FormTextField from 'common/form-text-field'
 import FormSelect from 'common/form-select'
 import FormDateField from 'common/form-date-field'
 
-export default class EventsForm extends React.Component {
+export default class EventsEditCreatePage extends React.Component {
   state = {
     alert: null,
     error: null,
@@ -141,7 +141,7 @@ export default class EventsForm extends React.Component {
   }
 }
 
-EventsForm.propTypes = {
+EventsEditCreatePage.propTypes = {
   equipmentId: PropTypes.string.isRequired,
   eventId: PropTypes.string,
   get: PropTypes.func.isRequired,
@@ -150,6 +150,6 @@ EventsForm.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-EventsForm.defaultProps = {
+EventsEditCreatePage.defaultProps = {
   eventId: null,
 }

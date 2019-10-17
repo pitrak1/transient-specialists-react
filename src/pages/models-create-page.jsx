@@ -1,5 +1,5 @@
 import React from 'react'
-import ModelsForm from 'common/models-form'
+import ModelsEditCreatePage from 'common/pages/models-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
@@ -19,7 +19,7 @@ export class ModelsCreatePage extends React.Component {
 
   render() {
     return (
-      <ModelsForm
+      <ModelsEditCreatePage
         get={this.get}
         history={this.props.history}
         submit={this.submit}
