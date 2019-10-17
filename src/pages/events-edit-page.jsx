@@ -1,5 +1,5 @@
 import React from 'react'
-import EventsForm from '../components/events-form.jsx'
+import EventsForm from '../common/events-form'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

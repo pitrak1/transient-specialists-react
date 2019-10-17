@@ -1,5 +1,5 @@
 import React from 'react'
-import FullTable from '../full-table.jsx'
+import FullTable from '../full-table'
 import { Button, TableCell, TableRow, TableSortLabel } from '@material-ui/core'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'

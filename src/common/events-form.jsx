@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Grid } from '@material-ui/core'
-import ErrorAlert from './error-alert.jsx'
-import Spinner from './spinner.jsx'
-import Title from './title.jsx'
-import FormTextField from '../components/form-text-field.jsx'
-import FormSelect from '../components/form-select.jsx'
-import FormDateField from '../components/form-date-field.jsx'
+import ErrorAlert from './error-alert'
+import Spinner from './spinner'
+import Title from './title'
+import FormTextField from '../common/form-text-field'
+import FormSelect from '../common/form-select'
+import FormDateField from '../common/form-date-field'
 
 export default class EventsForm extends React.Component {
   state = {

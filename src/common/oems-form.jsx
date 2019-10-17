@@ -1,21 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Grid } from '@material-ui/core'
-import ErrorAlert from './error-alert.jsx'
-import Spinner from './spinner.jsx'
-import Title from './title.jsx'
-import FormTextField from './form-text-field.jsx'
-import FormSelect from './form-select.jsx'
+import ErrorAlert from './error-alert'
+import Spinner from './spinner'
+import Title from './title'
+import FormTextField from './form-text-field'
 
-export default class ModelsForm extends React.Component {
+export default class OemsForm extends React.Component {
   state = {
     alert: null,
     error: null,
     loading: true,
     name: '',
     nameValid: false,
-    oemId: 0,
-    oemIdValid: false,
   }
 
   componentDidMount() {
@@ -42,7 +39,7 @@ export default class ModelsForm extends React.Component {
     this.props.submit(
       this.state,
       result => {
-        this.props.history.push('/models')
+        this.props.history.push('/oems')
       },
       error => {
         this.setState({ loading: false, alert: error })
@@ -75,18 +72,6 @@ export default class ModelsForm extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormSelect
-            defaultOptionLabel='Select an OEM'
-            disabled={false}
-            identifier={'oemId'}
-            label='OEM'
-            onChange={this.handleChange}
-            options={this.state.oems}
-            required={true}
-            value={this.state.oemId}
-          />
-        </Grid>
-        <Grid item xs={12}>
           <Button disabled={!this.state.nameValid} onClick={this.handleClick}>
             Submit
           </Button>
@@ -96,7 +81,7 @@ export default class ModelsForm extends React.Component {
   }
 }
 
-ModelsForm.propTypes = {
+OemsForm.propTypes = {
   get: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   id: PropTypes.string,
@@ -104,6 +89,6 @@ ModelsForm.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-ModelsForm.defaultProps = {
+OemsForm.defaultProps = {
   id: null,
 }

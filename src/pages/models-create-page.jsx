@@ -1,5 +1,5 @@
 import React from 'react'
-import ModelsForm from '../components/models-form.jsx'
+import ModelsForm from '../common/models-form'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

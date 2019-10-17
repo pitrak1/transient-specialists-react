@@ -1,5 +1,5 @@
 import React from 'react'
-import OemsForm from '../components/oems-form.jsx'
+import OemsForm from '../common/oems-form'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

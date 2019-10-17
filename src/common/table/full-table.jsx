@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Table, TablePagination } from '@material-ui/core'
-import FullTableHead from './full-table-head.jsx'
-import FullTableBody from './full-table-body.jsx'
+import FullTableHead from './full-table-head'
+import FullTableBody from './full-table-body'
 
 const FullTable = props => {
   const handleSort = id => {

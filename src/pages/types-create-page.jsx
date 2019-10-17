@@ -1,5 +1,5 @@
 import React from 'react'
-import TypesForm from '../components/types-form.jsx'
+import TypesForm from '../common/types-form'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

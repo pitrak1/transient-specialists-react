@@ -6,6 +6,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {

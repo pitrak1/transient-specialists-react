@@ -1,5 +1,5 @@
 import React from 'react'
-import EquipmentForm from '../components/equipment-form.jsx'
+import EquipmentForm from '../common/equipment-form'
 import api from '../api.js'
 import { withRouter } from 'react-router'
 

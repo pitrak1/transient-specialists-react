@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Grid } from '@material-ui/core'
-import ErrorAlert from './error-alert.jsx'
-import Spinner from './spinner.jsx'
-import Title from './title.jsx'
-import FormTextField from './form-text-field.jsx'
+import ErrorAlert from './error-alert'
+import Spinner from './spinner'
+import Title from './title'
+import FormTextField from './form-text-field'
 
 export default class TypesForm extends React.Component {
   state = {
