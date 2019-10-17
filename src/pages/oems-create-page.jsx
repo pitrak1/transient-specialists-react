@@ -1,6 +1,6 @@
 import React from 'react'
-import OemsForm from '../common/oems-form'
-import api from '../api.js'
+import OemsForm from 'common/oems-form'
+import api from 'src/api'
 import { withRouter } from 'react-router'
 
 export class OemsCreatePage extends React.Component {

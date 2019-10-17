@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TableHead, TableRow } from '@material-ui/core'
-import FullTableHeader from './full-table-header'
+import FullTableHeader from 'common/table/full-table-header'
 
 const FullTableHead = props => {
   const headers = props.headers.map(header => (

@@ -1,5 +1,5 @@
 import React from 'react'
-import FormDateField from '../form-date-field'
+import FormDateField from 'common/form-date-field'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'

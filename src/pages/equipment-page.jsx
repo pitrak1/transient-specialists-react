@@ -1,5 +1,5 @@
 import React from 'react'
-import IndexPage from '../common/pages/index-page'
+import IndexPage from 'common/pages/index-page'
 import { withRouter } from 'react-router'
 
 export class EquipmentPage extends React.Component {

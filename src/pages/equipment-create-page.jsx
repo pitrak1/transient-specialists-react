@@ -1,6 +1,6 @@
 import React from 'react'
-import EquipmentForm from '../common/equipment-form'
-import api from '../api.js'
+import EquipmentForm from 'common/equipment-form'
+import api from 'src/api'
 import { withRouter } from 'react-router'
 
 export class EquipmentCreatePage extends React.Component {

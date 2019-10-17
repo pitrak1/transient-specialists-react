@@ -1,4 +1,4 @@
-import api from '../api.js'
+import api from 'src/api'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import sinon from 'sinon'

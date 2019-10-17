@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TableRow } from '@material-ui/core'
-import FullTableCell from './full-table-cell'
+import FullTableCell from 'common/table/full-table-cell'
 
 const FullTableRow = props => {
   const cells = props.cells.map(cell => (

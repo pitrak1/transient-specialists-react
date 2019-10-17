@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FullTable from '../table/full-table'
-import ErrorAlert from '../error-alert'
-import Spinner from '../spinner'
-import Title from '../title'
-import SearchField from '../search-field'
+import FullTable from 'common/table/full-table'
+import ErrorAlert from 'common/error-alert'
+import Spinner from 'common/spinner'
+import Title from 'common/title'
+import SearchField from 'common/search-field'
 import { Button, Toolbar } from '@material-ui/core'
-import api from '../../api.js'
+import api from 'src/api'
 
 export default class IndexPage extends React.Component {
   state = {

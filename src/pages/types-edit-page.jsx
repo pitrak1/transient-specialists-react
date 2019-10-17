@@ -1,6 +1,6 @@
 import React from 'react'
-import TypesForm from '../common/types-form'
-import api from '../api.js'
+import TypesForm from 'common/types-form'
+import api from 'src/api'
 import { withRouter } from 'react-router'
 
 export class TypesEditPage extends React.Component {

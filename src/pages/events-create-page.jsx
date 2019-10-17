@@ -1,6 +1,6 @@
 import React from 'react'
-import EventsForm from '../common/events-form'
-import api from '../api.js'
+import EventsForm from 'common/events-form'
+import api from 'src/api'
 import { withRouter } from 'react-router'
 
 export class EventsCreatePage extends React.Component {

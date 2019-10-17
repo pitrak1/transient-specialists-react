@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, TableCell } from '@material-ui/core'
-import utils from '../../utils.js'
+import utils from 'src/utils'
 
 const FullTableCell = props => {
   if (props.type === 'button') {

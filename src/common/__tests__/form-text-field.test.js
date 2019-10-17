@@ -1,5 +1,5 @@
 import React from 'react'
-import FormTextField from '../form-text-field'
+import FormTextField from 'common/form-text-field'
 import TextField from '@material-ui/core/TextField'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'

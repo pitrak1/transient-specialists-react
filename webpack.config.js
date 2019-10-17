@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -7,6 +8,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
   resolve: {
+    alias: {
+      common: path.resolve(__dirname, 'src/common/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
+      src: path.resolve(__dirname, 'src/'),
+    },
     extensions: ['.js', '.jsx'],
   },
   module: {

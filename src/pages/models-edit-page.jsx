@@ -1,6 +1,6 @@
 import React from 'react'
-import ModelsForm from '../common/models-form'
-import api from '../api.js'
+import ModelsForm from 'common/models-form'
+import api from 'src/api'
 import { withRouter } from 'react-router'
 
 export class ModelsEditPage extends React.Component {
