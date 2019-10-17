@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Grid } from '@material-ui/core'
-import ErrorAlert from 'common/error-alert'
-import Spinner from 'common/spinner'
-import Title from 'common/title'
-import FormTextField from 'common/form-text-field'
-import FormSelect from 'common/form-select'
+import ErrorAlert from 'common/display/error-alert'
+import Spinner from 'common/display/spinner'
+import Title from 'common/display/title'
+import FormTextField from 'common/forms/form-text-field'
+import FormSelect from 'common/forms/form-select'
 
 export default class ModelsEditCreatePage extends React.Component {
   state = {

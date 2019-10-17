@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Grid } from '@material-ui/core'
-import ErrorAlert from 'common/error-alert'
-import Spinner from 'common/spinner'
-import Title from 'common/title'
-import FormTextField from 'common/form-text-field'
+import ErrorAlert from 'common/display/error-alert'
+import Spinner from 'common/display/spinner'
+import Title from 'common/display/title'
+import FormTextField from 'common/forms/form-text-field'
 
 export default class OemsEditCreatePage extends React.Component {
   state = {

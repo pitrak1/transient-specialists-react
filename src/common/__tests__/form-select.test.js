@@ -1,5 +1,5 @@
 import React from 'react'
-import FormSelect from 'common/form-select'
+import FormSelect from 'common/forms/form-select'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import FormControl from '@material-ui/core/FormControl'
