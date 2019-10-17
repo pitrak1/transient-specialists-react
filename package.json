@@ -52,6 +52,15 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "^common(.*)$": "<rootDir>/src/common$1",
+      "^pages(.*)$": "<rootDir>/src/pages$1",
+      "^src(.*)$": "<rootDir>/src$1"
+    }
   }
 }
