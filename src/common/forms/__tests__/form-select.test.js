@@ -8,38 +8,26 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormHelperText from '@material-ui/core/FormHelperText'
 
 describe('FormSelect', () => {
-  const defaultOptionLabel = 'Select Something'
-  let disabled
-  const identifier = 'someIdentifier'
-  const label = 'Some Label'
-  let onChange
-  const options = [
-    { id: 1, name: 'option 1' },
-    { id: 2, name: 'option 2' },
-    { id: 3, name: 'option 3' },
-  ]
-  let required
-  const value = 0
+  let props
 
   beforeEach(() => {
-    disabled = false
-    onChange = sinon.stub()
-    required = false
+    props = {
+      defaultOptionLabel: 'Select Something',
+      disabled: false,
+      identifier: 'someIdentifier',
+      label: 'Some Label',
+      onChange: sinon.stub(),
+      options: [
+        { id: 1, name: 'option 1' },
+        { id: 2, name: 'option 2' },
+        { id: 3, name: 'option 3' },
+      ],
+      required: false,
+      value: 0,
+    }
   })
 
-  const render = () =>
-    shallow(
-      <FormSelect
-        defaultOptionLabel={defaultOptionLabel}
-        disabled={disabled}
-        identifier={identifier}
-        label={label}
-        onChange={onChange}
-        options={options}
-        required={required}
-        value={value}
-      />,
-    )
+  const render = () => shallow(<FormSelect {...props} />)
 
   it('renders all options plus a default option', () => {
     const node = render()
@@ -52,12 +40,16 @@ describe('FormSelect', () => {
       .find(Select)
       .props()
       .onChange({ target: { value: 2 } })
-    expect(onChange.firstCall.args).toEqual([identifier, 2, expect.anything()])
+    expect(props.onChange.firstCall.args).toEqual([
+      props.identifier,
+      2,
+      expect.anything(),
+    ])
   })
 
   describe('when required and changed to default option', () => {
     it('sets helper text to required text', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(Select)
@@ -67,7 +59,7 @@ describe('FormSelect', () => {
     })
 
     it('sets error to true', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(Select)
@@ -77,13 +69,13 @@ describe('FormSelect', () => {
     })
 
     it('calls onChange prop with false validity flag', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(Select)
         .props()
         .onChange({ target: { value: 0 } })
-      expect(onChange.firstCall.args[2]).toBe(false)
+      expect(props.onChange.firstCall.args[2]).toBe(false)
     })
   })
 
@@ -112,7 +104,7 @@ describe('FormSelect', () => {
         .find(Select)
         .props()
         .onChange({ target: { value: 0 } })
-      expect(onChange.firstCall.args[2]).toBe(true)
+      expect(props.onChange.firstCall.args[2]).toBe(true)
     })
   })
 })

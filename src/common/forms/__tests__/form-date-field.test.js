@@ -5,30 +5,20 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
 describe('FormDateField', () => {
-  let disabled
-  const identifier = 'someIdentifier'
-  const label = 'Some Label'
-  let onChange
-  let required
-  const value = null
+  let props
 
   beforeEach(() => {
-    disabled = false
-    onChange = sinon.stub()
-    required = false
+    props = {
+      disabled: false,
+      identifier: 'someIdentifier',
+      label: 'Some Label',
+      onChange: sinon.stub(),
+      required: false,
+      value: null,
+    }
   })
 
-  const render = () =>
-    shallow(
-      <FormDateField
-        disabled={disabled}
-        identifier={identifier}
-        label={label}
-        onChange={onChange}
-        required={required}
-        value={value}
-      />,
-    )
+  const render = () => shallow(<FormDateField {...props} />)
 
   it('calls onChange prop with identifier and value when value is changed', () => {
     const date = new Date('01/01/08')
@@ -37,8 +27,8 @@ describe('FormDateField', () => {
       .find(KeyboardDatePicker)
       .props()
       .onChange(date)
-    expect(onChange.firstCall.args).toEqual([
-      identifier,
+    expect(props.onChange.firstCall.args).toEqual([
+      props.identifier,
       date,
       expect.anything(),
     ])
@@ -46,7 +36,7 @@ describe('FormDateField', () => {
 
   describe('when required and changed to null', () => {
     it('sets helper text to required message', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(KeyboardDatePicker)
@@ -58,7 +48,7 @@ describe('FormDateField', () => {
     })
 
     it('sets error to true', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(KeyboardDatePicker)
@@ -68,13 +58,13 @@ describe('FormDateField', () => {
     })
 
     it('calls onChange prop with false validity flag', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(KeyboardDatePicker)
         .props()
         .onChange(null)
-      expect(onChange.firstCall.args[2]).toBe(false)
+      expect(props.onChange.firstCall.args[2]).toBe(false)
     })
   })
 
@@ -103,7 +93,7 @@ describe('FormDateField', () => {
         .find(KeyboardDatePicker)
         .props()
         .onChange(null)
-      expect(onChange.firstCall.args[2]).toBe(true)
+      expect(props.onChange.firstCall.args[2]).toBe(true)
     })
   })
 
@@ -134,7 +124,7 @@ describe('FormDateField', () => {
         .find(KeyboardDatePicker)
         .props()
         .onChange(new Date('invalid'))
-      expect(onChange.firstCall.args[2]).toBe(false)
+      expect(props.onChange.firstCall.args[2]).toBe(false)
     })
   })
 })

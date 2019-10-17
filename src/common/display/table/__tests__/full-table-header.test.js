@@ -5,36 +5,23 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
 describe('FullTableHeader', () => {
-  let ascending
-  let handleSort
-  let id
-  let label
-  let sortBy
-  let type
+  let props
 
   beforeEach(() => {
-    ascending = true
-    handleSort = sinon.stub()
-    id = 'someColumn'
-    label = 'Some Header'
-    sortBy = 'sortColumn'
-    type = 'value'
+    props = {
+      ascending: true,
+      handleSort: sinon.stub(),
+      id: 'someColumn',
+      label: 'Some Header',
+      sortBy: 'sortColumn',
+      type: 'value',
+    }
   })
 
-  const render = () =>
-    shallow(
-      <FullTableHeader
-        ascending={ascending}
-        handleSort={handleSort}
-        id={id}
-        label={label}
-        sortBy={sortBy}
-        type={type}
-      />,
-    )
+  const render = () => shallow(<FullTableHeader {...props} />)
 
   it('renders an empty cell if type is button', () => {
-    type = 'button'
+    props.type = 'button'
     const node = render()
     expect(node.find(TableCell).length).toBe(1)
     expect(node.text()).toEqual('')
@@ -47,7 +34,7 @@ describe('FullTableHeader', () => {
   })
 
   it('sets header active to true if sortBy matches id', () => {
-    id = 'sortColumn'
+    props.id = 'sortColumn'
     const node = render()
     expect(node.find(TableSortLabel).props().active).toBe(true)
   })
@@ -58,7 +45,7 @@ describe('FullTableHeader', () => {
   })
 
   it('sets header active to true if sortBy matches id', () => {
-    id = 'sortColumn'
+    props.id = 'sortColumn'
     const node = render()
     expect(node.find(TableSortLabel).props().active).toBe(true)
   })
@@ -69,18 +56,17 @@ describe('FullTableHeader', () => {
   })
 
   it('sets header direction to asc if ascending', () => {
-    ascending = false
+    props.ascending = false
     const node = render()
     expect(node.find(TableSortLabel).props().direction).toBe('desc')
   })
 
   it('calls handleSort with id if header is clicked', () => {
-    handleSort = sinon.stub()
     const node = render()
     node
       .find(TableSortLabel)
       .props()
       .onClick()
-    expect(handleSort.firstCall.args[0]).toBe('someColumn')
+    expect(props.handleSort.firstCall.args[0]).toBe('someColumn')
   })
 })

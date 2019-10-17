@@ -5,27 +5,19 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
 describe('FormTextField', () => {
-  const identifier = 'someIdentifier'
-  const label = 'Some Label'
-  let onChange
-  let required
-  const value = ''
+  let props
 
   beforeEach(() => {
-    onChange = sinon.stub()
-    required = false
+    props = {
+      identifier: 'someIdentifier',
+      label: 'Some Label',
+      onChange: sinon.stub(),
+      required: false,
+      value: '',
+    }
   })
 
-  const render = () =>
-    shallow(
-      <FormTextField
-        identifier={identifier}
-        label={label}
-        onChange={onChange}
-        required={required}
-        value={value}
-      />,
-    )
+  const render = () => shallow(<FormTextField {...props} />)
 
   it('calls onChange prop with identifier and value when value is changed', () => {
     const node = render()
@@ -33,8 +25,8 @@ describe('FormTextField', () => {
       .find(TextField)
       .props()
       .onChange({ target: { value: 'some value' } })
-    expect(onChange.firstCall.args).toEqual([
-      identifier,
+    expect(props.onChange.firstCall.args).toEqual([
+      props.identifier,
       'some value',
       expect.anything(),
     ])
@@ -42,7 +34,7 @@ describe('FormTextField', () => {
 
   describe('when required and changed to empty string', () => {
     it('sets helper text to required message', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(TextField)
@@ -54,7 +46,7 @@ describe('FormTextField', () => {
     })
 
     it('sets error to true', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(TextField)
@@ -64,13 +56,13 @@ describe('FormTextField', () => {
     })
 
     it('calls onChange prop with false validity flag', () => {
-      required = true
+      props.required = true
       const node = render()
       node
         .find(TextField)
         .props()
         .onChange({ target: { value: '' } })
-      expect(onChange.firstCall.args[2]).toBe(false)
+      expect(props.onChange.firstCall.args[2]).toBe(false)
     })
   })
 
@@ -99,7 +91,7 @@ describe('FormTextField', () => {
         .find(TextField)
         .props()
         .onChange({ target: { value: '' } })
-      expect(onChange.firstCall.args[2]).toBe(true)
+      expect(props.onChange.firstCall.args[2]).toBe(true)
     })
   })
 
@@ -135,7 +127,7 @@ describe('FormTextField', () => {
         .find(TextField)
         .props()
         .onChange({ target: { value: longString() } })
-      expect(onChange.firstCall.args[2]).toBe(false)
+      expect(props.onChange.firstCall.args[2]).toBe(false)
     })
   })
 })
