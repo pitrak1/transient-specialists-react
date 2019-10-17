@@ -62,7 +62,7 @@ const getIndex = (resource, options, success, failure) => {
       )}`,
     )
     .then(result => {
-      success(utils.convertObject(result.data.body))
+      success(utils.snakeToPascalObject(result.data.body))
     })
     .catch(error => {
       failure(error.data.body)
@@ -81,7 +81,7 @@ const getShow = (resource, id, options, success, failure) => {
       )}`,
     )
     .then(result => {
-      success(utils.convertObject(result.data.body))
+      success(utils.snakeToPascalObject(result.data.body))
     })
     .catch(error => {
       failure(error.data.body)
@@ -93,7 +93,7 @@ const getEdit = (resource, id, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?edit=true&id=${id}`)
     .then(result => {
-      success(utils.convertObject(result.data.body))
+      success(utils.snakeToPascalObject(result.data.body))
     })
     .catch(error => {
       failure(error.data.body)
@@ -105,7 +105,7 @@ const getNew = (resource, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
     .then(result => {
-      success(utils.convertObject(result.data.body))
+      success(utils.snakeToPascalObject(result.data.body))
     })
     .catch(error => {
       failure(error.data.body)

@@ -1,21 +1,49 @@
 import utils from 'src/utils'
 
 describe('Utils', () => {
-  describe('convertObject', () => {
+  describe('snakeToPascal', () => {
+    it('converts from snake to pascal case', () => {
+      expect(utils.snakeToPascal('some_string_here')).toBe('someStringHere')
+    })
+
+    it('returns null if given null', () => {
+      expect(utils.snakeToPascal(null)).toBe(null)
+    })
+
+    it('returns null if given non string', () => {
+      expect(utils.snakeToPascal(123)).toBe(null)
+    })
+  })
+
+  describe('pascalToSnake', () => {
+    it('converts from pascal to snake case', () => {
+      expect(utils.pascalToSnake('someStringHere')).toBe('some_string_here')
+    })
+
+    it('returns null if given null', () => {
+      expect(utils.pascalToSnake(null)).toBe(null)
+    })
+
+    it('returns null if given non string', () => {
+      expect(utils.pascalToSnake(123)).toBe(null)
+    })
+  })
+
+  describe('snakeToPascalObject', () => {
     it('returns null when given null', () => {
-      expect(utils.convertObject(null)).toBe(null)
+      expect(utils.snakeToPascalObject(null)).toBe(null)
     })
 
     it('returns string when given string', () => {
-      expect(utils.convertObject('some string')).toBe('some string')
+      expect(utils.snakeToPascalObject('some string')).toBe('some string')
     })
 
     it('returns number when given number', () => {
-      expect(utils.convertObject(5)).toBe(5)
+      expect(utils.snakeToPascalObject(5)).toBe(5)
     })
 
     it('returns boolean when given boolean', () => {
-      expect(utils.convertObject(true)).toBe(true)
+      expect(utils.snakeToPascalObject(true)).toBe(true)
     })
 
     it('returns converted object if given object', () => {
@@ -31,7 +59,7 @@ describe('Utils', () => {
         keyThree: 'asdf',
         keyFour: null,
       }
-      expect(utils.convertObject(object)).toEqual(expected)
+      expect(utils.snakeToPascalObject(object)).toEqual(expected)
     })
 
     it('returns converted array of objects if given array of objects', () => {
@@ -47,7 +75,7 @@ describe('Utils', () => {
         { keyThree: 'asdf' },
         { keyFour: null },
       ]
-      expect(utils.convertObject(object)).toEqual(expected)
+      expect(utils.snakeToPascalObject(object)).toEqual(expected)
     })
 
     it('returns converted object if given nested object of array and objects', () => {
@@ -69,7 +97,23 @@ describe('Utils', () => {
           keyEight: { keyNine: false },
         },
       }
-      expect(utils.convertObject(object)).toEqual(expected)
+      expect(utils.snakeToPascalObject(object)).toEqual(expected)
+    })
+  })
+
+  describe('displayDateFromISO', () => {
+    it('converts ISO to display date', () => {
+      expect(utils.displayDateFromISO('2018-10-18T12:45:23.000Z')).toBe(
+        '10/18/2018',
+      )
+    })
+
+    it('returns null if given null', () => {
+      expect(utils.displayDateFromISO(null)).toBe(null)
+    })
+
+    it('returns null if given non string', () => {
+      expect(utils.displayDateFromISO(123)).toBe(null)
     })
   })
 })

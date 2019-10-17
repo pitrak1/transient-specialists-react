@@ -15,7 +15,11 @@ const FullTableCell = props => {
   }
 
   if (props.type === 'date') {
-    return <TableCell key={props.id}>{utils.convertISO(props.value)}</TableCell>
+    return (
+      <TableCell key={props.id}>
+        {utils.displayDateFromISO(props.value)}
+      </TableCell>
+    )
   }
 
   return <TableCell key={props.id}>{props.value}</TableCell>

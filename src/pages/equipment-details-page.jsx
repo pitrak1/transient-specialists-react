@@ -222,7 +222,7 @@ export class EquipmentDetailsPage extends React.Component {
             Calibration Company: {equipment.calCompany}
           </Grid>
           <Grid item xs={12}>
-            Calibration Due: {utils.convertISO(equipment.calDue)}
+            Calibration Due: {utils.displayDateFromISO(equipment.calDue)}
           </Grid>
         </Grid>
         <Toolbar>

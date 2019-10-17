@@ -1,21 +1,30 @@
-const snakeToPascal = value => value.replace(/(\_\w)/g, m => m[1].toUpperCase())
+const snakeToPascal = value => {
+  if (value && typeof value === 'string') {
+    return value.replace(/(\_\w)/g, m => m[1].toUpperCase())
+  }
+  return null
+}
 
-const pascalToSnake = value =>
-  value
-    .split(/(?=[A-Z])/)
-    .join('_')
-    .toLowerCase()
+const pascalToSnake = value => {
+  if (value && typeof value === 'string') {
+    return value
+      .split(/(?=[A-Z])/)
+      .join('_')
+      .toLowerCase()
+  }
+  return null
+}
 
-const convertObject = object => {
+const snakeToPascalObject = object => {
   if (object != null && Array.isArray(object)) {
-    return object.map(elem => convertObject(elem))
+    return object.map(elem => snakeToPascalObject(elem))
   }
 
   if (object != null && typeof object === 'object') {
     const result = {}
     for (let [key, value] of Object.entries(object)) {
       if (object.hasOwnProperty(key)) {
-        result[snakeToPascal(key)] = convertObject(value)
+        result[snakeToPascal(key)] = snakeToPascalObject(value)
       }
     }
     return result
@@ -24,10 +33,10 @@ const convertObject = object => {
   return object
 }
 
-const convertISO = iso => {
-  if (iso) {
+const displayDateFromISO = iso => {
+  if (iso && typeof iso === 'string') {
     const date = new Date(iso)
-    return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }
   return null
 }
@@ -35,6 +44,6 @@ const convertISO = iso => {
 export default {
   snakeToPascal,
   pascalToSnake,
-  convertObject,
-  convertISO,
+  snakeToPascalObject,
+  displayDateFromISO,
 }
