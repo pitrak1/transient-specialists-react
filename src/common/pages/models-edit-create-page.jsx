@@ -56,12 +56,14 @@ export default class ModelsEditCreatePage extends React.Component {
     }
 
     if (this.state.error) {
-      return <ErrorAlert text={this.state.error} />
+      return <ErrorAlert closable={false} text={this.state.error} />
     }
 
     return (
       <Grid container>
-        {this.state.alert && <ErrorAlert text={this.state.alert} />}
+        {this.state.alert && (
+          <ErrorAlert closable={true} text={this.state.alert} />
+        )}
         <Grid item xs={12}>
           <Title label={this.props.title} />
         </Grid>
@@ -87,7 +89,10 @@ export default class ModelsEditCreatePage extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button disabled={!this.state.nameValid} onClick={this.handleClick}>
+          <Button
+            disabled={!(this.state.nameValid && this.state.oemIdValid)}
+            onClick={this.handleClick}
+          >
             Submit
           </Button>
         </Grid>

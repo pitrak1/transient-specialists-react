@@ -53,12 +53,14 @@ export default class TypesEditCreatePage extends React.Component {
     }
 
     if (this.state.error) {
-      return <ErrorAlert text={this.state.error} />
+      return <ErrorAlert closable={false} text={this.state.error} />
     }
 
     return (
       <Grid container>
-        {this.state.alert && <ErrorAlert text={this.state.alert} />}
+        {this.state.alert && (
+          <ErrorAlert closable={true} text={this.state.alert} />
+        )}
         <Grid item xs={12}>
           <Title label={this.props.title} />
         </Grid>
