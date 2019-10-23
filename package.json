@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@date-io/date-fns": "^1.3.11",
+    "@instructure/canvas-theme": "^6.14.0",
     "@instructure/ui-alerts": "^6.13.0",
     "@material-ui/core": "^4.5.0",
     "@material-ui/pickers": "^3.2.6",

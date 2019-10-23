@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { theme } from '@instructure/canvas-theme'
 import Layout from 'common/pages/layout'
 import EquipmentPage from 'pages/equipment-page'
 import EquipmentDetailsPage from 'pages/equipment-details-page'
@@ -17,6 +18,8 @@ import OemsEditPage from 'pages/oems-edit-page'
 import TypesPage from 'pages/types-page'
 import TypesCreatePage from 'pages/types-create-page'
 import TypesEditPage from 'pages/types-edit-page'
+
+theme.use()
 
 export default function AppRouter() {
   return (
