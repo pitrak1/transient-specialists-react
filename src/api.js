@@ -62,7 +62,11 @@ const getIndex = (resource, options, success, failure) => {
       )}`,
     )
     .then(result => {
-      success(utils.snakeToPascalObject(result.data.body))
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(error.data.body)
@@ -81,7 +85,11 @@ const getShow = (resource, id, options, success, failure) => {
       )}`,
     )
     .then(result => {
-      success(utils.snakeToPascalObject(result.data.body))
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(error.data.body)
@@ -93,7 +101,11 @@ const getEdit = (resource, id, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?edit=true&id=${id}`)
     .then(result => {
-      success(utils.snakeToPascalObject(result.data.body))
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(error.data.body)
@@ -105,7 +117,11 @@ const getNew = (resource, success, failure) => {
   return axios
     .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
     .then(result => {
-      success(utils.snakeToPascalObject(result.data.body))
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(error.data.body)
@@ -116,8 +132,12 @@ export const postCreate = (resource, data, success, failure) => {
   attachInterceptors()
   return axios
     .post(`${process.env.LAMBDA_ENDPOINT}${resource}`, data)
-    .then(response => {
-      success(response.data.body)
+    .then(result => {
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(translateError(error.data.body))
@@ -128,8 +148,12 @@ export const patchUpdate = (resource, data, success, failure) => {
   attachInterceptors()
   return axios
     .patch(`${process.env.LAMBDA_ENDPOINT}${resource}`, data)
-    .then(response => {
-      success(response.data.body)
+    .then(result => {
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(translateError(error.data.body))
@@ -140,8 +164,12 @@ export const deleteDestroy = (resource, id, success, failure) => {
   attachInterceptors()
   return axios
     .delete(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
-    .then(response => {
-      success(response.data.body)
+    .then(result => {
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
     })
     .catch(error => {
       failure(translateError(error.data.body))

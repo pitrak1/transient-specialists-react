@@ -7,6 +7,15 @@ describe('API', () => {
   let mock
   let success
   let failure
+
+  const options = {
+    ascending: true,
+    page: 0,
+    perPage: 10,
+    searchValue: '',
+    sortBy: 'name',
+  }
+
   beforeAll(() => {
     mock = new MockAdapter(axios)
   })
@@ -21,14 +30,6 @@ describe('API', () => {
   })
 
   describe('getIndex', () => {
-    const options = {
-      ascending: true,
-      page: 0,
-      perPage: 10,
-      searchValue: '',
-      sortBy: 'name',
-    }
-
     it('calls success with converted data on success', () => {
       mock
         .onGet(
@@ -48,6 +49,35 @@ describe('API', () => {
         ])
       })
     })
+
+    it('calls error if no result body', () => {
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+        )
+        .reply(200, {
+          errorType: 'string',
+          errorMessage: 'Some Error',
+          trace: [],
+        })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
+    })
+
+    it('calls error if returning internal code that is not 200', () => {
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+        )
+        .reply(200, {
+          statusCode: 500,
+          body: 'Some Error',
+        })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
+    })
   })
 
   describe('getShow', () => {
@@ -59,13 +89,6 @@ describe('API', () => {
         .reply(200, {
           body: { some_key: 'some value', some_other_key: 'some other value' },
         })
-      const options = {
-        ascending: true,
-        page: 0,
-        perPage: 10,
-        searchValue: '',
-        sortBy: 'name',
-      }
       return api
         .getShow('resource', 3, options, success, failure)
         .then(_data => {
@@ -74,6 +97,35 @@ describe('API', () => {
             someOtherKey: 'some other value',
           })
         })
+    })
+
+    it('calls error if no result body', () => {
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+        )
+        .reply(200, {
+          errorType: 'string',
+          errorMessage: 'Some Error',
+          trace: [],
+        })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
+    })
+
+    it('calls error if returning internal code that is not 200', () => {
+      mock
+        .onGet(
+          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+        )
+        .reply(200, {
+          statusCode: 500,
+          body: 'Some Error',
+        })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
     })
   })
 
@@ -87,6 +139,27 @@ describe('API', () => {
           someKey: 'some value',
           someOtherKey: 'some other value',
         })
+      })
+    })
+
+    it('calls error if no result body', () => {
+      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`).reply(200, {
+        errorType: 'string',
+        errorMessage: 'Some Error',
+        trace: [],
+      })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
+    })
+
+    it('calls error if returning internal code that is not 200', () => {
+      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`).reply(200, {
+        statusCode: 500,
+        body: 'Some Error',
+      })
+      return api.getIndex('resource', options, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
       })
     })
   })
@@ -149,6 +222,17 @@ describe('API', () => {
         )
       })
     })
+
+    it('calls error if no result body', () => {
+      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+        errorType: 'string',
+        errorMessage: 'Some Error',
+        trace: [],
+      })
+      return api.postCreate('resource', {}, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
+      })
+    })
   })
 
   describe('deleteDestroy', () => {
@@ -197,6 +281,17 @@ describe('API', () => {
         expect(failure.firstCall.args[0]).toBe(
           'OEM cannot be deleted because it has related models',
         )
+      })
+    })
+
+    it('calls error if no result body', () => {
+      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+        errorType: 'string',
+        errorMessage: 'Some Error',
+        trace: [],
+      })
+      return api.deleteDestroy('resource', 1, success, failure).then(_data => {
+        expect(failure.firstCall.args[0]).toEqual('Some Error')
       })
     })
   })
