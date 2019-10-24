@@ -1,4 +1,4 @@
-To set up a newly created function:
+To set up a newly created function x:
 
 1. Create a trigger with API Gateway choosing the existing API, the `default` deployment stage, and `Open` security (for the time being)
 2. Set the handler to the particular file in the Lambda repo you want to call (ex: `createType.handler` for the `handler` function in `createType.js`).
