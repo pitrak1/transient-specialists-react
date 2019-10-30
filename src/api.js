@@ -60,7 +60,6 @@ const getIndex = (resource, options, success, failure) => {
       }${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${utils.pascalToSnake(
         sortBy,
       )}`,
-      { headers: { 'Authorization-Secret': process.env.LAMBDA_SECRET } },
     )
     .then(result => {
       if (result.data.body) {
