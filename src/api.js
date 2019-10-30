@@ -1,17 +1,27 @@
 import axios from 'axios'
 import utils from './utils'
 
-const attachInterceptors = () => {
-  axios.interceptors.response.use(
-    function(response) {
-      return response.data.statusCode === 500
-        ? Promise.reject(response)
-        : response
-    },
-    function(error) {
-      return Promise.reject(error)
-    },
-  )
+let instance
+const getAxios = () => {
+  if (!instance) {
+    instance = axios.create({
+      baseURL: process.env.LAMBDA_ENDPOINT,
+      timeout: 1000,
+    })
+
+    instance.interceptors.response.use(
+      function(response) {
+        return response.data.statusCode === 500
+          ? Promise.reject(response)
+          : response
+      },
+      function(error) {
+        return Promise.reject(error)
+      },
+    )
+  }
+
+  return instance
 }
 
 const translateError = error => {
@@ -51,13 +61,11 @@ const translateError = error => {
 }
 
 const getIndex = (resource, options, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   const { ascending, page, perPage, searchValue, sortBy } = options
   return axios
     .get(
-      `${
-        process.env.LAMBDA_ENDPOINT
-      }${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${utils.pascalToSnake(
+      `${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${utils.pascalToSnake(
         sortBy,
       )}`,
     )
@@ -74,13 +82,11 @@ const getIndex = (resource, options, success, failure) => {
 }
 
 const getShow = (resource, id, options, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   const { ascending, page, perPage, sortBy } = options
   return axios
     .get(
-      `${
-        process.env.LAMBDA_ENDPOINT
-      }${resource}?show=true&id=${id}&ascending=${ascending}&page=${page}&perPage=${perPage}&sortBy=${utils.pascalToSnake(
+      `${resource}?show=true&id=${id}&ascending=${ascending}&page=${page}&perPage=${perPage}&sortBy=${utils.pascalToSnake(
         sortBy,
       )}`,
     )
@@ -97,9 +103,9 @@ const getShow = (resource, id, options, success, failure) => {
 }
 
 const getEdit = (resource, id, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   return axios
-    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?edit=true&id=${id}`)
+    .get(`${resource}?edit=true&id=${id}`)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))
@@ -113,9 +119,9 @@ const getEdit = (resource, id, success, failure) => {
 }
 
 const getNew = (resource, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   return axios
-    .get(`${process.env.LAMBDA_ENDPOINT}${resource}?new=true`)
+    .get(`${resource}?new=true`)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))
@@ -129,9 +135,9 @@ const getNew = (resource, success, failure) => {
 }
 
 export const postCreate = (resource, data, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   return axios
-    .post(`${process.env.LAMBDA_ENDPOINT}${resource}`, data)
+    .post(`${resource}`, data)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))
@@ -145,9 +151,9 @@ export const postCreate = (resource, data, success, failure) => {
 }
 
 export const patchUpdate = (resource, data, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   return axios
-    .patch(`${process.env.LAMBDA_ENDPOINT}${resource}`, data)
+    .patch(`${resource}`, data)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))
@@ -161,9 +167,9 @@ export const patchUpdate = (resource, data, success, failure) => {
 }
 
 export const deleteDestroy = (resource, id, success, failure) => {
-  attachInterceptors()
+  const axios = getAxios()
   return axios
-    .delete(`${process.env.LAMBDA_ENDPOINT}${resource}?id=${id}`)
+    .delete(`${resource}?id=${id}`)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))
