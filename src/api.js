@@ -7,8 +7,7 @@ const getAxios = () => {
     instance = axios.create({
       baseURL: process.env.LAMBDA_ENDPOINT,
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization-Secret': 'SOMETHING HERE',
+        Authorization: 'SOMETHIHNG',
       },
       timeout: 1000,
     })
