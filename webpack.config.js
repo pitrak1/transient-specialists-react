@@ -50,6 +50,7 @@ module.exports = {
       'process.env.LAMBDA_ENDPOINT': JSON.stringify(
         process.env.LAMBDA_ENDPOINT,
       ),
+      'process.env.LAMBDA_API_KEY': JSON.stringify(process.env.LAMBDA_API_KEY),
     }),
   ],
 }

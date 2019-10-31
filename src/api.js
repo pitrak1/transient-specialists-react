@@ -6,6 +6,7 @@ const getAxios = () => {
   if (!instance) {
     instance = axios.create({
       baseURL: process.env.LAMBDA_ENDPOINT,
+      headers: { 'X-Api-Key': process.env.LAMBDA_API_KEY },
       timeout: 1000,
     })
 
