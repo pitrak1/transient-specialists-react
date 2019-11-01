@@ -49,3 +49,4 @@ done < $INPUT
 
 printf ";" >> $OUTPUT
 
+# No issues

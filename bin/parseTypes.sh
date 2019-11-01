@@ -50,3 +50,5 @@ done < $INPUT
 
 printf ";" >> $OUTPUT
 
+# 5kV (1022) and 5kV (1023) conflict
+# No equipment on 1023, just remove it

@@ -4,6 +4,7 @@
 # "" => "null"
 # "," => `
 # % => ~
+# ' =>
 
 if [ -z "$1" ]
 then
@@ -20,7 +21,7 @@ fi
 INPUT="$1"
 OUTPUT="$2"
 LINENUMBER=1
-echo "INSERT INTO Events (id, status, updated_at, equipment_id, company_notes, start_date, end_date) VALUES" > $OUTPUT
+echo "INSERT INTO Events (id, status, job_number, updated_at, equipment_id, company_notes, start_date, end_date) VALUES" > $OUTPUT
 while read LINE
 do
   if [ $LINENUMBER -ge 2 ]
@@ -39,7 +40,16 @@ do
     printf ', ' >> $OUTPUT
 
     STATUS=${COLUMNS[1]}
-    printf "'$STATUS'" >> $OUTPUT
+    if [ "$STATUS" != "IN" -a "$STATUS" != "OUT" -a "$STATUS" != "READY" ]
+    then
+      printf "'OUT'" >> $OUTPUT
+      printf ', ' >> $OUTPUT
+      printf "'$STATUS'" >> $OUTPUT
+    else
+      printf "'$STATUS'" >> $OUTPUT
+      printf ', ' >> $OUTPUT
+      printf "null" >> $OUTPUT
+    fi
     printf ', ' >> $OUTPUT
 
     UPDATEDAT=${COLUMNS[2]}
@@ -84,3 +94,4 @@ done < $INPUT
 
 printf ";" >> $OUTPUT
 
+# had to replace 'null' with null in the result, a parsing error on my part
