@@ -7,7 +7,7 @@ const getAxios = () => {
     instance = axios.create({
       baseURL: process.env.LAMBDA_ENDPOINT,
       headers: { 'X-Api-Key': process.env.LAMBDA_API_KEY },
-      timeout: 1000,
+      timeout: 10000,
     })
 
     instance.interceptors.response.use(

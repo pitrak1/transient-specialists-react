@@ -8,11 +8,13 @@ The app can be run locally with `npm start`. The application will link to the de
 
 The app's tests can be run with `npm test`.
 
-Note that local setups will not work without a `.env` file with all required variables. All infrastructure other than the Amplify sites is controlled by terraform in the [Transient Specialists AWS Lambda](https://github.com/pitrak1/transient-specialists-aws-lambda) repository. If resources are destroyed and recreated in the process of development, the ARNs and endpoints in the variables in `.env` may change. In addition to correcting those variables here, they also will need to be corrected in the corresponding Amplify site's environment variables.
+Note that local setups will not work without a `.env` file with the `LAMBDA_ENDPOINT` and `LAMBDA_API_KEY` variables. All infrastructure other than the Amplify site is controlled by terraform in the [Transient Specialists AWS Lambda](https://github.com/pitrak1/transient-specialists-aws-lambda) repository. If resources are destroyed and recreated in the process of development, the ARNs and endpoints in the variables in `.env` may change. In addition to correcting those variables here, they also will need to be corrected in the Amplify site's environment variables.
 
 ## Deployment
 
-The app's development and production environments each have an AWS Amplify site that is linked to the Github repository. The development site is linked to the `master` branch, and the production site is linked to the `prod` branch. Pushing to these branches will automatically deploy to the site.
+The app has an AWS Amplify site linked to the Github repository's `master` branch. Pushing to this branch will automatically deploy to the site.
+
+To be able to hit the API Gateway locally, you'll need to modify the `terraform.tfvars` file in the AWS Lambda repo, apply the terraform, and then deploy the API. It's okay to do temporarily. Every API Gateway endpoint still requires an API key.
 
 ## Documents
 
@@ -25,7 +27,5 @@ In the `/bin` folder are the bash scripts used to transfer data from the old Azu
 ## TODO
 
 - Figure out why React Router is not allowing direct browsing to non-root paths
-- Spin up a separate development environment in the AWS Lambda repo
-- Create a dev Amplify site
 - Minimize column width for button columns in tables
 - Consider truncating notes fields when used in tables
