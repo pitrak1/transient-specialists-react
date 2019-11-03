@@ -31,7 +31,7 @@ const FullTable = props => {
         onChangeRowsPerPage={props.onPerPageChange}
         page={props.page}
         rowsPerPage={props.perPage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[10, 25, 50]}
       />
     </div>
   )

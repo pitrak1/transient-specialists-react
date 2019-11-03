@@ -4,7 +4,7 @@ import { TableCell, TableSortLabel } from '@material-ui/core'
 
 const FullTableHeader = props => {
   if (props.type === 'button') {
-    return <TableCell key={props.id}></TableCell>
+    return <TableCell key={props.id} style={{ width: '1px' }}></TableCell>
   }
   return (
     <TableCell key={props.id}>

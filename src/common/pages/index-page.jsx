@@ -16,7 +16,7 @@ export default class IndexPage extends React.Component {
     error: null,
     loading: true,
     page: 0,
-    perPage: 10,
+    perPage: 25,
     searchValue: this.props.defaultSearchValue,
     sortBy: this.props.defaultSortBy,
   }

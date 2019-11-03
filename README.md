@@ -27,5 +27,3 @@ In the `/bin` folder are the bash scripts used to transfer data from the old Azu
 ## TODO
 
 - Figure out why React Router is not allowing direct browsing to non-root paths
-- Minimize column width for button columns in tables
-- Consider truncating notes fields when used in tables

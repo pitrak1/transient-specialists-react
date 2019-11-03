@@ -17,7 +17,7 @@ export class EquipmentDetailsPage extends React.Component {
     error: null,
     loading: true,
     page: 0,
-    perPage: 10,
+    perPage: 25,
     sortBy: 'updatedAt',
   }
 
