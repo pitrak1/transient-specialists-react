@@ -26,62 +26,62 @@ export default function AppRouter() {
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route path='/' exact>
-            <EquipmentPage />
-          </Route>
-          <Route path='/equipment/create' exact>
+          <Route path='/equipment/create'>
             <EquipmentCreatePage />
           </Route>
-          <Route path='/equipment/:id' exact>
+          <Route path='/equipment/:id'>
             <EquipmentDetailsPage />
           </Route>
-          <Route path='/equipment/search/:search' exact>
+          <Route path='/equipment/search/:search'>
             <EquipmentPage />
           </Route>
-          <Route path='/equipment/edit/:id' exact>
+          <Route path='/equipment/edit/:id'>
             <EquipmentEditPage />
           </Route>
-          <Route path='/events/:id/create/' exact>
+          <Route path='/events/:id/create/'>
             <EventsCreatePage />
           </Route>
-          <Route path='/events/:equipmentId/edit/:eventId' exact>
+          <Route path='/events/:equipmentId/edit/:eventId'>
             <EventsEditPage />
           </Route>
-          <Route path='/oems' exact>
+          <Route path='/oems'>
             <OemsPage />
           </Route>
-          <Route path='/oems/create' exact>
+          <Route path='/oems/create'>
             <OemsCreatePage />
           </Route>
-          <Route path='/oems/search/:search' exact>
+          <Route path='/oems/search/:search'>
             <OemsPage />
           </Route>
-          <Route path='/oems/edit/:id' exact>
+          <Route path='/oems/edit/:id'>
             <OemsEditPage />
           </Route>
-          <Route path='/models' exact>
+          <Route path='/models'>
             <ModelsPage />
           </Route>
-          <Route path='/models/create' exact>
+          <Route path='/models/create'>
             <ModelsCreatePage />
           </Route>
-          <Route path='/models/search/:search' exact>
+          <Route path='/models/search/:search'>
             <ModelsPage />
           </Route>
-          <Route path='/models/edit/:id' exact>
+          <Route path='/models/edit/:id'>
             <ModelsEditPage />
           </Route>
-          <Route path='/types' exact>
+          <Route path='/types'>
             <TypesPage />
           </Route>
-          <Route path='/types/create' exact>
+          <Route path='/types/create'>
             <TypesCreatePage />
           </Route>
-          <Route path='/types/search/:search' exact>
+          <Route path='/types/search/:search'>
             <TypesPage />
           </Route>
-          <Route path='/types/edit/:id' exact>
+          <Route path='/types/edit/:id'>
             <TypesEditPage />
+          </Route>
+          <Route path='/'>
+            <EquipmentPage />
           </Route>
         </Switch>
       </Layout>
