@@ -47,7 +47,7 @@ export default class IndexPage extends React.Component {
   }
 
   handleDetailsClick = id => {
-    this.props.history.push(`/${this.props.resource}/${id}`)
+    this.props.history.push(`/${this.props.resource}/details/${id}`)
   }
 
   handleShowEquipmentClick = id => {

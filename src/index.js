@@ -29,7 +29,7 @@ export default function AppRouter() {
           <Route path='/equipment/create'>
             <EquipmentCreatePage />
           </Route>
-          <Route path='/equipment/:id'>
+          <Route path='/equipment/details/:id'>
             <EquipmentDetailsPage />
           </Route>
           <Route path='/equipment/search/:search'>
