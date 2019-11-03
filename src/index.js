@@ -26,45 +26,63 @@ export default function AppRouter() {
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route path='/' exact component={EquipmentPage} />
-          <Route
-            path='/equipment/create'
-            exact
-            component={EquipmentCreatePage}
-          />
-          <Route path='/equipment/:id' exact component={EquipmentDetailsPage} />
-          <Route
-            path='/equipment/search/:search'
-            exact
-            component={EquipmentPage}
-          />
-          <Route
-            path='/equipment/edit/:id'
-            exact
-            component={EquipmentEditPage}
-          />
-          <Route
-            path='/events/:id/create/'
-            exact
-            component={EventsCreatePage}
-          />
-          <Route
-            path='/events/:equipmentId/edit/:eventId'
-            exact
-            component={EventsEditPage}
-          />
-          <Route path='/oems' exact component={OemsPage} />
-          <Route path='/oems/create' exact component={OemsCreatePage} />
-          <Route path='/oems/search/:search' exact component={OemsPage} />
-          <Route path='/oems/edit/:id' exact component={OemsEditPage} />
-          <Route path='/models' exact component={ModelsPage} />
-          <Route path='/models/create' exact component={ModelsCreatePage} />
-          <Route path='/models/search/:search' exact component={ModelsPage} />
-          <Route path='/models/edit/:id' exact component={ModelsEditPage} />
-          <Route path='/types' exact component={TypesPage} />
-          <Route path='/types/create' exact component={TypesCreatePage} />
-          <Route path='/types/search/:search' exact component={TypesPage} />
-          <Route path='/types/edit/:id' exact component={TypesEditPage} />
+          <Route path='/' exact>
+            <EquipmentPage />
+          </Route>
+          <Route path='/equipment/create' exact>
+            <EquipmentCreatePage />
+          </Route>
+          <Route path='/equipment/:id' exact>
+            <EquipmentDetailsPage />
+          </Route>
+          <Route path='/equipment/search/:search' exact>
+            <EquipmentPage />
+          </Route>
+          <Route path='/equipment/edit/:id' exact>
+            <EquipmentEditPage />
+          </Route>
+          <Route path='/events/:id/create/' exact>
+            <EventsCreatePage />
+          </Route>
+          <Route path='/events/:equipmentId/edit/:eventId' exact>
+            <EventsEditPage />
+          </Route>
+          <Route path='/oems' exact>
+            <OemsPage />
+          </Route>
+          <Route path='/oems/create' exact>
+            <OemsCreatePage />
+          </Route>
+          <Route path='/oems/search/:search' exact>
+            <OemsPage />
+          </Route>
+          <Route path='/oems/edit/:id' exact>
+            <OemsEditPage />
+          </Route>
+          <Route path='/models' exact>
+            <ModelsPage />
+          </Route>
+          <Route path='/models/create' exact>
+            <ModelsCreatePage />
+          </Route>
+          <Route path='/models/search/:search' exact>
+            <ModelsPage />
+          </Route>
+          <Route path='/models/edit/:id' exact>
+            <ModelsEditPage />
+          </Route>
+          <Route path='/types' exact>
+            <TypesPage />
+          </Route>
+          <Route path='/types/create' exact>
+            <TypesCreatePage />
+          </Route>
+          <Route path='/types/search/:search' exact>
+            <TypesPage />
+          </Route>
+          <Route path='/types/edit/:id' exact>
+            <TypesEditPage />
+          </Route>
         </Switch>
       </Layout>
     </BrowserRouter>
