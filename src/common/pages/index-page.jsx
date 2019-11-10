@@ -5,7 +5,7 @@ import ErrorAlert from 'common/display/error-alert'
 import Spinner from 'common/display/spinner'
 import Title from 'common/display/title'
 import SearchField from 'common/display/search-field'
-import { Button, Toolbar } from '@material-ui/core'
+import { Button, Toolbar, Checkbox, FormControlLabel } from '@material-ui/core'
 import api from 'src/api'
 
 export default class IndexPage extends React.Component {
@@ -14,6 +14,7 @@ export default class IndexPage extends React.Component {
     ascending: true,
     data: {},
     error: null,
+    hideSold: false,
     loading: true,
     page: 0,
     perPage: 25,
@@ -27,7 +28,14 @@ export default class IndexPage extends React.Component {
 
   getData = () => {
     this.setState({ loading: true })
-    const { ascending, page, perPage, searchValue, sortBy } = this.state
+    const {
+      ascending,
+      page,
+      perPage,
+      searchValue,
+      sortBy,
+      hideSold,
+    } = this.state
     api.getIndex(
       this.props.resource,
       {
@@ -36,6 +44,7 @@ export default class IndexPage extends React.Component {
         perPage,
         searchValue,
         sortBy,
+        hideSold,
       },
       result => {
         this.setState({ loading: false, ...result })
@@ -100,6 +109,10 @@ export default class IndexPage extends React.Component {
     this.setState({ perPage: event.target.value }, this.getData)
   }
 
+  handleHideSoldChange = event => {
+    this.setState({ hideSold: event.target.checked }, this.getData)
+  }
+
   handleSort = (sortBy, ascending) => {
     this.setState({ sortBy, ascending }, this.getData)
   }
@@ -145,6 +158,18 @@ export default class IndexPage extends React.Component {
           <Title label={this.props.title} />
           <Button onClick={this.handleAddClick}>Add</Button>
           <div style={{ flexGrow: 1 }}></div>
+          {this.props.title === 'Equipment' && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.hideSold}
+                  onChange={this.handleHideSoldChange}
+                  color='primary'
+                />
+              }
+              label='Hide Sold'
+            />
+          )}
           <SearchField
             onSearchChange={this.handleSearchChange}
             onSearchClick={this.handleSearchClick}

@@ -63,12 +63,12 @@ const translateError = error => {
 
 const getIndex = (resource, options, success, failure) => {
   const axios = getAxios()
-  const { ascending, page, perPage, searchValue, sortBy } = options
+  const { ascending, page, perPage, searchValue, sortBy, hideSold } = options
   return axios
     .get(
       `${resource}?ascending=${ascending}&page=${page}&perPage=${perPage}&searchValue=${searchValue}&sortBy=${utils.pascalToSnake(
         sortBy,
-      )}`,
+      )}&hideSold=${hideSold}`,
     )
     .then(result => {
       if (result.data.body) {

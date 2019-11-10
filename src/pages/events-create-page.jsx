@@ -9,7 +9,7 @@ export class EventsCreatePage extends React.Component {
   }
 
   submit = (equipmentId, state, success, failure) => {
-    const statusArray = ['ERROR', 'IN', 'OUT', 'READY']
+    const statusArray = ['ERROR', 'IN', 'OUT', 'READY', 'SOLD']
     api.postCreate(
       'events',
       {

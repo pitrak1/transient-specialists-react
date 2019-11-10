@@ -26,6 +26,8 @@ export class EventsEditPage extends React.Component {
           statusInt = 2
         } else if (status === 'READY') {
           statusInt = 3
+        } else if (status === 'SOLD') {
+          statusInt = 4
         }
 
         success({
@@ -49,7 +51,7 @@ export class EventsEditPage extends React.Component {
   }
 
   submit = (equipmentId, state, success, failure) => {
-    const statusArray = ['ERROR', 'IN', 'OUT', 'READY']
+    const statusArray = ['ERROR', 'IN', 'OUT', 'READY', 'SOLD']
     api.patchUpdate(
       'events',
       {

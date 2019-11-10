@@ -2,7 +2,7 @@ import React from 'react'
 import IndexPage from 'common/pages/index-page'
 import ErrorAlert from 'common/display/error-alert'
 import { shallow } from 'enzyme'
-import { Button } from '@material-ui/core'
+import { Button, Checkbox } from '@material-ui/core'
 import sinon from 'sinon'
 import Spinner from 'common/display/spinner'
 import SearchField from 'common/display/search-field'
@@ -92,7 +92,7 @@ describe('IndexPage', () => {
           .find(FullTable)
           .props()
           .data[0].cells[0].callback(1)
-        expect(props.history.push.firstCall.args[0]).toBe('/resource/1')
+        expect(props.history.push.firstCall.args[0]).toBe('/resource/details/1')
       })
 
       it('shows equipment page if data is a button with showEquipment callback', () => {

@@ -14,6 +14,7 @@ describe('API', () => {
     perPage: 10,
     searchValue: '',
     sortBy: 'name',
+    hideSold: false,
   }
 
   beforeAll(() => {
@@ -33,7 +34,7 @@ describe('API', () => {
     it('calls success with converted data on success', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+          `resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name&hideSold=false`,
         )
         .reply(200, {
           body: [
@@ -53,7 +54,7 @@ describe('API', () => {
     it('calls error if no result body', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+          `resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name&hideSold=false`,
         )
         .reply(200, {
           errorType: 'string',
@@ -68,7 +69,7 @@ describe('API', () => {
     it('calls error if returning internal code that is not 200', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name`,
+          `resource?ascending=true&page=0&perPage=10&searchValue=&sortBy=name&hideSold=false`,
         )
         .reply(200, {
           statusCode: 500,
@@ -84,7 +85,7 @@ describe('API', () => {
     it('calls success with converted data on success', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+          `resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
         )
         .reply(200, {
           body: { some_key: 'some value', some_other_key: 'some other value' },
@@ -102,7 +103,7 @@ describe('API', () => {
     it('calls error if no result body', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+          `resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
         )
         .reply(200, {
           errorType: 'string',
@@ -117,7 +118,7 @@ describe('API', () => {
     it('calls error if returning internal code that is not 200', () => {
       mock
         .onGet(
-          `${process.env.LAMBDA_ENDPOINT}resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
+          `resource?show=true&id=3&ascending=true&page=0&perPage=10&sortBy=name`,
         )
         .reply(200, {
           statusCode: 500,
@@ -131,7 +132,7 @@ describe('API', () => {
 
   describe('getNew', () => {
     it('calls success with converted data on success', () => {
-      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`).reply(200, {
+      mock.onGet(`resource?new=true`).reply(200, {
         body: { some_key: 'some value', some_other_key: 'some other value' },
       })
       return api.getNew('resource', success, failure).then(_data => {
@@ -143,7 +144,7 @@ describe('API', () => {
     })
 
     it('calls error if no result body', () => {
-      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`).reply(200, {
+      mock.onGet(`resource?new=true`).reply(200, {
         errorType: 'string',
         errorMessage: 'Some Error',
         trace: [],
@@ -154,7 +155,7 @@ describe('API', () => {
     })
 
     it('calls error if returning internal code that is not 200', () => {
-      mock.onGet(`${process.env.LAMBDA_ENDPOINT}resource?new=true`).reply(200, {
+      mock.onGet(`resource?new=true`).reply(200, {
         statusCode: 500,
         body: 'Some Error',
       })
@@ -166,7 +167,7 @@ describe('API', () => {
 
   describe('postCreate', () => {
     it('calls success with data on success', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         body: {},
       })
       return api.postCreate('resource', {}, success, failure).then(_data => {
@@ -175,7 +176,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on unique type name failure', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         statusCode: 500,
         body: 'duplicate key value violates unique constraint "idx_type_name"',
       })
@@ -187,7 +188,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on unique OEM name failure', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         statusCode: 500,
         body: 'duplicate key value violates unique constraint "idx_oem_name"',
       })
@@ -199,7 +200,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on unique model name failure', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         statusCode: 500,
         body: 'duplicate key value violates unique constraint "idx_model_name"',
       })
@@ -211,7 +212,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on unique equipment serial number failure', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         statusCode: 500,
         body:
           'duplicate key value violates unique constraint "idx_equipment_serial_number"',
@@ -224,7 +225,7 @@ describe('API', () => {
     })
 
     it('calls error if no result body', () => {
-      mock.onPost(`${process.env.LAMBDA_ENDPOINT}resource`).reply(200, {
+      mock.onPost(`resource`).reply(200, {
         errorType: 'string',
         errorMessage: 'Some Error',
         trace: [],
@@ -237,7 +238,7 @@ describe('API', () => {
 
   describe('deleteDestroy', () => {
     it('calls success with data on success', () => {
-      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+      mock.onDelete(`resource?id=1`).reply(200, {
         body: {},
       })
       return api.deleteDestroy('resource', 1, success, failure).then(_data => {
@@ -246,7 +247,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on foreign key model id on equipment error', () => {
-      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+      mock.onDelete(`resource?id=1`).reply(200, {
         statusCode: 500,
         body:
           'update or delete on table "models" violates foreign key constraint "equipments_model_id_fkey" on table "equipments"',
@@ -259,7 +260,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on foreign key type id on equipment error', () => {
-      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+      mock.onDelete(`resource?id=1`).reply(200, {
         statusCode: 500,
         body:
           'update or delete on table "types" violates foreign key constraint "equipments_type_id_fkey" on table "equipments"',
@@ -272,7 +273,7 @@ describe('API', () => {
     })
 
     it('calls failure with translated error on foreign key model id on OEMs error', () => {
-      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+      mock.onDelete(`resource?id=1`).reply(200, {
         statusCode: 500,
         body:
           'update or delete on table "oems" violates foreign key constraint "models_oem_id_fkey" on table "models"',
@@ -285,7 +286,7 @@ describe('API', () => {
     })
 
     it('calls error if no result body', () => {
-      mock.onDelete(`${process.env.LAMBDA_ENDPOINT}resource?id=1`).reply(200, {
+      mock.onDelete(`resource?id=1`).reply(200, {
         errorType: 'string',
         errorMessage: 'Some Error',
         trace: [],
