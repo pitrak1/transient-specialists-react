@@ -167,7 +167,6 @@ export class EquipmentDetailsPage extends React.Component {
         <Toolbar>
           <Title label={equipment.serialNumber} />
           <Button onClick={this.handleEditClick}>Edit</Button>
-          <Button onClick={this.handleDeleteClick}>Delete</Button>
         </Toolbar>
         <Grid container>
           <Grid item xs={12}>
@@ -242,6 +241,15 @@ export class EquipmentDetailsPage extends React.Component {
           perPageOptions={[5, 10, 25]}
           sortBy={this.state.sortBy}
         />
+        <Toolbar>
+          <Button
+            onClick={this.handleDeleteClick}
+            color='primary'
+            variant='contained'
+          >
+            Delete Equipment
+          </Button>
+        </Toolbar>
       </div>
     )
   }

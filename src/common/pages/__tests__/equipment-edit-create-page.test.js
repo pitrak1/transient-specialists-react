@@ -106,14 +106,14 @@ describe('EquipmentEditCreatePage', () => {
       expect(node.find(Button).props().disabled).toBe(false)
     })
 
-    it('redirects to equipment page if submit succeeds', () => {
-      props.submit = sinon.stub().callsArg(1)
+    it('redirects to equipment details page if submit succeeds', () => {
+      props.submit = sinon.stub().callsArgWith(1, { equipment: { id: 4 } })
       const node = render()
       node
         .find(Button)
         .props()
         .onClick()
-      expect(props.history.push.firstCall.args[0]).toBe('/')
+      expect(props.history.push.firstCall.args[0]).toBe('/equipment/details/4')
     })
 
     it('displays error if submit fails', () => {

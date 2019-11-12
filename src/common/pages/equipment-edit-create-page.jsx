@@ -59,7 +59,7 @@ export default class EquipmentEditCreatePage extends React.Component {
     this.props.submit(
       this.state,
       result => {
-        this.props.history.push('/')
+        this.props.history.push(`/equipment/details/${result.equipment.id}`)
       },
       error => {
         this.setState({ loading: false, alert: error })
