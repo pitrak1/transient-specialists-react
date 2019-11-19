@@ -44,9 +44,6 @@ export default function AppRouter() {
           <Route path='/events/:equipmentId/edit/:eventId'>
             <EventsEditPage />
           </Route>
-          <Route path='/oems'>
-            <OemsPage />
-          </Route>
           <Route path='/oems/create'>
             <OemsCreatePage />
           </Route>
@@ -56,8 +53,8 @@ export default function AppRouter() {
           <Route path='/oems/edit/:id'>
             <OemsEditPage />
           </Route>
-          <Route path='/models'>
-            <ModelsPage />
+          <Route path='/oems'>
+            <OemsPage />
           </Route>
           <Route path='/models/create'>
             <ModelsCreatePage />
@@ -68,8 +65,8 @@ export default function AppRouter() {
           <Route path='/models/edit/:id'>
             <ModelsEditPage />
           </Route>
-          <Route path='/types'>
-            <TypesPage />
+          <Route path='/models'>
+            <ModelsPage />
           </Route>
           <Route path='/types/create'>
             <TypesCreatePage />
@@ -79,6 +76,9 @@ export default function AppRouter() {
           </Route>
           <Route path='/types/edit/:id'>
             <TypesEditPage />
+          </Route>
+          <Route path='/types'>
+            <TypesPage />
           </Route>
           <Route path='/'>
             <EquipmentPage />
