@@ -3,10 +3,17 @@ import PropTypes from 'prop-types'
 import { Button, TextField } from '@material-ui/core'
 
 const SearchField = props => {
+  const onKeyPress = event => {
+    if (event.charCode === 13) {
+      props.onSearchClick()
+    }
+  }
+
   return (
     <div>
       <TextField
         id='search'
+        inputProps={{ onKeyPress }}
         label='Search'
         value={props.value}
         onChange={props.onSearchChange}
