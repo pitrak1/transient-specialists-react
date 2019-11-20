@@ -31,6 +31,7 @@ class FormDateField extends React.Component {
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
+          autoOk={true}
           disabled={this.props.disabled}
           disableToolbar
           error={!!this.state.error}
