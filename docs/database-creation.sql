@@ -3,7 +3,6 @@ CREATE TABLE Types
   id SERIAL PRIMARY KEY,
   name varchar(255) NOT NULL
 );
-
 CREATE UNIQUE INDEX idx_type_name ON Types(lower(name));
 
 CREATE TABLE Oems
@@ -11,16 +10,22 @@ CREATE TABLE Oems
   id SERIAL PRIMARY KEY,
   name varchar(255) NOT NULL
 );
-
 CREATE UNIQUE INDEX idx_oem_name ON Oems(lower(name));
+
+CREATE TABLE ItemGroups
+(
+  id SERIAL PRIMARY KEY,
+  name varchar(255) NOT NULL
+);
+CREATE UNIQUE INDEX idx_item_groups_name ON ItemGroups(lower(name));
 
 CREATE TABLE Models
 (
   id SERIAL PRIMARY KEY,
   name varchar(255) NOT NULL,
-  oem_id int REFERENCES Oems(id)
+  oem_id int REFERENCES Oems(id),
+  item_group_id int REFERENCES ItemGroups(id)
 );
-
 CREATE UNIQUE INDEX idx_model_name ON Models(lower(name));
 
 CREATE TABLE Equipments
@@ -34,7 +39,6 @@ CREATE TABLE Equipments
   type_id int REFERENCES Types(id),
   model_id int REFERENCES Models(id)
 );
-
 CREATE UNIQUE INDEX idx_equipment_serial_number ON Equipments(lower(serial_number));
 
 CREATE TABLE Events
@@ -73,4 +77,12 @@ FROM (
 		) AS rk
 	FROM Events x
 ) y
-WHERE y.rk = 1
+WHERE y.rk = 1;
+
+CREATE TABLE Handles
+(
+  id SERIAL PRIMARY KEY,
+  handle varchar(255) NOT NULL,
+  item_group_id int REFERENCES ItemGroups(id)
+);
+CREATE UNIQUE INDEX idx_handles_handle ON Handles(lower(handle));
