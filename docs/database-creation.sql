@@ -85,4 +85,3 @@ CREATE TABLE Handles
   handle varchar(255) NOT NULL,
   item_group_id int REFERENCES ItemGroups(id)
 );
-CREATE UNIQUE INDEX idx_handles_handle ON Handles(lower(handle));

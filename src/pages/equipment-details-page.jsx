@@ -46,10 +46,6 @@ export class EquipmentDetailsPage extends React.Component {
     )
   }
 
-  handleChange = object => {
-    this.setState(object)
-  }
-
   handleEditClick = () => {
     const id = this.state.data.equipment.id
     this.props.history.push(`/equipment/edit/${id}`)
@@ -161,9 +157,6 @@ export class EquipmentDetailsPage extends React.Component {
 
     return (
       <div>
-        {this.state.alert && (
-          <ErrorAlert closable={true} text={this.state.alert} />
-        )}
         <Toolbar>
           <Title label={equipment.serialNumber} />
           <Button onClick={this.handleEditClick}>Edit</Button>

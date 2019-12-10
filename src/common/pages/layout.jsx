@@ -42,6 +42,14 @@ const Layout = ({ children, history }) => {
           >
             Types
           </Button>
+          <Button
+            color='inherit'
+            onClick={() => {
+              history.push(`/itemgroups`)
+            }}
+          >
+            Item Groups
+          </Button>
         </Toolbar>
       </AppBar>
       <main>{children}</main>

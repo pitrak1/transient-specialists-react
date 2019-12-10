@@ -18,6 +18,9 @@ import OemsEditPage from 'pages/oems-edit-page'
 import TypesPage from 'pages/types-page'
 import TypesCreatePage from 'pages/types-create-page'
 import TypesEditPage from 'pages/types-edit-page'
+import ItemGroupsPage from 'pages/itemgroups-page'
+import ItemGroupsCreatePage from 'pages/itemgroups-create-page'
+import ItemGroupsDetailsPage from 'pages/itemgroups-details-page'
 
 theme.use()
 
@@ -79,6 +82,15 @@ export default function AppRouter() {
           </Route>
           <Route path='/types'>
             <TypesPage />
+          </Route>
+          <Route path='/itemgroups/create'>
+            <ItemGroupsCreatePage />
+          </Route>
+          <Route path='/itemgroups/details/:id'>
+            <ItemGroupsDetailsPage />
+          </Route>
+          <Route path='/itemgroups'>
+            <ItemGroupsPage />
           </Route>
           <Route path='/'>
             <EquipmentPage />

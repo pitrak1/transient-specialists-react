@@ -18,23 +18,33 @@ INSERT INTO Oems(name)
 VALUES ('OEM a 3');
 
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model abcdef 1', 1);
+INSERT INTO ItemGroups (name)
+VALUES('First');
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model abcde 2', 2);
+INSERT INTO ItemGroups (name)
+VALUES('Second');
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model abcd 3', 2);
+INSERT INTO ItemGroups (name)
+VALUES('Third');
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model abc 4', 3);
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model ab 5', 3);
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model abcdef 1', 1, 1);
 
-INSERT INTO Models(name, oem_id)
-VALUES ('Model a 6', 3);
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model abcde 2', 2, 1);
+
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model abcd 3', 2, 1);
+
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model abc 4', 3, 1);
+
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model ab 5', 3, 3);
+
+INSERT INTO Models(name, oem_id, item_group_id)
+VALUES ('Model a 6', 3, 3);
 
 
 INSERT INTO Equipments (serial_number, type_id, model_id)
@@ -91,3 +101,22 @@ VALUES ('Event 11', 6, '2019-09-17 07:37:16-05');
 
 INSERT INTO Events (status, equipment_id, updated_at)
 VALUES ('Event 12', 6, '2018-12-17 07:37:16-05');
+
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf1', 1);
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf2', 1);
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf3', 1);
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf4', 2);
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf5', 2);
+
+INSERT INTO Handles (handle, item_group_id)
+VALUES ('http://asdf6', 2);
