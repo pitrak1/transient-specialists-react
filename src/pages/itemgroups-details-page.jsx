@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Grid, Toolbar, Typography } from '@material-ui/core'
-import { Modal } from '@instructure/ui-modal'
 import { Delete, Add } from '@material-ui/icons'
 import ErrorAlert from 'common/display/error-alert'
 import Spinner from 'common/display/spinner'
