@@ -116,6 +116,26 @@ export class ItemGroupsDetailsPage extends React.Component {
     )
   }
 
+  handleDeleteClick = () => {
+    this.setState({ loading: true })
+    if (confirm('Are you sure you want to delete this item group?')) {
+      const success = _response => {
+        this.props.history.push('/itemgroups')
+      }
+
+      const failure = error => {
+        this.setState({ loading: false, alert: error })
+      }
+
+      api.deleteDestroy(
+        'itemgroups',
+        this.state.data.itemGroup.id,
+        success,
+        failure,
+      )
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />
@@ -201,6 +221,15 @@ export class ItemGroupsDetailsPage extends React.Component {
             Add Handle
           </Button>
         </div>
+        <Toolbar>
+          <Button
+            onClick={this.handleDeleteClick}
+            color='primary'
+            variant='contained'
+          >
+            Delete Item Group
+          </Button>
+        </Toolbar>
       </div>
     )
   }
