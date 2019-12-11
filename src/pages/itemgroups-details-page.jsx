@@ -138,6 +138,10 @@ export class ItemGroupsDetailsPage extends React.Component {
     }
   }
 
+  handleEditClick = () => {
+    this.props.history.push(`/itemgroups/edit/${this.state.data.itemGroup.id}`)
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />
@@ -176,6 +180,7 @@ export class ItemGroupsDetailsPage extends React.Component {
         )}
         <Toolbar>
           <Title label={itemGroup.name} />
+          <Button onClick={this.handleEditClick}>Edit</Button>
         </Toolbar>
         <Subtitle label='Models' />
         {models}
