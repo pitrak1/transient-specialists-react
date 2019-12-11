@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import EquipmentDetailsHeader from 'common/pages/equipment_details_page/equipment-details-header'
+import DetailsHeader from 'common/display/details-header'
 import { Button } from '@material-ui/core'
 import sinon from 'sinon'
 
-describe('EquipmentDetailsHeader', () => {
+describe('DetailsHeader', () => {
   let props
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('EquipmentDetailsHeader', () => {
     }
   })
 
-  const render = () => shallow(<EquipmentDetailsHeader {...props} />)
+  const render = () => shallow(<DetailsHeader {...props} />)
 
   it('calls onClick when edit button is clicked', () => {
     const node = render()

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Toolbar } from '@material-ui/core'
 import Title from 'common/display/title'
 
-function EquipmentDetailsHeader(props) {
+function DetailsHeader(props) {
   return (
     <Toolbar>
       <Title label={props.label} />
@@ -12,9 +12,9 @@ function EquipmentDetailsHeader(props) {
   )
 }
 
-EquipmentDetailsHeader.propTypes = {
+DetailsHeader.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 }
 
-export default EquipmentDetailsHeader
+export default DetailsHeader

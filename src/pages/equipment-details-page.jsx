@@ -3,10 +3,10 @@ import ErrorAlert from 'common/display/error-alert'
 import Spinner from 'common/display/spinner'
 import api from 'src/api'
 import { withRouter } from 'react-router'
-import EquipmentDetailsHeader from 'common/pages/equipment_details_page/equipment-details-header'
+import DetailsHeader from 'common/display/details-header'
 import EquipmentDetailsInfo from 'common/pages/equipment_details_page/equipment-details-info'
 import EquipmentDetailsEvents from 'common/pages/equipment_details_page/equipment-details-events'
-import EquipmentDetailsDeleteButton from 'common/pages/equipment_details_page/equipment-details-delete-button'
+import DetailsDeleteButton from 'common/display/details-delete-button'
 
 function EquipmentDetailsPage(props) {
   const [state, setState] = useState({
@@ -108,7 +108,7 @@ function EquipmentDetailsPage(props) {
   return (
     <div>
       {state.alert && <ErrorAlert closable={true} text={state.alert} />}
-      <EquipmentDetailsHeader
+      <DetailsHeader
         label={state.data.equipment.serialNumber}
         onClick={handleEditClick}
       />
@@ -130,7 +130,10 @@ function EquipmentDetailsPage(props) {
         perPage={tableOptions.perPage}
         sortBy={tableOptions.sortBy}
       />
-      <EquipmentDetailsDeleteButton onDeleteClick={handleDeleteClick} />
+      <DetailsDeleteButton
+        label='Delete Equipment'
+        onDeleteClick={handleDeleteClick}
+      />
     </div>
   )
 }

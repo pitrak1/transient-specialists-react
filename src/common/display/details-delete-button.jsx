@@ -2,18 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Toolbar } from '@material-ui/core'
 
-function EquipmentDetailsDeleteButton(props) {
+function DetailsDeleteButton(props) {
   return (
     <Toolbar>
       <Button onClick={props.onDeleteClick} color='primary' variant='contained'>
-        Delete Equipment
+        {props.label}
       </Button>
     </Toolbar>
   )
 }
 
-EquipmentDetailsDeleteButton.propTypes = {
+DetailsDeleteButton.propTypes = {
+  label: PropTypes.string.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
 }
 
-export default EquipmentDetailsDeleteButton
+export default DetailsDeleteButton

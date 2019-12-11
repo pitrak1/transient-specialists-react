@@ -1,16 +1,12 @@
 import React from 'react'
-import { Button, Grid, Toolbar, Typography } from '@material-ui/core'
-import { Delete, Add } from '@material-ui/icons'
 import ErrorAlert from 'common/display/error-alert'
 import Spinner from 'common/display/spinner'
-import Title from 'common/display/title'
-import Subtitle from 'common/display/subtitle'
-import FullTable from 'common/display/table/full-table'
 import api from 'src/api'
-import utils from 'src/utils'
 import { withRouter } from 'react-router'
-import FormSelect from 'common/forms/form-select'
-import FormTextField from 'common/forms/form-text-field'
+import DetailsHeader from 'common/display/details-header'
+import ItemGroupsDetailsModels from 'common/pages/itemgroups_details_page/itemgroups-details-models'
+import ItemGroupsDetailsHandles from 'common/pages/itemgroups_details_page/itemgroups-details-handles'
+import DetailsDeleteButton from 'common/display/details-delete-button'
 
 export class ItemGroupsDetailsPage extends React.Component {
   state = {
@@ -18,12 +14,6 @@ export class ItemGroupsDetailsPage extends React.Component {
     data: { models: [], oems: [] },
     error: null,
     loading: true,
-    handle: '',
-    handleValid: false,
-    oemId: 0,
-    oemIdValid: false,
-    modelId: 0,
-    modelIdValid: false,
   }
 
   componentDidMount() {
@@ -45,24 +35,16 @@ export class ItemGroupsDetailsPage extends React.Component {
     )
   }
 
-  handleChange = (identifier, value, valid) => {
-    const state = {}
-    state[identifier] = value
-    state[`${identifier}Valid`] = valid
-    this.setState(state)
-  }
-
-  handleModelAddClick = () => {
+  handleModelAddClick = id => {
     this.setState({ loading: true })
     api.patchUpdate(
       'models',
       {
-        id: this.state.modelId,
+        id,
         itemGroupId: this.state.data.itemGroup.id,
         itemGroup: true,
       },
       result => {
-        this.setState({ modelId: 0, modelIdValid: false })
         this.getData()
       },
       error => {
@@ -85,17 +67,16 @@ export class ItemGroupsDetailsPage extends React.Component {
     )
   }
 
-  handleHandleAddClick = () => {
+  handleHandleAddClick = handle => {
     this.setState({ loading: true })
     api.patchUpdate(
       'itemgroups',
       {
         id: this.state.data.itemGroup.id,
-        handle: this.state.handle,
+        handle,
         add: true,
       },
       result => {
-        this.setState({ handle: '', handleValid: false })
         this.getData()
       },
       error => {
@@ -119,8 +100,9 @@ export class ItemGroupsDetailsPage extends React.Component {
   }
 
   handleDeleteClick = () => {
-    this.setState({ loading: true })
     if (confirm('Are you sure you want to delete this item group?')) {
+      this.setState({ loading: true })
+
       const success = _response => {
         this.props.history.push('/itemgroups')
       }
@@ -147,108 +129,32 @@ export class ItemGroupsDetailsPage extends React.Component {
       return <Spinner />
     }
 
-    const itemGroup = this.state.data.itemGroup
-
-    const models = itemGroup.models.map(model => (
-      <div key={`${model.name}${model.id}`}>
-        <Button
-          onClick={this.handleModelDeleteClick.bind(null, model.id)}
-          size='large'
-          startIcon={<Delete />}
-        >
-          {model.name}
-        </Button>
-      </div>
-    ))
-
-    const handles = itemGroup.handles.map(handle => (
-      <div key={`${handle.handle}${handle.id}`}>
-        <Button
-          onClick={this.handleHandleDeleteClick.bind(null, handle.id)}
-          size='large'
-          startIcon={<Delete />}
-        >
-          {handle.handle}
-        </Button>
-      </div>
-    ))
-
     return (
       <div>
         {this.state.alert && (
           <ErrorAlert closable={true} text={this.state.alert} />
         )}
-        <Toolbar>
-          <Title label={itemGroup.name} />
-          <Button onClick={this.handleEditClick}>Edit</Button>
-        </Toolbar>
-        <Subtitle label='Models' />
-        {models}
+        <DetailsHeader
+          label={this.state.data.itemGroup.name}
+          onClick={this.handleEditClick}
+        />
+        <ItemGroupsDetailsModels
+          associatedModels={this.state.data.itemGroup.models}
+          models={this.state.data.models}
+          oems={this.state.data.oems}
+          onAddClick={this.handleModelAddClick}
+          onDeleteClick={this.handleModelDeleteClick}
+        />
         <br />
-        <div>
-          <FormSelect
-            defaultOptionLabel='Select an OEM'
-            disabled={false}
-            identifier={'oemId'}
-            label='OEM'
-            onChange={this.handleChange}
-            options={this.state.data.oems}
-            required={true}
-            value={this.state.oemId}
-          />
-          <FormSelect
-            defaultOptionLabel='Select a Model'
-            disabled={!this.state.oemId}
-            identifier={'modelId'}
-            label='Model'
-            onChange={this.handleChange}
-            options={this.state.data.models.filter(
-              model => model.oemId === this.state.oemId,
-            )}
-            required={true}
-            value={this.state.modelId}
-          />
-          <Button
-            disabled={!this.state.modelIdValid}
-            onClick={this.handleModelAddClick}
-            size='large'
-            startIcon={<Add />}
-          >
-            Add Model
-          </Button>
-        </div>
-        <br />
-        <Subtitle label='Handles' />
-        {handles}
-        <br />
-        <div>
-          <div>
-            <FormTextField
-              identifier='handle'
-              label='Handle'
-              onChange={this.handleChange}
-              required={true}
-              value={this.state.handle}
-            />
-          </div>
-          <Button
-            disabled={!this.state.handleValid}
-            onClick={this.handleHandleAddClick}
-            size='large'
-            startIcon={<Add />}
-          >
-            Add Handle
-          </Button>
-        </div>
-        <Toolbar>
-          <Button
-            onClick={this.handleDeleteClick}
-            color='primary'
-            variant='contained'
-          >
-            Delete Item Group
-          </Button>
-        </Toolbar>
+        <ItemGroupsDetailsHandles
+          handles={this.state.data.itemGroup.handles}
+          onAddClick={this.handleHandleAddClick}
+          onDeleteClick={this.handleHandleDeleteClick}
+        />
+        <DetailsDeleteButton
+          label='Delete Item Group'
+          onDeleteClick={this.handleDeleteClick}
+        />
       </div>
     )
   }
