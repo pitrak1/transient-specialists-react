@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   FormControl,
@@ -8,18 +8,16 @@ import {
   Select,
 } from '@material-ui/core'
 
-class FormSelect extends React.Component {
-  state = {
-    error: null,
-  }
+function FormSelect(props) {
+  const [error, setError] = useState(null)
 
-  options = () => {
+  const options = () => {
     const startingOption = (
       <MenuItem key='0' value={0}>
-        {this.props.defaultOptionLabel}
+        {props.defaultOptionLabel}
       </MenuItem>
     )
-    const options = this.props.options.map(option => (
+    const options = props.options.map(option => (
       <MenuItem key={option.id.toString()} value={option.id}>
         {option.name}
       </MenuItem>
@@ -27,28 +25,26 @@ class FormSelect extends React.Component {
     return [startingOption, ...options]
   }
 
-  handleChange = event => {
+  const handleChange = event => {
     const value = event.target.value
-    const valid = !this.props.required || !!value
-    const error = !valid ? `${this.props.label} is required` : null
+    const valid = !props.required || !!value
+    const errorCheck = !valid ? `${props.label} is required` : null
 
-    this.props.onChange(this.props.identifier, value, valid)
-    this.setState({ error })
+    props.onChange(props.identifier, value, valid)
+    setError(errorCheck)
   }
 
-  render() {
-    return (
-      <div>
-        <FormControl disabled={this.props.disabled} error={!!this.state.error}>
-          <InputLabel>{this.props.label}</InputLabel>
-          <Select onChange={this.handleChange} value={this.props.value}>
-            {this.options()}
-          </Select>
-          <FormHelperText>{this.state.error}</FormHelperText>
-        </FormControl>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <FormControl disabled={props.disabled} error={!!error}>
+        <InputLabel>{props.label}</InputLabel>
+        <Select onChange={handleChange} value={props.value}>
+          {options()}
+        </Select>
+        <FormHelperText>{error}</FormHelperText>
+      </FormControl>
+    </div>
+  )
 }
 
 FormSelect.propTypes = {

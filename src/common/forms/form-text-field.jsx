@@ -1,40 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextField } from '@material-ui/core'
 
-class FormTextField extends React.Component {
-  state = {
-    error: null,
-  }
+function FormTextField(props) {
+  const [error, setError] = useState(null)
 
-  handleChange = event => {
+  const handleChange = event => {
     const value = event.target.value
-    let error = null
+    let errorCheck = null
 
-    if (!value.length && this.props.required) {
-      error = `${this.props.label} is required`
+    if (!value.length && props.required) {
+      errorCheck = `${props.label} is required`
     }
 
     if (value.length > 255) {
-      error = `${this.props.label} must be 255 characters or fewer`
+      errorCheck = `${props.label} must be 255 characters or fewer`
     }
 
-    this.props.onChange(this.props.identifier, value, !error)
-    this.setState({ error })
+    props.onChange(props.identifier, value, !errorCheck)
+    setError(errorCheck)
   }
 
-  render() {
-    return (
-      <TextField
-        disabled={this.props.disabled}
-        error={!!this.state.error}
-        helperText={this.state.error}
-        label={this.props.label}
-        onChange={this.handleChange}
-        value={this.props.value}
-      />
-    )
-  }
+  return (
+    <TextField
+      disabled={props.disabled}
+      error={!!error}
+      helperText={error}
+      label={props.label}
+      onChange={handleChange}
+      value={props.value}
+    />
+  )
 }
 
 FormTextField.propTypes = {
