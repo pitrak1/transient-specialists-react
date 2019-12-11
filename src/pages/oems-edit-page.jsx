@@ -3,8 +3,8 @@ import OemsEditCreatePage from 'common/pages/oems-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
-export class OemsEditPage extends React.Component {
-  get = (id, success, failure) => {
+function OemsEditPage(props) {
+  const get = (id, success, failure) => {
     api.getEdit(
       'oems',
       id,
@@ -16,7 +16,7 @@ export class OemsEditPage extends React.Component {
     )
   }
 
-  submit = (state, success, failure) => {
+  const submit = (state, success, failure) => {
     api.patchUpdate(
       'oems',
       { id: state.id, name: state.name },
@@ -25,17 +25,15 @@ export class OemsEditPage extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <OemsEditCreatePage
-        get={this.get}
-        history={this.props.history}
-        id={this.props.match.params.id}
-        submit={this.submit}
-        title='Edit OEM'
-      />
-    )
-  }
+  return (
+    <OemsEditCreatePage
+      get={get}
+      history={props.history}
+      id={props.match.params.id}
+      submit={submit}
+      title='Edit OEM'
+    />
+  )
 }
 
 export default withRouter(OemsEditPage)

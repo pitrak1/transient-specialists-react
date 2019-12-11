@@ -3,8 +3,8 @@ import EventsEditCreatePage from 'common/pages/events-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
-export class EventsEditPage extends React.Component {
-  get = (id, success, failure) => {
+function EventsEditPage(props) {
+  const get = (id, success, failure) => {
     api.getEdit(
       'events',
       id,
@@ -50,7 +50,7 @@ export class EventsEditPage extends React.Component {
     )
   }
 
-  submit = (equipmentId, state, success, failure) => {
+  const submit = (equipmentId, state, success, failure) => {
     const statusArray = ['ERROR', 'IN', 'OUT', 'READY', 'SOLD']
     api.patchUpdate(
       'events',
@@ -68,18 +68,16 @@ export class EventsEditPage extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <EventsEditCreatePage
-        equipmentId={this.props.match.params.equipmentId}
-        eventId={this.props.match.params.eventId}
-        get={this.get}
-        history={this.props.history}
-        submit={this.submit}
-        title='Edit Type'
-      />
-    )
-  }
+  return (
+    <EventsEditCreatePage
+      equipmentId={props.match.params.equipmentId}
+      eventId={props.match.params.eventId}
+      get={get}
+      history={props.history}
+      submit={submit}
+      title='Edit Type'
+    />
+  )
 }
 
 export default withRouter(EventsEditPage)

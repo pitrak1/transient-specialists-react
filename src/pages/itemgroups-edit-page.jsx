@@ -3,8 +3,8 @@ import ItemGroupsEditCreatePage from 'common/pages/itemgroups-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
-export class ItemGroupsEditPage extends React.Component {
-  get = (id, success, failure) => {
+function ItemGroupsEditPage(props) {
+  const get = (id, success, failure) => {
     api.getEdit(
       'itemgroups',
       id,
@@ -16,7 +16,7 @@ export class ItemGroupsEditPage extends React.Component {
     )
   }
 
-  submit = (state, success, failure) => {
+  const submit = (state, success, failure) => {
     api.patchUpdate(
       'itemgroups',
       { id: state.id, name: state.name },
@@ -25,17 +25,15 @@ export class ItemGroupsEditPage extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <ItemGroupsEditCreatePage
-        get={this.get}
-        history={this.props.history}
-        id={this.props.match.params.id}
-        submit={this.submit}
-        title='Edit Item Group'
-      />
-    )
-  }
+  return (
+    <ItemGroupsEditCreatePage
+      get={get}
+      history={props.history}
+      id={props.match.params.id}
+      submit={submit}
+      title='Edit Item Group'
+    />
+  )
 }
 
 export default withRouter(ItemGroupsEditPage)

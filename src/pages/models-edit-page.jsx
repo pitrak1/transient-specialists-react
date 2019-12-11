@@ -3,8 +3,8 @@ import ModelsEditCreatePage from 'common/pages/models-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
-export class ModelsEditPage extends React.Component {
-  get = (id, success, failure) => {
+function ModelsEditPage(props) {
+  const get = (id, success, failure) => {
     api.getEdit(
       'models',
       id,
@@ -23,7 +23,7 @@ export class ModelsEditPage extends React.Component {
     )
   }
 
-  submit = (state, success, failure) => {
+  const submit = (state, success, failure) => {
     api.patchUpdate(
       'models',
       { id: state.id, name: state.name, oemId: state.oemId },
@@ -32,17 +32,15 @@ export class ModelsEditPage extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <ModelsEditCreatePage
-        get={this.get}
-        history={this.props.history}
-        id={this.props.match.params.id}
-        submit={this.submit}
-        title='Edit Model'
-      />
-    )
-  }
+  return (
+    <ModelsEditCreatePage
+      get={get}
+      history={props.history}
+      id={props.match.params.id}
+      submit={submit}
+      title='Edit Model'
+    />
+  )
 }
 
 export default withRouter(ModelsEditPage)

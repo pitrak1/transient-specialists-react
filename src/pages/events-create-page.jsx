@@ -3,12 +3,12 @@ import EventsEditCreatePage from 'common/pages/events-edit-create-page'
 import api from 'src/api'
 import { withRouter } from 'react-router'
 
-export class EventsCreatePage extends React.Component {
-  get = (id, success, failure) => {
+function EventsCreatePage(props) {
+  const get = (id, success, failure) => {
     success({})
   }
 
-  submit = (equipmentId, state, success, failure) => {
+  const submit = (equipmentId, state, success, failure) => {
     const statusArray = ['ERROR', 'IN', 'OUT', 'READY', 'SOLD']
     api.postCreate(
       'events',
@@ -26,17 +26,15 @@ export class EventsCreatePage extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <EventsEditCreatePage
-        equipmentId={this.props.match.params.id}
-        get={this.get}
-        history={this.props.history}
-        submit={this.submit}
-        title='Create Type'
-      />
-    )
-  }
+  return (
+    <EventsEditCreatePage
+      equipmentId={props.match.params.id}
+      get={get}
+      history={props.history}
+      submit={submit}
+      title='Create Type'
+    />
+  )
 }
 
 export default withRouter(EventsCreatePage)
