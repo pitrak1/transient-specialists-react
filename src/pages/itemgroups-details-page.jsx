@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ErrorAlert from 'common/display/error-alert'
 import Spinner from 'common/display/spinner'
 import api from 'src/api'
@@ -8,156 +8,147 @@ import ItemGroupsDetailsModels from 'common/pages/itemgroups_details_page/itemgr
 import ItemGroupsDetailsHandles from 'common/pages/itemgroups_details_page/itemgroups-details-handles'
 import DetailsDeleteButton from 'common/display/details-delete-button'
 
-export class ItemGroupsDetailsPage extends React.Component {
-  state = {
+function ItemGroupsDetailsPage(props) {
+  const [state, setState] = useState({
     alert: null,
     data: { models: [], oems: [] },
     error: null,
     loading: true,
-  }
+  })
 
-  componentDidMount() {
-    this.getData()
-  }
+  useEffect(() => {
+    getData()
+  }, [])
 
-  getData = () => {
-    this.setState({ loading: true })
+  const getData = () => {
+    setState({ ...state, loading: true })
     api.getShow(
       'itemgroups',
-      this.props.match.params.id,
+      props.match.params.id,
       {},
       result => {
-        this.setState({ loading: false, data: result })
+        setState({ ...state, loading: false, data: result })
       },
       error => {
-        this.setState({ loading: false, error })
+        setState({ ...state, loading: false, error })
       },
     )
   }
 
-  handleModelAddClick = id => {
-    this.setState({ loading: true })
+  const handleModelAddClick = id => {
+    setState({ ...state, loading: true })
     api.patchUpdate(
       'models',
       {
         id,
-        itemGroupId: this.state.data.itemGroup.id,
+        itemGroupId: state.data.itemGroup.id,
         itemGroup: true,
       },
       result => {
-        this.getData()
+        getData()
       },
       error => {
-        this.setState({ loading: false, error })
+        setState({ ...state, loading: false, error })
       },
     )
   }
 
-  handleModelDeleteClick = id => {
-    this.setState({ loading: true })
+  const handleModelDeleteClick = id => {
+    setState({ ...state, loading: true })
     api.patchUpdate(
       'models',
       { id, itemGroupId: null, itemGroup: true },
       result => {
-        this.getData()
+        getData()
       },
       error => {
-        this.setState({ loading: false, error })
+        setState({ ...state, loading: false, error })
       },
     )
   }
 
-  handleHandleAddClick = handle => {
-    this.setState({ loading: true })
+  const handleHandleAddClick = handle => {
+    setState({ ...state, loading: true })
     api.patchUpdate(
       'itemgroups',
       {
-        id: this.state.data.itemGroup.id,
+        id: state.data.itemGroup.id,
         handle,
         add: true,
       },
       result => {
-        this.getData()
+        getData()
       },
       error => {
-        this.setState({ loading: false, error })
+        setState({ ...state, loading: false, error })
       },
     )
   }
 
-  handleHandleDeleteClick = id => {
-    this.setState({ loading: true })
+  const handleHandleDeleteClick = id => {
+    setState({ ...state, loading: true })
     api.patchUpdate(
       'itemgroups',
       { handleId: id, remove: true },
       result => {
-        this.getData()
+        getData()
       },
       error => {
-        this.setState({ loading: false, error })
+        setState({ ...state, loading: false, error })
       },
     )
   }
 
-  handleDeleteClick = () => {
+  const handleDeleteClick = () => {
     if (confirm('Are you sure you want to delete this item group?')) {
-      this.setState({ loading: true })
+      setState({ ...state, loading: true })
 
       const success = _response => {
-        this.props.history.push('/itemgroups')
+        props.history.push('/itemgroups')
       }
 
       const failure = error => {
-        this.setState({ loading: false, alert: error })
+        setState({ ...state, loading: false, alert: error })
       }
 
-      api.deleteDestroy(
-        'itemgroups',
-        this.state.data.itemGroup.id,
-        success,
-        failure,
-      )
+      api.deleteDestroy('itemgroups', state.data.itemGroup.id, success, failure)
     }
   }
 
-  handleEditClick = () => {
-    this.props.history.push(`/itemgroups/edit/${this.state.data.itemGroup.id}`)
+  const handleEditClick = () => {
+    props.history.push(`/itemgroups/edit/${state.data.itemGroup.id}`)
   }
 
-  render() {
-    if (this.state.loading) {
-      return <Spinner />
-    }
-
-    return (
-      <div>
-        {this.state.alert && (
-          <ErrorAlert closable={true} text={this.state.alert} />
-        )}
-        <DetailsHeader
-          label={this.state.data.itemGroup.name}
-          onClick={this.handleEditClick}
-        />
-        <ItemGroupsDetailsModels
-          associatedModels={this.state.data.itemGroup.models}
-          models={this.state.data.models}
-          oems={this.state.data.oems}
-          onAddClick={this.handleModelAddClick}
-          onDeleteClick={this.handleModelDeleteClick}
-        />
-        <br />
-        <ItemGroupsDetailsHandles
-          handles={this.state.data.itemGroup.handles}
-          onAddClick={this.handleHandleAddClick}
-          onDeleteClick={this.handleHandleDeleteClick}
-        />
-        <DetailsDeleteButton
-          label='Delete Item Group'
-          onDeleteClick={this.handleDeleteClick}
-        />
-      </div>
-    )
+  if (state.loading) {
+    return <Spinner />
   }
+
+  return (
+    <div>
+      {state.alert && <ErrorAlert closable={true} text={state.alert} />}
+      <DetailsHeader
+        label={state.data.itemGroup.name}
+        onClick={handleEditClick}
+      />
+      <ItemGroupsDetailsModels
+        associatedModels={state.data.itemGroup.models}
+        models={state.data.models}
+        oems={state.data.oems}
+        onAddClick={handleModelAddClick}
+        onDeleteClick={handleModelDeleteClick}
+      />
+      <br />
+      <ItemGroupsDetailsHandles
+        handles={state.data.itemGroup.handles}
+        onAddClick={handleHandleAddClick}
+        onDeleteClick={handleHandleDeleteClick}
+      />
+      <DetailsDeleteButton
+        label='Delete Item Group'
+        onDeleteClick={handleDeleteClick}
+      />
+    </div>
+  )
 }
 
 export default withRouter(ItemGroupsDetailsPage)
