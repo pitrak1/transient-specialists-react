@@ -19,6 +19,7 @@ import TypesPage from 'pages/types-page'
 import TypesCreatePage from 'pages/types-create-page'
 import TypesEditPage from 'pages/types-edit-page'
 import ItemGroupsPage from 'pages/itemgroups-page'
+import ItemGroupsEditPage from 'pages/itemgroups-edit-page'
 import ItemGroupsCreatePage from 'pages/itemgroups-create-page'
 import ItemGroupsDetailsPage from 'pages/itemgroups-details-page'
 
@@ -85,6 +86,9 @@ export default function AppRouter() {
           </Route>
           <Route path='/itemgroups/create'>
             <ItemGroupsCreatePage />
+          </Route>
+          <Route path='/itemgroups/edit/:id'>
+            <ItemGroupsEditPage />
           </Route>
           <Route path='/itemgroups/details/:id'>
             <ItemGroupsDetailsPage />
