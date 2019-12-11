@@ -15,11 +15,13 @@ import FormTextField from 'common/forms/form-text-field'
 export class ItemGroupsDetailsPage extends React.Component {
   state = {
     alert: null,
-    data: {},
+    data: { models: [], oems: [] },
     error: null,
     loading: true,
     handle: '',
     handleValid: false,
+    oemId: 0,
+    oemIdValid: false,
     modelId: 0,
     modelIdValid: false,
   }
@@ -180,12 +182,24 @@ export class ItemGroupsDetailsPage extends React.Component {
         <br />
         <div>
           <FormSelect
-            defaultOptionLabel='Select a Model'
+            defaultOptionLabel='Select an OEM'
             disabled={false}
+            identifier={'oemId'}
+            label='OEM'
+            onChange={this.handleChange}
+            options={this.state.data.oems}
+            required={true}
+            value={this.state.oemId}
+          />
+          <FormSelect
+            defaultOptionLabel='Select a Model'
+            disabled={!this.state.oemId}
             identifier={'modelId'}
             label='Model'
             onChange={this.handleChange}
-            options={this.state.data.models}
+            options={this.state.data.models.filter(
+              model => model.oemId === this.state.oemId,
+            )}
             required={true}
             value={this.state.modelId}
           />

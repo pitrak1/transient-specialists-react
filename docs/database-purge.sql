@@ -1,8 +1,7 @@
-DROP TABLE Handles;
-DROP VIEW RecentEvents;
-DROP TABLE Events;
-DROP TABLE Equipments;
-DROP TABLE Models;
-DROP TABLE ItemGroups;
-DROP TABLE Oems;
-DROP TABLE Types;
+DELETE FROM Handles;
+DELETE FROM Events;
+DELETE FROM Equipments;
+DELETE FROM Models;
+DELETE FROM ItemGroups;
+DELETE FROM Oems;
+DELETE FROM Types;
