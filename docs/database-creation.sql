@@ -24,9 +24,15 @@ CREATE TABLE Models
   id SERIAL PRIMARY KEY,
   name varchar(255) NOT NULL,
   oem_id int REFERENCES Oems(id),
-  item_group_id int REFERENCES ItemGroups(id)
 );
 CREATE UNIQUE INDEX idx_model_name ON Models(lower(name));
+
+CREATE TABLE ItemGroupsModels
+(
+  id SERIAL PRIMARY KEY,
+  model_id int REFERENCES Models(id),
+  item_group_id int REFERENCES ItemGroups(id)
+)
 
 CREATE TABLE Equipments
 (

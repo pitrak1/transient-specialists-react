@@ -38,11 +38,12 @@ function ItemGroupsDetailsPage(props) {
   const handleModelAddClick = id => {
     setState({ ...state, loading: true })
     api.patchUpdate(
-      'models',
+      'itemgroups',
       {
         id,
         itemGroupId: state.data.itemGroup.id,
-        itemGroup: true,
+        add: true,
+        model: true,
       },
       result => {
         getData()
@@ -56,8 +57,13 @@ function ItemGroupsDetailsPage(props) {
   const handleModelDeleteClick = id => {
     setState({ ...state, loading: true })
     api.patchUpdate(
-      'models',
-      { id, itemGroupId: null, itemGroup: true },
+      'itemgroups',
+      {
+        id,
+        itemGroupId: state.data.itemGroup.id,
+        remove: true,
+        model: true,
+      },
       result => {
         getData()
       },
@@ -75,6 +81,7 @@ function ItemGroupsDetailsPage(props) {
         id: state.data.itemGroup.id,
         handle,
         add: true,
+        handle: true,
       },
       result => {
         getData()
@@ -89,7 +96,7 @@ function ItemGroupsDetailsPage(props) {
     setState({ ...state, loading: true })
     api.patchUpdate(
       'itemgroups',
-      { handleId: id, remove: true },
+      { handleId: id, remove: true, handle: true },
       result => {
         getData()
       },
