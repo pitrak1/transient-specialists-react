@@ -22,6 +22,7 @@ import ItemGroupsPage from 'pages/itemgroups-page'
 import ItemGroupsEditPage from 'pages/itemgroups-edit-page'
 import ItemGroupsCreatePage from 'pages/itemgroups-create-page'
 import ItemGroupsDetailsPage from 'pages/itemgroups-details-page'
+import ReportsPage from 'pages/reports-page'
 
 theme.use()
 
@@ -95,6 +96,9 @@ export default function AppRouter() {
           </Route>
           <Route path='/itemgroups'>
             <ItemGroupsPage />
+          </Route>
+          <Route path='/reports'>
+            <ReportsPage />
           </Route>
           <Route path='/'>
             <EquipmentPage />

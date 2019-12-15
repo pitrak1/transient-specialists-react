@@ -135,7 +135,7 @@ const getNew = (resource, success, failure) => {
     })
 }
 
-export const postCreate = (resource, data, success, failure) => {
+const postCreate = (resource, data, success, failure) => {
   const axios = getAxios()
   return axios
     .post(`${resource}`, data)
@@ -151,7 +151,7 @@ export const postCreate = (resource, data, success, failure) => {
     })
 }
 
-export const patchUpdate = (resource, data, success, failure) => {
+const patchUpdate = (resource, data, success, failure) => {
   const axios = getAxios()
   return axios
     .patch(`${resource}`, data)
@@ -167,7 +167,7 @@ export const patchUpdate = (resource, data, success, failure) => {
     })
 }
 
-export const deleteDestroy = (resource, id, success, failure) => {
+const deleteDestroy = (resource, id, success, failure) => {
   const axios = getAxios()
   return axios
     .delete(`${resource}?id=${id}`)
@@ -183,6 +183,22 @@ export const deleteDestroy = (resource, id, success, failure) => {
     })
 }
 
+const getReport = (report, success, failure) => {
+  const axios = getAxios()
+  return axios
+    .get(`reports`)
+    .then(result => {
+      if (result.data.body) {
+        success(utils.snakeToPascalObject(result.data.body))
+      } else {
+        failure(result.data.errorMessage)
+      }
+    })
+    .catch(error => {
+      failure(error.data.body)
+    })
+}
+
 export default {
   getIndex,
   getShow,
@@ -191,4 +207,5 @@ export default {
   postCreate,
   patchUpdate,
   deleteDestroy,
+  getReport,
 }

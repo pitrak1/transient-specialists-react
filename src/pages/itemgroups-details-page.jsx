@@ -81,7 +81,6 @@ function ItemGroupsDetailsPage(props) {
         id: state.data.itemGroup.id,
         handle,
         add: true,
-        handle: true,
       },
       result => {
         getData()
@@ -96,7 +95,7 @@ function ItemGroupsDetailsPage(props) {
     setState({ ...state, loading: true })
     api.patchUpdate(
       'itemgroups',
-      { handleId: id, remove: true, handle: true },
+      { handleId: id, remove: true },
       result => {
         getData()
       },
