@@ -42,18 +42,18 @@ INSERT INTO Equipments (serial_number, type_id, model_id) VALUES ('Equipment a 6
 SELECT * FROM Equipments;
 
 
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 1', 2, '2017-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 2', 3, '2017-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 3', 4, '2017-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 4', 5, '2017-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 5', 5, '2018-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 6', 6, '2019-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 7', 6, '2017-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 8', 6, '2018-12-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 9', 7, '2018-06-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 10', 7, '2017-04-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 11', 7, '2019-09-17 07:37:16-05');
-INSERT INTO Events (status, equipment_id, updated_at) VALUES ('Event 12', 7, '2018-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('READY', 2, '2017-12-19 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 2, '2017-12-18 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('OUT', 2, '2017-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 2, '2017-12-16 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 3, '2018-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 4, '2019-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 5, '2017-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('OUT', 6, '2018-12-17 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('READY', 6, '2018-12-16 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('OUT', 7, '2018-06-19 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('READY', 7, '2017-04-18 07:37:16-05');
+INSERT INTO Events (status, equipment_id, updated_at) VALUES ('IN', 7, '2019-09-17 07:37:16-05');
 SELECT * FROM Events;
 
 
