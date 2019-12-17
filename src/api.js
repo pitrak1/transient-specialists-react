@@ -186,7 +186,7 @@ const deleteDestroy = (resource, id, success, failure) => {
 const getReport = (report, success, failure) => {
   const axios = getAxios()
   return axios
-    .get(`reports`)
+    .get(`reports?reportName=${report}`)
     .then(result => {
       if (result.data.body) {
         success(utils.snakeToPascalObject(result.data.body))

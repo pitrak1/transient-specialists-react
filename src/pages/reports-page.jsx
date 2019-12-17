@@ -11,23 +11,38 @@ function ReportsPage(props) {
     loading: false,
   })
 
-  const download = data => {
+  const download = (data, name) => {
     const blob = new Blob([data], { type: 'text/csv' })
     const elem = window.document.createElement('a')
     elem.href = window.URL.createObjectURL(blob)
-    elem.download = 'countReport.csv'
+    elem.download = `${name}Report.csv`
     document.body.appendChild(elem)
     elem.click()
     document.body.removeChild(elem)
   }
 
-  const onClick = () => {
+  const onCountClick = () => {
     setState({ ...state, loading: true })
 
     api.getReport(
       'count',
       result => {
-        download(result.result)
+        download(result.result, 'count')
+        setState({ ...state, loading: false })
+      },
+      error => {
+        setState({ ...state, alert: error, loading: false })
+      },
+    )
+  }
+
+  const onEquipmentClick = () => {
+    setState({ ...state, loading: true })
+
+    api.getReport(
+      'equipment',
+      result => {
+        download(result.result, 'equipment')
         setState({ ...state, loading: false })
       },
       error => {
@@ -43,7 +58,8 @@ function ReportsPage(props) {
   return (
     <div>
       {state.alert && <ErrorAlert closable={true} text={state.alert} />}
-      <Button onClick={onClick}>Generate Count Report</Button>
+      <Button onClick={onCountClick}>Generate Count Report</Button>
+      <Button onClick={onEquipmentClick}>Generate Equipment Report</Button>
     </div>
   )
 }
