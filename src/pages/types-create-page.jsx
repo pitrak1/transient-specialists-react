@@ -14,9 +14,9 @@ function TypesCreatePage(props) {
 
   return (
     <TypesEditCreatePage
-      get={this.get}
-      history={this.props.history}
-      submit={this.submit}
+      get={get}
+      history={props.history}
+      submit={submit}
       title='Create Type'
     />
   )
