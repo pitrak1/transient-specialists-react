@@ -19,7 +19,7 @@ function EquipmentDetailsPage(props) {
     ascending: false,
     page: 0,
     perPage: 25,
-    sortBy: 'startDate',
+    sortBy: 'updatedAt',
   })
 
   useEffect(() => {

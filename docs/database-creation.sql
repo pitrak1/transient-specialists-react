@@ -79,7 +79,7 @@ FROM (
 		x.updated_at,
 		x.equipment_id,
 		ROW_NUMBER() OVER(
-		PARTITION BY x.equipment_id ORDER BY CASE WHEN x.start_date IS null THEN 1 ELSE 0 END, x.start_date DESC
+		PARTITION BY x.equipment_id ORDER BY x.updated_at DESC
 		) AS rk
 	FROM Events x
 ) y

@@ -82,5 +82,31 @@ describe('EventsEditCreatePage', () => {
       expect(node.find(ErrorAlert).length).toBe(1)
       expect(node.find(ErrorAlert).props().text).toBe('Some Error')
     })
+
+    it('hides updatedAt field if eventId is not given', () => {
+      const node = render()
+      expect(
+        node.findWhere(n => n.props().identifier === 'updatedAt').length,
+      ).toBe(0)
+    })
+
+    it('shows updatedAt field if eventId is given', () => {
+      props.eventId = '1'
+      const node = render()
+      expect(
+        node.findWhere(n => n.props().identifier === 'updatedAt').length,
+      ).toBe(1)
+    })
+
+    it('sets updatedAt on load if eventId is not given', () => {
+      const node = render()
+      expect(node.state('updatedAt')).not.toBeNull()
+    })
+
+    it('does not set updatedAt on load if eventId is given', () => {
+      props.eventId = '1'
+      const node = render()
+      expect(node.state('updatedAt')).toBeNull()
+    })
   })
 })

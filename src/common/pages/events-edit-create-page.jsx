@@ -23,7 +23,7 @@ export default class EventsEditCreatePage extends React.Component {
     startDateValid: true,
     status: 0,
     statusValid: false,
-    updatedAt: null,
+    updatedAt: this.props.eventId ? null : new Date(),
     updatedAtValid: true,
   }
 
@@ -52,7 +52,7 @@ export default class EventsEditCreatePage extends React.Component {
       this.props.equipmentId,
       this.state,
       result => {
-        this.props.history.push(`/equipment/${this.props.equipmentId}`)
+        this.props.history.push(`/equipment/details/${this.props.equipmentId}`)
       },
       error => {
         this.setState({ loading: false, alert: error })
@@ -125,14 +125,16 @@ export default class EventsEditCreatePage extends React.Component {
             value={this.state.endDate}
           />
         </Grid>
-        <Grid item xs={12}>
-          <FormDateField
-            identifier='updatedAt'
-            label='Updated At'
-            onChange={this.handleChange}
-            value={this.state.updatedAt}
-          />
-        </Grid>
+        {this.props.eventId && (
+          <Grid item xs={12}>
+            <FormDateField
+              identifier='updatedAt'
+              label='Updated At'
+              onChange={this.handleChange}
+              value={this.state.updatedAt}
+            />
+          </Grid>
+        )}
         <Grid item xs={12}>
           <Button disabled={!this.state.statusValid} onClick={this.handleClick}>
             Submit
