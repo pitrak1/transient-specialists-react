@@ -41,9 +41,28 @@ const displayDateFromISO = iso => {
   return null
 }
 
+const fileToBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = error => reject(error)
+  })
+
+const downloadBlob = (blob, filename) => {
+  const elem = window.document.createElement('a')
+  elem.href = window.URL.createObjectURL(blob)
+  elem.download = filename
+  document.body.appendChild(elem)
+  elem.click()
+  document.body.removeChild(elem)
+}
+
 export default {
   snakeToPascal,
   pascalToSnake,
   snakeToPascalObject,
   displayDateFromISO,
+  fileToBase64,
+  downloadBlob,
 }

@@ -5,8 +5,10 @@ import api from 'src/api'
 import { withRouter } from 'react-router'
 import DetailsHeader from 'common/display/details-header'
 import EquipmentDetailsInfo from 'common/pages/equipment_details_page/equipment-details-info'
+import EquipmentDetailsFiles from 'common/pages/equipment_details_page/equipment-details-files'
 import EquipmentDetailsEvents from 'common/pages/equipment_details_page/equipment-details-events'
 import DetailsDeleteButton from 'common/display/details-delete-button'
+import utils from 'src/utils'
 
 function EquipmentDetailsPage(props) {
   const [state, setState] = useState({
@@ -97,6 +99,64 @@ function EquipmentDetailsPage(props) {
     }
   }
 
+  const handleAddFile = event => {
+    setState({ ...state, loading: true })
+    const file = event.target.files[0]
+    const success = _response => {
+      getData()
+    }
+    const failure = alert => {
+      setState({ ...state, alert, loading: false })
+    }
+    return utils.fileToBase64(file).then(result =>
+      api.postCreate(
+        'files',
+        {
+          name: file.name,
+          contents: result,
+          equipmentId: state.data.equipment.id,
+        },
+        success,
+        failure,
+      ),
+    )
+  }
+
+  const handleDeleteFile = id => {
+    if (confirm('Are you sure you want to delete this file?')) {
+      setState({ ...state, loading: true })
+
+      const success = _response => {
+        getData()
+      }
+
+      const failure = alert => {
+        setState({ ...state, alert, loading: false })
+      }
+
+      api.deleteDestroy('files', id, success, failure)
+    }
+  }
+
+  const handleDownloadFile = id => {
+    setState({ ...state, loading: true })
+
+    const success = response => {
+      fetch(response.file.contents)
+        .then(res => res.blob())
+        .then(res => {
+          utils.downloadBlob(res, response.file.name)
+          setState({ ...state, loading: false })
+        })
+    }
+
+    const failure = alert => {
+      setState({ ...state, alert, loading: false })
+    }
+
+    api.getShow('files', id, {}, success, failure)
+  }
+
   if (state.loading) {
     return <Spinner />
   }
@@ -115,6 +175,12 @@ function EquipmentDetailsPage(props) {
       <EquipmentDetailsInfo
         equipment={state.data.equipment}
         history={props.history}
+      />
+      <EquipmentDetailsFiles
+        files={state.data.files}
+        onAddFile={handleAddFile}
+        onDeleteFile={handleDeleteFile}
+        onDownloadFile={handleDownloadFile}
       />
       <EquipmentDetailsEvents
         ascending={tableOptions.ascending}

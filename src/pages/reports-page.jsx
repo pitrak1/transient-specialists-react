@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core'
 import { withRouter } from 'react-router'
 import Spinner from 'common/display/spinner'
 import ErrorAlert from 'common/display/error-alert'
+import utils from 'src/utils'
 
 function ReportsPage(props) {
   const [state, setState] = useState({
@@ -13,12 +14,7 @@ function ReportsPage(props) {
 
   const download = (data, name) => {
     const blob = new Blob([data], { type: 'text/csv' })
-    const elem = window.document.createElement('a')
-    elem.href = window.URL.createObjectURL(blob)
-    elem.download = `${name}Report.csv`
-    document.body.appendChild(elem)
-    elem.click()
-    document.body.removeChild(elem)
+    utils.downloadBlob(blob, `${name}Report.csv`)
   }
 
   const onCountClick = () => {

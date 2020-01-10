@@ -91,3 +91,11 @@ CREATE TABLE Handles
   handle varchar(255) NOT NULL,
   item_group_id int REFERENCES ItemGroups(id)
 );
+
+CREATE TABLE Files
+(
+  id SERIAL PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  contents text NOT NULL,
+  equipment_id int REFERENCES Equipments(id)
+);
