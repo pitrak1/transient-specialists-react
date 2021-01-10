@@ -102,8 +102,8 @@ function EquipmentDetailsPage(props) {
   const handleAddFile = event => {
     setState({ ...state, loading: true })
     const file = event.target.files[0]
-    if (file.size > 1000000) {
-      setState({ ...state, alert: 'Cannot upload files larger than 1MB', loading: false })
+    if (file.size > 6000000) {
+      setState({ ...state, alert: 'Cannot upload files larger than 6MB', loading: false })
       return
     }
     const success = _response => {
