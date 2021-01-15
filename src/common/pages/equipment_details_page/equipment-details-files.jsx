@@ -14,7 +14,7 @@ function EquipmentDetailsFiles(props) {
   const s3 = new AWS.S3({region: 'us-east-2'})
   const getSignedUrl = (file) => {
     return s3.getSignedUrl('getObject', {
-      Bucket: 'transient-specialists-files',
+      Bucket: process.env.S3_BUCKET,
       Key: `${props.equipmentId}_${file.name}`
     })
   }
