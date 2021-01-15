@@ -9,6 +9,7 @@ import EquipmentDetailsFiles from 'common/pages/equipment_details_page/equipment
 import EquipmentDetailsEvents from 'common/pages/equipment_details_page/equipment-details-events'
 import DetailsDeleteButton from 'common/display/details-delete-button'
 import utils from 'src/utils'
+import AWS, {AWSConfigsS3} from 'aws-sdk'
 
 function EquipmentDetailsPage(props) {
   const [state, setState] = useState({
@@ -102,63 +103,73 @@ function EquipmentDetailsPage(props) {
   const handleAddFile = event => {
     setState({ ...state, loading: true })
     const file = event.target.files[0]
-    if (file.size > 6000000) {
-      setState({ ...state, alert: 'Cannot upload files larger than 6MB', loading: false })
-      return
+    if (state.data.files.map(x => x.name).includes(file.name)) {
+      setState({ ...state, alert: 'Cannot upload identical file names to a single equipment', loading: false })
+    } else {
+      return uploadToDatabase(file)
     }
+  }
+
+  const uploadToDatabase = file => {
     const success = _response => {
-      getData()
+      uploadToS3(file)
     }
     const failure = alert => {
       setState({ ...state, alert, loading: false })
     }
-    return utils.fileToBase64(file).then(result =>
-      api.postCreate(
-        'files',
-        {
-          name: file.name,
-          contents: result,
-          equipmentId: state.data.equipment.id,
-        },
-        success,
-        failure,
-      ),
+    return api.postCreate(
+      'files',
+      {
+        name: file.name,
+        equipmentId: state.data.equipment.id,
+      },
+      success,
+      failure,
     )
+  }
+
+  const uploadToS3 = file => {
+    const upload = new AWS.S3.ManagedUpload({
+      region: process.env.REGION,
+      params: {
+        Bucket: process.env.S3_BUCKET,
+        Key: `${state.data.equipment.id}_${file.name}`,
+        Body: file
+      }
+    })
+    upload.send((err, data) => {
+      getData()
+    })
   }
 
   const handleDeleteFile = id => {
     if (confirm('Are you sure you want to delete this file?')) {
       setState({ ...state, loading: true })
-
-      const success = _response => {
-        getData()
-      }
-
-      const failure = alert => {
-        setState({ ...state, alert, loading: false })
-      }
-
-      api.deleteDestroy('files', id, success, failure)
+      deleteFromDatabase(id)
     }
   }
 
-  const handleDownloadFile = id => {
-    setState({ ...state, loading: true })
-
-    const success = response => {
-      fetch(response.file.contents)
-        .then(res => res.blob())
-        .then(res => {
-          utils.downloadBlob(res, response.file.name)
-          setState({ ...state, loading: false })
-        })
+  const deleteFromDatabase = id => {
+    const success = _response => {
+      deleteFromS3(id)
     }
 
     const failure = alert => {
       setState({ ...state, alert, loading: false })
     }
 
-    api.getShow('files', id, {}, success, failure)
+    api.deleteDestroy('files', id, success, failure)
+  }
+
+  const deleteFromS3 = id => {
+    const file = state.data.files.find(e => e.id == id)
+    const s3 = new AWS.S3({ region: process.env.REGION })
+    s3.deleteObject({
+      Bucket: process.env.S3_BUCKET,
+      Key: `${state.data.equipment.id}_${file.name}`
+    }, (err, data) => {
+      getData()
+    })
   }
 
   if (state.loading) {
@@ -181,10 +192,10 @@ function EquipmentDetailsPage(props) {
         history={props.history}
       />
       <EquipmentDetailsFiles
+        equipmentId={state.data.equipment.id}
         files={state.data.files}
         onAddFile={handleAddFile}
         onDeleteFile={handleDeleteFile}
-        onDownloadFile={handleDownloadFile}
       />
       <EquipmentDetailsEvents
         ascending={tableOptions.ascending}

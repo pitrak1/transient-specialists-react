@@ -51,6 +51,10 @@ module.exports = {
         process.env.LAMBDA_ENDPOINT,
       ),
       'process.env.LAMBDA_API_KEY': JSON.stringify(process.env.LAMBDA_API_KEY),
+      'process.env.ACCESS_KEY_ID': JSON.stringify(process.env.ACCESS_KEY_ID),
+      'process.env.SECRET_ACCESS_KEY': JSON.stringify(process.env.SECRET_ACCESS_KEY),
+      'process.env.REGION': JSON.stringify(process.env.REGION),
+      'process.env.S3_BUCKET': JSON.stringify(process.env.S3_BUCKET),
     }),
   ],
 }

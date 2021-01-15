@@ -23,8 +23,17 @@ import ItemGroupsEditPage from 'pages/itemgroups-edit-page'
 import ItemGroupsCreatePage from 'pages/itemgroups-create-page'
 import ItemGroupsDetailsPage from 'pages/itemgroups-details-page'
 import ReportsPage from 'pages/reports-page'
+import AWS from 'aws-sdk'
 
 theme.use()
+
+const credentials = new AWS.Credentials({
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
+})
+AWS.config.update({
+  credentials
+})
 
 export default function AppRouter() {
   return (

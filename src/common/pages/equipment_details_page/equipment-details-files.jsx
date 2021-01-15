@@ -8,6 +8,17 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 
 function EquipmentDetailsFiles(props) {
+  AWS.config.update({
+      signatureVersion: 'v4'
+  })
+  const s3 = new AWS.S3({region: 'us-east-2'})
+  const getSignedUrl = (file) => {
+    return s3.getSignedUrl('getObject', {
+      Bucket: 'transient-specialists-files',
+      Key: `${props.equipmentId}_${file.name}`
+    })
+  }
+
   const table = () => (
     <Table>
       <TableHead>
@@ -22,7 +33,7 @@ function EquipmentDetailsFiles(props) {
           <TableRow key={file.name}>
             <TableCell>{file.name}</TableCell>
             <TableCell>
-              <Button onClick={props.onDownloadFile.bind(null, file.id)}>
+              <Button href={getSignedUrl(file)}>
                 Download
               </Button>
             </TableCell>
@@ -60,10 +71,10 @@ function EquipmentDetailsFiles(props) {
 }
 
 EquipmentDetailsFiles.propTypes = {
+  equipmentId: PropTypes.number.isRequired,
   files: PropTypes.array.isRequired,
   onAddFile: PropTypes.func.isRequired,
-  onDeleteFile: PropTypes.func.isRequired,
-  onDownloadFile: PropTypes.func.isRequired,
+  onDeleteFile: PropTypes.func.isRequired
 }
 
 export default EquipmentDetailsFiles
