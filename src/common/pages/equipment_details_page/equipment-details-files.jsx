@@ -11,7 +11,7 @@ function EquipmentDetailsFiles(props) {
   AWS.config.update({
       signatureVersion: 'v4'
   })
-  const s3 = new AWS.S3({region: 'us-east-2'})
+  const s3 = new AWS.S3({region: process.env.REGION})
   const getSignedUrl = (file) => {
     return s3.getSignedUrl('getObject', {
       Bucket: process.env.S3_BUCKET,
