@@ -41,9 +41,19 @@ const displayDateFromISO = iso => {
   return null
 }
 
+const downloadBlob = (blob, filename) => {
+  const elem = window.document.createElement('a')
+  elem.href = window.URL.createObjectURL(blob)
+  elem.download = filename
+  document.body.appendChild(elem)
+  elem.click()
+  document.body.removeChild(elem)
+}
+
 export default {
   snakeToPascal,
   pascalToSnake,
   snakeToPascalObject,
-  displayDateFromISO
+  displayDateFromISO,
+  downloadBlob
 }
